@@ -21,6 +21,13 @@
     <label>Seed
       <span class="row"><input id="seed" type="number" min="0" step="1"><button id="dice" class="icon" title="New seed">⟳</button></span>
     </label>
+    <label>Roads
+      <select id="roads">
+        <option value="auto">Automatic: join every town</option>
+        <option value="custom">Chosen with the Roads brush</option>
+        <option value="none">None</option>
+      </select>
+    </label>
     <button id="generate" class="primary">Generate map</button>
 
     <h2>Layout</h2>
@@ -58,6 +65,7 @@
       <button data-mode="biome" class="on">Ground</button>
       <button data-mode="relief">Relief</button>
       <button data-mode="start">Players</button>
+      <button data-mode="road">Roads</button>
     </div>
     <ul id="palette"></ul>
     <div id="brush-size">

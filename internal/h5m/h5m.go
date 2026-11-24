@@ -89,23 +89,17 @@ func (a *Archive) Save(path, folder string) error {
 	if folder == "" {
 		folder = a.Folder
 	}
-	var buf bytes.Buffer
-	w := zip.NewWriter(&buf)
+	var files []File
 	for _, name := range a.names {
 		out := name
 		if strings.HasPrefix(name, a.Folder) {
 			out = folder + name[len(a.Folder):]
 		}
-		f, err := w.Create(out)
-		if err != nil {
-			return err
-		}
-		if _, err := f.Write(a.files[name]); err != nil {
-			return err
-		}
+		files = append(files, File{out, a.files[name]})
 	}
-	if err := w.Close(); err != nil {
+	data, err := Zip(files)
+	if err != nil {
 		return err
 	}
-	return os.WriteFile(path, buf.Bytes(), 0o644)
+	return os.WriteFile(path, data, 0o644)
 }

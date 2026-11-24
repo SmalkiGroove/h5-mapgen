@@ -37,7 +37,28 @@ type Layout struct {
 	Seed    int64    `json:"seed"`
 	Biomes  []string `json:"biomes"`
 	Relief  []string `json:"relief"`
-	Starts  []Start  `json:"starts"` // player i+1 starts at Starts[i]
+	Starts  []Start  `json:"starts"`            // player i+1 starts at Starts[i]
+	Roads   string   `json:"roads,omitempty"`   // RoadsAuto (also ""), RoadsCustom or RoadsNone
+	Links   [][2]int `json:"links,omitempty"`   // custom roads: pairs of player numbers (1..8)
+	NoRoads bool     `json:"noRoads,omitempty"` // old form of Roads = RoadsNone, read only
+}
+
+// Road modes.
+const (
+	RoadsAuto   = "auto"   // the shortest set of roads joining every town (minimum spanning tree)
+	RoadsCustom = "custom" // the roads of Links
+	RoadsNone   = "none"
+)
+
+// RoadMode returns the road mode, RoadsAuto when unset.
+func (l *Layout) RoadMode() string {
+	switch {
+	case l.NoRoads && l.Roads == "":
+		return RoadsNone
+	case l.Roads == "":
+		return RoadsAuto
+	}
+	return l.Roads
 }
 
 // New makes a layout filled with the default biome, flat, two players in opposite corners.
@@ -87,6 +108,17 @@ func (l *Layout) Check() error {
 		if s.X < 0 || s.Y < 0 || s.X > float64(l.Grid) || s.Y > float64(l.Grid) {
 			return fmt.Errorf("player %d starts outside the grid", i+1)
 		}
+	}
+	switch l.RoadMode() {
+	case RoadsAuto, RoadsNone:
+	case RoadsCustom:
+		for _, k := range l.Links {
+			if k[0] < 1 || k[1] < 1 || k[0] > len(l.Starts) || k[1] > len(l.Starts) || k[0] == k[1] {
+				return fmt.Errorf("road %d-%d: no such pair of players", k[0], k[1])
+			}
+		}
+	default:
+		return fmt.Errorf("unknown road mode %q", l.Roads)
 	}
 	return nil
 }

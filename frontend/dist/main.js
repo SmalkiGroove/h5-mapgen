@@ -7,6 +7,7 @@ const GRIDS = [8, 12, 16, 20, 24, 32, 40];
 const SIZE_NAMES = { 72: "Tiny", 96: "Small", 136: "Medium", 176: "Large", 216: "Extra large", 256: "Huge", 320: "Impossible" };
 const PLAYER_COLORS = ["#d8433a", "#3b6fd8", "#3fa34a", "#d8c03a", "#e0802c", "#9a4ad8", "#35b5b0", "#e06fa8"];
 const STORE_KEY = "h5mapgen.layout";
+const ROAD_COLOR = [222, 206, 160];
 
 let setup = null;     // Setup from Go
 let L = null;         // current layout
@@ -16,6 +17,8 @@ let brushSize = 1;
 let undo = [], redo = [];
 let view = null;      // MapView shown in the preview (generated preview or a game map)
 let hover = null;     // hovered cell {x, y}
+let autoLinks = [];   // roads of the last preview (pairs of player numbers)
+let linkFrom = -1;    // Roads brush: index of the first town picked, -1 when none
 
 // ---------- status ----------
 function status(text, kind = "") {
@@ -52,7 +55,10 @@ function refreshPreview() {
     $("busy").textContent = "";
     $("preview-title").textContent = `Preview — ${L.size} × ${L.size}`;
     document.querySelectorAll("#maps li").forEach((li) => li.classList.remove("active"));
+    autoLinks = v.links || [];
     showView(v);
+    drawLayout();
+    if (mode === "road") renderPalette();
   }).catch((e) => { if (token === previewToken) { $("busy").textContent = ""; fail(e); } });
 }
 
@@ -61,6 +67,7 @@ function syncForm() {
   $("size").value = L.size;
   $("grid").value = L.grid;
   $("seed").value = L.seed;
+  $("roads").value = roadMode();
   $("cell").textContent = `One cell = ${(L.size / L.grid).toFixed(1)} tiles`;
   renderPalette();
 }
@@ -142,12 +149,28 @@ function drawLayout() {
     }
     ctx.stroke();
   }
-  if (hover && mode !== "start") {
+  if (hover && (mode === "biome" || mode === "relief")) {
     ctx.strokeStyle = "#fff"; ctx.lineWidth = Math.max(1.5, side / 400);
     for (const c of brushCells(hover)) ctx.strokeRect(c.x * px + 1, (g - 1 - c.y) * px + 1, px - 2, px - 2);
   }
   const r = Math.max(7, Math.min(16, px * 0.45));
-  L.starts.forEach((s, p) => drawStart(ctx, (s.x / g) * side, (1 - s.y / g) * side, p, r, mode === "start" && brush.start === p));
+  const at = (p) => [(L.starts[p].x / g) * side, (1 - L.starts[p].y / g) * side];
+  ctx.lineCap = "round";
+  for (const [a, b] of roadLinks()) {
+    if (!L.starts[a - 1] || !L.starts[b - 1]) continue;
+    ctx.setLineDash(roadMode() === "auto" ? [r * 0.6, r * 0.6] : []);
+    for (const [w, color] of [[r * 0.55, "#0008"], [r * 0.3, "#decea0"]]) {
+      ctx.lineWidth = w; ctx.strokeStyle = color;
+      ctx.beginPath(); ctx.moveTo(...at(a - 1)); ctx.lineTo(...at(b - 1)); ctx.stroke();
+    }
+  }
+  ctx.setLineDash([]);
+  if (mode === "road" && linkFrom >= 0 && hover && L.starts[linkFrom]) {
+    ctx.lineWidth = r * 0.25; ctx.strokeStyle = "#fff";
+    ctx.beginPath(); ctx.moveTo(...at(linkFrom)); ctx.lineTo((hover.fx / g) * side, (1 - hover.fy / g) * side); ctx.stroke();
+  }
+  L.starts.forEach((s, p) => drawStart(ctx, (s.x / g) * side, (1 - s.y / g) * side, p, r,
+    (mode === "start" && brush.start === p) || (mode === "road" && linkFrom === p)));
 }
 
 function tileName(href) {
@@ -163,10 +186,10 @@ function tileColor(href) {
   const hex = (h) => [1, 3, 5].map((k) => parseInt(h.slice(k, k + 2), 16));
   for (const b of setup.biomes) {
     if (b.base === name) return hex(b.color);
-    if (b.road === name) return [150, 140, 125];
+    if (b.road === name) return ROAD_COLOR;
     if (b.accents.includes(name)) return hex(b.color).map((v, k) => Math.max(0, Math.min(255, v + ((hash >> (k * 4)) % 31) - 15)));
   }
-  if (/road/i.test(name)) return [150, 140, 125];
+  if (/road/i.test(name)) return ROAD_COLOR;
   const families = { grass: "#5c8f3e", dirt: "#8a6a45", sand: "#d6be78", snow: "#e4ebf0", lava: "#6e3a2c", subterrain: "#5f5068", orc_terrain: "#7f9a4a", water: "#2f5f9a" };
   const fam = families[name.split("/")[0].toLowerCase()];
   if (fam) return hex(fam).map((v) => Math.max(0, Math.min(255, v + (hash % 41) - 20)));
@@ -230,7 +253,7 @@ function renderPalette() {
   const ul = $("palette");
   ul.innerHTML = "";
   document.querySelectorAll("#modes button").forEach((b) => b.classList.toggle("on", b.dataset.mode === mode));
-  $("brush-size").style.display = mode === "start" ? "none" : "";
+  $("brush-size").style.display = mode === "biome" || mode === "relief" ? "" : "none";
   const item = (label, color, on, onclick, text = "") => {
     const li = document.createElement("li");
     li.innerHTML = `<span class="swatch" style="background:${color}">${text}</span><span></span>`;
@@ -247,6 +270,23 @@ function renderPalette() {
     item("Flat", "#777", brush.relief === "flat", () => { brush.relief = "flat"; renderPalette(); });
     item("Hills", "#777", brush.relief === "hills", () => { brush.relief = "hills"; renderPalette(); }, "⌒");
     hint("Water and cliffs come later.");
+  } else if (mode === "road") {
+    const auto = roadMode() === "auto";
+    hint(auto ? "Automatic roads (dashed). Click a town, then another, to add or remove a road: the roads become chosen ones."
+      : roadMode() === "none" ? "No roads. Click a town, then another, to add a road." : "Click a town, then another, to add or remove the road between them.");
+    for (const [a, b] of roadLinks()) {
+      const li = item(`Player ${a} \u2014 player ${b}`, PLAYER_COLORS[a - 1], false, () => {}, String(a));
+      li.style.cursor = "default";
+      if (!auto) {
+        const del = document.createElement("button");
+        del.textContent = "\u2715"; del.title = "Remove this road"; del.className = "icon"; del.style.marginLeft = "auto";
+        del.onclick = (e) => { e.stopPropagation(); toggleLink(a, b); };
+        li.append(del);
+      }
+    }
+    if (!auto) item("Back to automatic roads", "#555", false, () => {
+      remember(); L.roads = "auto"; delete L.links; delete L.noRoads; syncForm(); changed();
+    }, "\u21ba");
   } else {
     hint("Pick a player, then click the layout to move its town.");
     L.starts.forEach((s, p) => {
@@ -256,7 +296,7 @@ function renderPalette() {
         del.textContent = "✕"; del.title = "Remove this player"; del.className = "icon"; del.style.marginLeft = "auto";
         del.onclick = (e) => {
           e.stopPropagation(); remember();
-          L.starts.splice(p, 1); brush.start = Math.min(brush.start, L.starts.length - 1);
+          L.starts.splice(p, 1); dropPlayerLinks(p); brush.start = Math.min(brush.start, L.starts.length - 1);
           renderPalette(); changed();
         };
         li.append(del);
@@ -271,6 +311,40 @@ function renderPalette() {
       }, "+");
     }
   }
+}
+
+// ---------- roads ----------
+const roadMode = () => L.roads || (L.noRoads ? "none" : "auto");
+// roads shown on the layout: the chosen ones, or those of the last preview in automatic mode
+const roadLinks = () => roadMode() === "custom" ? (L.links || []) : roadMode() === "auto" ? autoLinks : [];
+const samePair = (k, a, b) => (k[0] === a && k[1] === b) || (k[0] === b && k[1] === a);
+
+// Adds or removes the road between players a and b (1-based); switches the layout to chosen roads
+function toggleLink(a, b) {
+  remember();
+  if (roadMode() !== "custom") L.links = roadMode() === "auto" ? autoLinks.map((k) => [...k]) : [];
+  L.roads = "custom"; delete L.noRoads;
+  const i = L.links.findIndex((k) => samePair(k, a, b));
+  if (i >= 0) L.links.splice(i, 1); else L.links.push([a, b]);
+  syncForm(); changed();
+}
+
+// Index of the player start under a pointer position (cell units), -1 when none
+function startAt(c) {
+  const r = $("layout").getBoundingClientRect(), cellPx = r.width / L.grid;
+  const reach = Math.max(10, Math.min(16, cellPx * 0.45)) / cellPx + 0.15;
+  let best = -1, bestD = reach;
+  L.starts.forEach((s, p) => {
+    const d = Math.hypot(s.x - c.fx, s.y - c.fy);
+    if (d < bestD) { best = p; bestD = d; }
+  });
+  return best;
+}
+
+// Removing player p (0-based) renumbers the chosen roads
+function dropPlayerLinks(p) {
+  if (!L.links) return;
+  L.links = L.links.filter((k) => k[0] !== p + 1 && k[1] !== p + 1).map((k) => k.map((q) => (q > p + 1 ? q - 1 : q)));
 }
 
 // ---------- painting ----------
@@ -299,6 +373,14 @@ function paintAt(c) {
 
 $("layout").addEventListener("pointerdown", (e) => {
   if (e.button !== 0) return;
+  if (mode === "road") {
+    const p = startAt(cellAt(e));
+    if (p < 0) linkFrom = -1;
+    else if (linkFrom < 0 || linkFrom === p) linkFrom = linkFrom === p ? -1 : p;
+    else { toggleLink(linkFrom + 1, p + 1); linkFrom = -1; }
+    drawLayout();
+    return;
+  }
   remember();
   painting = true;
   $("layout").setPointerCapture(e.pointerId);
@@ -325,7 +407,8 @@ $("layout").addEventListener("pointerup", endPaint);
 $("layout").addEventListener("pointercancel", endPaint);
 $("layout").addEventListener("pointerleave", () => { hover = null; if (!painting) drawLayout(); });
 
-document.querySelectorAll("#modes button").forEach((b) => (b.onclick = () => { mode = b.dataset.mode; renderPalette(); drawLayout(); }));
+document.querySelectorAll("#modes button").forEach((b) => (b.onclick = () => { mode = b.dataset.mode; linkFrom = -1; renderPalette(); drawLayout(); }));
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && linkFrom >= 0) { linkFrom = -1; drawLayout(); } });
 document.querySelectorAll("#sizes button").forEach((b) => (b.onclick = () => {
   brushSize = Number(b.dataset.size);
   document.querySelectorAll("#sizes button").forEach((o) => o.classList.toggle("on", o === b));
@@ -336,6 +419,12 @@ $("name").oninput = () => { L.name = $("name").value; store(); };
 $("name").onchange = () => { remember(); changed(); };
 $("size").onchange = () => { remember(); L.size = Number($("size").value); syncForm(); changed(); };
 $("seed").onchange = () => { remember(); L.seed = Math.max(0, Math.floor(Number($("seed").value) || 0)); syncForm(); changed(); };
+$("roads").onchange = () => {
+  remember();
+  if ($("roads").value === "custom" && roadMode() !== "custom") L.links = roadLinks().map((k) => [...k]);
+  L.roads = $("roads").value; delete L.noRoads;
+  renderPalette(); changed();
+};
 $("dice").onclick = () => { remember(); L.seed = Math.floor(Math.random() * 1e6); syncForm(); changed(); };
 $("grid").onchange = () => {
   remember();

@@ -27,6 +27,8 @@ type Result struct {
 	Terrain *terrain.Terrain
 	Tiles   []string // tile hrefs used by the terrain, for the tiles list of map.xdb
 	Towns   []Town
+	Roads   []bool     // road tiles, size x size, row = y (nil without roads)
+	Links   [][2]int   // the roads built, as pairs of player numbers
 	Rand    *rand.Rand // continues the layout seed, for ids
 }
 
@@ -146,6 +148,9 @@ func Generate(l *layout.Layout) (*Result, error) {
 		}
 		towns = append(towns, Town{Player: p + 1, X: tx, Y: ty, Turns: turns})
 	}
+	if err := checkTowns(size, towns); err != nil {
+		return nil, err
+	}
 
 	// Hills: noise heights where the relief is hills, flat around the towns
 	hills := make([]float64, n*n)
@@ -169,5 +174,38 @@ func Generate(l *layout.Layout) (*Result, error) {
 		ter.Height[i] = float32(2 + hills[i]*flat*hillHeight*v*1.6)
 	}
 
-	return &Result{Terrain: ter, Tiles: tiles, Towns: towns, Rand: rnd}, nil
+	// Roads between the towns, in the road tile of the biome under each vertex. Every corner of a road tile
+	// is fully painted, so the tile counts as road whichever corner the game samples; a light fringe
+	// softens the edges.
+	var roads []bool
+	var links [][2]int
+	switch l.RoadMode() {
+	case layout.RoadsAuto:
+		links = AutoLinks(towns)
+	case layout.RoadsCustom:
+		links = cleanLinks(l.Links)
+	}
+	if len(links) > 0 {
+		roads = routeRoads(size, towns, links, ter.Height, seed+4)
+		full := make([]float64, n*n)
+		for t, on := range roads {
+			if on {
+				x, y := t%size, t/size
+				full[y*n+x], full[y*n+x+1], full[(y+1)*n+x], full[(y+1)*n+x+1] = 1, 1, 1, 1
+			}
+		}
+		fringe := blur(append([]float64(nil), full...), n, 1, 1)
+		for _, id := range order {
+			b, _ := biome.ByID(id)
+			id := id
+			addLayer(b.Road, func(i int) float64 {
+				if l.Biomes[cellOf[i]] != id {
+					return 0
+				}
+				return math.Max(full[i], fringe[i]*0.5)
+			})
+		}
+	}
+
+	return &Result{Terrain: ter, Tiles: tiles, Towns: towns, Roads: roads, Links: links, Rand: rnd}, nil
 }

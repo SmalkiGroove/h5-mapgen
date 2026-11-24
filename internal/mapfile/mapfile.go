@@ -6,8 +6,6 @@
 package mapfile
 
 import (
-	"archive/zip"
-	"bytes"
 	"embed"
 	"fmt"
 	"math/rand"
@@ -15,6 +13,7 @@ import (
 	"unicode/utf16"
 
 	"h5mapgen/internal/generate"
+	"h5mapgen/internal/h5m"
 	"h5mapgen/internal/layout"
 )
 
@@ -144,20 +143,10 @@ func Build(l *layout.Layout, res *generate.Result) ([]byte, error) {
 			}{"scenario-description" + suffix + ".txt", utf16Text(Description)})
 	}
 
-	var buf bytes.Buffer
-	w := zip.NewWriter(&buf)
 	folder := Folder(l)
+	var archive []h5m.File
 	for _, f := range files {
-		out, err := w.Create(folder + f.name)
-		if err != nil {
-			return nil, err
-		}
-		if _, err := out.Write(f.data); err != nil {
-			return nil, err
-		}
+		archive = append(archive, h5m.File{Name: folder + f.name, Data: f.data})
 	}
-	if err := w.Close(); err != nil {
-		return nil, err
-	}
-	return buf.Bytes(), nil
+	return h5m.Zip(archive)
 }

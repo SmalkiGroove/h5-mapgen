@@ -95,13 +95,14 @@ type MapView struct {
 	Dominant []byte          `json:"dominant"`
 	Height   []byte          `json:"height"`
 	Towns    []generate.Town `json:"towns"`
+	Links    [][2]int        `json:"links"` // roads of a preview, as pairs of player numbers
 }
 
 // viewOf summarizes a terrain per vertex (row = y, bottom to top): Dominant is the index of the last layer
 // weighing at least half (255 when none), Height the height x 50 clamped to 0..255.
 func viewOf(t *terrain.Terrain) *MapView {
 	n := t.Size + 1
-	view := &MapView{Size: t.Size, Layers: []string{}, Dominant: make([]byte, n*n), Height: make([]byte, n*n), Towns: []generate.Town{}}
+	view := &MapView{Size: t.Size, Layers: []string{}, Dominant: make([]byte, n*n), Height: make([]byte, n*n), Towns: []generate.Town{}, Links: [][2]int{}}
 	for i := range view.Dominant {
 		view.Dominant[i] = 255
 	}
@@ -152,6 +153,9 @@ func (a *App) Preview(l *layout.Layout) (*MapView, error) {
 	view := viewOf(res.Terrain)
 	view.Folder = mapfile.Folder(l)
 	view.Towns = res.Towns
+	if res.Links != nil {
+		view.Links = res.Links
+	}
 	return view, nil
 }
 

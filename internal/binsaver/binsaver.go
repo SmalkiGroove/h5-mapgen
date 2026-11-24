@@ -135,5 +135,7 @@ func U32Bytes(v uint32) []byte {
 }
 
 // Leaf and Container build nodes.
-func Leaf(tag byte, data []byte) Node         { return Node{Tag: tag, Data: data} }
-func Container(tag byte, children ...Node) Node { return Node{Tag: tag, Container: true, Children: children} }
+func Leaf(tag byte, data []byte) Node { return Node{Tag: tag, Data: data} }
+func Container(tag byte, children ...Node) Node {
+	return Node{Tag: tag, Container: true, Children: children}
+}
