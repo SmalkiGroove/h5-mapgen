@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AdvMapDescTag>
+	<AdvMapDesc href="map.xdb#xpointer(/AdvMapDesc)"/>
+	<NameFileRef href="name.txt"/>
+	<DescriptionFileRef href="description.txt"/>
+	<TileX>{{SIZE}}</TileX>
+	<TileY>{{SIZE}}</TileY>
+	<MapGoal href="MapGoalText.txt"/>
+	<CustomMapGoal>false</CustomMapGoal>
+	{{TEAMS}}
+	<thumbnailImages/>
+	<HasUnderground>false</HasUnderground>
+	<RandomMap>false</RandomMap>
+	<CustomGameMap>false</CustomGameMap>
+	<Version>3</Version>
+</AdvMapDescTag>

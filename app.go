@@ -1,14 +1,24 @@
 package main
 
 import (
+	"archive/zip"
 	"context"
+	"fmt"
+	"io"
+	"math/rand"
 	"os"
 	"path/filepath"
 	"sort"
+	"strings"
+	"time"
 
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 
+	"h5mapgen/internal/biome"
+	"h5mapgen/internal/generate"
 	"h5mapgen/internal/h5m"
+	"h5mapgen/internal/layout"
+	"h5mapgen/internal/mapfile"
 	"h5mapgen/internal/terrain"
 )
 
@@ -52,14 +62,17 @@ func findGame() string {
 	return ""
 }
 
-// GameInfo is what the UI shows at start.
-type GameInfo struct {
-	Folder string   `json:"folder"`
-	Maps   []string `json:"maps"` // .h5m paths in <game>\Maps
+// Setup is what the UI needs at start.
+type Setup struct {
+	Folder     string        `json:"folder"`
+	Maps       []string      `json:"maps"` // .h5m paths in <game>\Maps
+	Biomes     []biome.Biome `json:"biomes"`
+	Sizes      []int         `json:"sizes"`
+	MaxPlayers int           `json:"maxPlayers"`
 }
 
-func (a *App) Game() GameInfo {
-	info := GameInfo{Folder: a.game, Maps: []string{}}
+func (a *App) Setup() Setup {
+	info := Setup{Folder: a.game, Maps: []string{}, Biomes: biome.All, Sizes: layout.Sizes, MaxPlayers: layout.MaxPlayers}
 	if a.game != "" {
 		maps, _ := filepath.Glob(filepath.Join(a.game, "Maps", "*.h5m"))
 		sort.Strings(maps)
@@ -68,34 +81,27 @@ func (a *App) Game() GameInfo {
 	return info
 }
 
-// MapView is a map's ground terrain, for display.
-type MapView struct {
-	Path     string   `json:"path"`
-	Folder   string   `json:"folder"` // Maps/<Kind>/<Name>/ in the archive
-	Size     int      `json:"size"`   // tiles; vertex grids are size + 1 wide
-	Layers   []string `json:"layers"` // tile hrefs, in paint order
-	Dominant []byte   `json:"dominant"`
-	Height   []byte   `json:"height"`
+// NewLayout makes a default layout with a random seed.
+func (a *App) NewLayout(size, grid int) *layout.Layout {
+	return layout.New(size, grid, rand.New(rand.NewSource(time.Now().UnixNano())).Int63n(1_000_000))
 }
 
-// LoadMap reads a map's ground terrain. Per vertex (row = y, bottom to top): Dominant is the index of the
-// last layer weighing at least half (255 when none), Height the height x 50 clamped to 0..255.
-func (a *App) LoadMap(path string) (*MapView, error) {
-	archive, err := h5m.Open(path)
-	if err != nil {
-		return nil, err
-	}
-	data, err := archive.Read("GroundTerrain.bin")
-	if err != nil {
-		return nil, err
-	}
-	t, err := terrain.Parse(data)
-	if err != nil {
-		return nil, err
-	}
+// MapView is a map's ground terrain, for display.
+type MapView struct {
+	Path     string          `json:"path"`   // "" for a preview
+	Folder   string          `json:"folder"` // Maps/<Kind>/<Name>/ in the archive
+	Size     int             `json:"size"`   // tiles; vertex grids are size + 1 wide
+	Layers   []string        `json:"layers"` // tile hrefs, in paint order
+	Dominant []byte          `json:"dominant"`
+	Height   []byte          `json:"height"`
+	Towns    []generate.Town `json:"towns"`
+}
+
+// viewOf summarizes a terrain per vertex (row = y, bottom to top): Dominant is the index of the last layer
+// weighing at least half (255 when none), Height the height x 50 clamped to 0..255.
+func viewOf(t *terrain.Terrain) *MapView {
 	n := t.Size + 1
-	view := &MapView{Path: path, Folder: archive.Folder, Size: t.Size, Layers: []string{},
-		Dominant: make([]byte, n*n), Height: make([]byte, n*n)}
+	view := &MapView{Size: t.Size, Layers: []string{}, Dominant: make([]byte, n*n), Height: make([]byte, n*n), Towns: []generate.Town{}}
 	for i := range view.Dominant {
 		view.Dominant[i] = 255
 	}
@@ -115,22 +121,153 @@ func (a *App) LoadMap(path string) (*MapView, error) {
 			view.Height[i] = byte(min(max(h*50, 0), 255))
 		}
 	}
+	return view
+}
+
+// LoadMap reads a map's ground terrain.
+func (a *App) LoadMap(path string) (*MapView, error) {
+	archive, err := h5m.Open(path)
+	if err != nil {
+		return nil, err
+	}
+	data, err := archive.Read("GroundTerrain.bin")
+	if err != nil {
+		return nil, err
+	}
+	t, err := terrain.Parse(data)
+	if err != nil {
+		return nil, err
+	}
+	view := viewOf(t)
+	view.Path, view.Folder = path, archive.Folder
 	return view, nil
 }
 
-// OpenMap asks for a .h5m file and loads it (nil when cancelled).
-func (a *App) OpenMap() (*MapView, error) {
+// Preview generates a layout without writing it.
+func (a *App) Preview(l *layout.Layout) (*MapView, error) {
+	res, err := generate.Generate(l)
+	if err != nil {
+		return nil, err
+	}
+	view := viewOf(res.Terrain)
+	view.Folder = mapfile.Folder(l)
+	view.Towns = res.Towns
+	return view, nil
+}
+
+// mapFolderOf returns the map folder of a .h5m and whether it holds a h5-mapgen layout.
+func mapFolderOf(path string) (folder string, generated bool, err error) {
+	r, err := zip.OpenReader(path)
+	if err != nil {
+		return "", false, err
+	}
+	defer r.Close()
+	for _, f := range r.File {
+		lower := strings.ToLower(f.Name)
+		if strings.HasSuffix(lower, "/map.xdb") {
+			folder = f.Name[:len(f.Name)-len("map.xdb")]
+		}
+		if strings.HasSuffix(f.Name, "/"+mapfile.LayoutFile) {
+			generated = true
+		}
+	}
+	return folder, generated, nil
+}
+
+// GenerateMap writes the map of a layout to <game>\Maps\<name>.h5m and returns its path. It only replaces
+// a map generated by this app, and refuses a map folder name another map already uses.
+func (a *App) GenerateMap(l *layout.Layout) (string, error) {
+	if a.game == "" {
+		return "", fmt.Errorf("game folder not found: put the app in the game folder or set H5_Folder")
+	}
+	if err := l.Check(); err != nil {
+		return "", err
+	}
+	path := filepath.Join(a.game, "Maps", strings.ReplaceAll(l.Name, " ", "_")+".h5m")
+	folder := mapfile.Folder(l)
+	others, _ := filepath.Glob(filepath.Join(a.game, "Maps", "*.h5m"))
+	for _, other := range others {
+		f, generated, err := mapFolderOf(other)
+		if err != nil {
+			continue
+		}
+		if strings.EqualFold(other, path) {
+			if !generated {
+				return "", fmt.Errorf("%s exists and was not made by the map generator: choose another name", filepath.Base(path))
+			}
+		} else if strings.EqualFold(f, folder) {
+			return "", fmt.Errorf("%s already uses the map folder %s: choose another name", filepath.Base(other), folder)
+		}
+	}
+	res, err := generate.Generate(l)
+	if err != nil {
+		return "", err
+	}
+	data, err := mapfile.Build(l, res)
+	if err != nil {
+		return "", err
+	}
+	return path, os.WriteFile(path, data, 0o644)
+}
+
+var layoutFilters = []runtime.FileFilter{
+	{DisplayName: "Layouts and generated maps (*.json, *.h5m)", Pattern: "*.json;*.h5m"},
+}
+
+// SaveLayout asks where to save a layout ("" when cancelled).
+func (a *App) SaveLayout(l *layout.Layout) (string, error) {
+	path, err := runtime.SaveFileDialog(a.ctx, runtime.SaveDialogOptions{
+		Title: "Save the layout", DefaultFilename: strings.ReplaceAll(l.Name, " ", "_") + ".json",
+		Filters: []runtime.FileFilter{{DisplayName: "Layouts (*.json)", Pattern: "*.json"}},
+	})
+	if err != nil || path == "" {
+		return "", err
+	}
+	return path, os.WriteFile(path, l.JSON(), 0o644)
+}
+
+// ReadLayout reads a layout from a .json file or from a map generated by this app.
+func (a *App) ReadLayout(path string) (*layout.Layout, error) {
+	if !strings.EqualFold(filepath.Ext(path), ".h5m") {
+		data, err := os.ReadFile(path)
+		if err != nil {
+			return nil, err
+		}
+		return layout.Parse(data)
+	}
+	r, err := zip.OpenReader(path)
+	if err != nil {
+		return nil, err
+	}
+	defer r.Close()
+	for _, f := range r.File {
+		if strings.HasSuffix(f.Name, "/"+mapfile.LayoutFile) {
+			rc, err := f.Open()
+			if err != nil {
+				return nil, err
+			}
+			data, err := io.ReadAll(rc)
+			rc.Close()
+			if err != nil {
+				return nil, err
+			}
+			return layout.Parse(data)
+		}
+	}
+	return nil, fmt.Errorf("%s was not made by the map generator: it has no layout", filepath.Base(path))
+}
+
+// OpenLayout asks for a layout or generated map and reads its layout (nil when cancelled).
+func (a *App) OpenLayout() (*layout.Layout, error) {
 	dir := ""
 	if a.game != "" {
 		dir = filepath.Join(a.game, "Maps")
 	}
 	path, err := runtime.OpenFileDialog(a.ctx, runtime.OpenDialogOptions{
-		Title:            "Open a map",
-		DefaultDirectory: dir,
-		Filters:          []runtime.FileFilter{{DisplayName: "Heroes 5 maps (*.h5m)", Pattern: "*.h5m"}},
+		Title: "Open a layout", DefaultDirectory: dir, Filters: layoutFilters,
 	})
 	if err != nil || path == "" {
 		return nil, err
 	}
-	return a.LoadMap(path)
+	return a.ReadLayout(path)
 }

@@ -1,0 +1,37 @@
+		<Item>
+			{{MAIN_TOWN}}
+			<MainHero/>
+			<ActivePlayer>{{ACTIVE}}</ActivePlayer>
+			<Team>{{TEAM}}</Team>
+			<CanBeHumanPlayer>true</CanBeHumanPlayer>
+			<CanBeComputerPlayer>true</CanBeComputerPlayer>
+			<Behaviour>PB_WARRIOR</Behaviour>
+			<CaptureAbility>0</CaptureAbility>
+			<StartHero/>
+			<HeroInTown>{{HERO_IN_TOWN}}</HeroInTown>
+			<ReserveHeroes/>
+			<AddHeroTrigger>
+				<Action>
+					<FunctionName/>
+				</Action>
+			</AddHeroTrigger>
+			<RemoveHeroTrigger>
+				<Action>
+					<FunctionName/>
+				</Action>
+			</RemoveHeroTrigger>
+			<VictoryMessageRef href=""/>
+			<DefeatMessageRef href=""/>
+			<Race>TOWN_NO_TYPE</Race>
+			<Colour>PCOLOR_NEUTRAL</Colour>
+			<CanBeDisabled>true</CanBeDisabled>
+			<Attractors/>
+			<DefaultBonus>PLAYER_BONUS_RANDOM</DefaultBonus>
+			<CanChangeBonus>true</CanChangeBonus>
+			<TavernFilter>
+				<BannedHeroesRaces/>
+				<BannedHeroes/>
+				<AllowedHeroes/>
+			</TavernFilter>
+			<DenyFogOfWarForAllies/>
+		</Item>

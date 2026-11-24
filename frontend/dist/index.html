@@ -10,17 +10,66 @@
   <aside id="side">
     <h1>H5 Map Generator</h1>
     <p id="game" class="muted"></p>
-    <button id="open">Open a map…</button>
+
+    <h2>Map</h2>
+    <label>Name <input id="name" maxlength="40" spellcheck="false"></label>
+    <div class="row">
+      <label>Size <select id="size"></select></label>
+      <label>Grid <select id="grid"></select></label>
+    </div>
+    <p id="cell" class="muted small"></p>
+    <label>Seed
+      <span class="row"><input id="seed" type="number" min="0" step="1"><button id="dice" class="icon" title="New seed">⟳</button></span>
+    </label>
+    <button id="generate" class="primary">Generate map</button>
+
+    <h2>Layout</h2>
+    <div class="row">
+      <button id="new">New</button>
+      <button id="open">Open…</button>
+      <button id="save">Save…</button>
+    </div>
+    <div class="row">
+      <button id="undo" title="Ctrl+Z">Undo</button>
+      <button id="redo" title="Ctrl+Y">Redo</button>
+    </div>
+
     <h2>Game maps</h2>
     <ul id="maps"></ul>
   </aside>
+
   <main>
-    <header id="title" class="muted">No map open</header>
-    <div id="stage"><canvas id="view"></canvas></div>
+    <div id="views">
+      <figure>
+        <figcaption>Layout <span class="muted">— paint with the brush</span></figcaption>
+        <div class="frame"><canvas id="layout"></canvas></div>
+      </figure>
+      <figure>
+        <figcaption><span id="preview-title">Preview</span> <span id="busy" class="muted"></span></figcaption>
+        <div class="frame"><canvas id="preview"></canvas></div>
+      </figure>
+    </div>
     <footer id="status" class="muted"></footer>
   </main>
-  <aside id="legend-panel">
-    <h2>Texture layers</h2>
+
+  <aside id="tools">
+    <h2>Brush</h2>
+    <div id="modes" class="tabs">
+      <button data-mode="biome" class="on">Ground</button>
+      <button data-mode="relief">Relief</button>
+      <button data-mode="start">Players</button>
+    </div>
+    <ul id="palette"></ul>
+    <div id="brush-size">
+      <h2>Brush size</h2>
+      <div class="tabs" id="sizes">
+        <button data-size="1" class="on">1</button>
+        <button data-size="2">2</button>
+        <button data-size="3">3</button>
+        <button data-size="5">5</button>
+      </div>
+    </div>
+    <h2>Preview textures</h2>
     <ul id="legend"></ul>
   </aside>
   <script src="main.js"></script>

@@ -1,0 +1,107 @@
+// Package layout is the coarse map plan the user paints: a square grid of cells, each with a biome and a
+// relief, and the player starts.
+package layout
+
+import (
+	"encoding/json"
+	"fmt"
+	"regexp"
+
+	"h5mapgen/internal/biome"
+)
+
+// Map sizes of the game (side in tiles), smallest to largest.
+var Sizes = []int{72, 96, 136, 176, 216, 256, 320}
+
+// Reliefs a cell can take.
+const (
+	Flat  = "flat"
+	Hills = "hills"
+)
+
+// MaxPlayers is the number of player slots of a map.
+const MaxPlayers = 8
+
+// Start is a player start, in cell units (0..Grid, y up; a cell centre is at +0.5).
+type Start struct {
+	X float64 `json:"x"`
+	Y float64 `json:"y"`
+}
+
+// Layout is the plan of a map. Cells are stored row by row, row 0 at the bottom (map y up).
+type Layout struct {
+	Version int      `json:"version"`
+	Name    string   `json:"name"`
+	Size    int      `json:"size"` // map side in tiles
+	Grid    int      `json:"grid"` // cells per side
+	Seed    int64    `json:"seed"`
+	Biomes  []string `json:"biomes"`
+	Relief  []string `json:"relief"`
+	Starts  []Start  `json:"starts"` // player i+1 starts at Starts[i]
+}
+
+// New makes a layout filled with the default biome, flat, two players in opposite corners.
+func New(size, grid int, seed int64) *Layout {
+	l := &Layout{Version: 1, Name: "Generated map", Size: size, Grid: grid, Seed: seed,
+		Biomes: make([]string, grid*grid), Relief: make([]string, grid*grid)}
+	for i := range l.Biomes {
+		l.Biomes[i] = biome.All[0].ID
+		l.Relief[i] = Flat
+	}
+	g := float64(grid)
+	l.Starts = []Start{{X: g * 0.2, Y: g * 0.8}, {X: g * 0.8, Y: g * 0.2}}
+	return l
+}
+
+var namePattern = regexp.MustCompile(`^[A-Za-z0-9 _\-]{1,40}$`)
+
+// Check returns the first problem of a layout, or nil.
+func (l *Layout) Check() error {
+	sizeOK := false
+	for _, s := range Sizes {
+		sizeOK = sizeOK || s == l.Size
+	}
+	switch {
+	case !sizeOK:
+		return fmt.Errorf("map size %d is not one of %v", l.Size, Sizes)
+	case l.Grid < 4 || l.Grid > 64:
+		return fmt.Errorf("grid %d is out of 4..64", l.Grid)
+	case len(l.Biomes) != l.Grid*l.Grid || len(l.Relief) != l.Grid*l.Grid:
+		return fmt.Errorf("the layout has %d biome and %d relief cells, expected %d", len(l.Biomes), len(l.Relief), l.Grid*l.Grid)
+	case !namePattern.MatchString(l.Name):
+		return fmt.Errorf("map name %q: use 1 to 40 letters, digits, spaces, _ or -", l.Name)
+	case len(l.Starts) < 1 || len(l.Starts) > MaxPlayers:
+		return fmt.Errorf("%d player starts, expected 1 to %d", len(l.Starts), MaxPlayers)
+	}
+	for _, id := range l.Biomes {
+		if _, err := biome.ByID(id); err != nil {
+			return err
+		}
+	}
+	for _, r := range l.Relief {
+		if r != Flat && r != Hills {
+			return fmt.Errorf("unknown relief %q", r)
+		}
+	}
+	for i, s := range l.Starts {
+		if s.X < 0 || s.Y < 0 || s.X > float64(l.Grid) || s.Y > float64(l.Grid) {
+			return fmt.Errorf("player %d starts outside the grid", i+1)
+		}
+	}
+	return nil
+}
+
+// Parse reads a layout saved as JSON and checks it.
+func Parse(data []byte) (*Layout, error) {
+	var l Layout
+	if err := json.Unmarshal(data, &l); err != nil {
+		return nil, err
+	}
+	return &l, l.Check()
+}
+
+// JSON encodes a layout, indented.
+func (l *Layout) JSON() []byte {
+	data, _ := json.MarshalIndent(l, "", "  ")
+	return data
+}

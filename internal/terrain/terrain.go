@@ -158,6 +158,11 @@ func Parse(data []byte) (*Terrain, error) {
 	return t, nil
 }
 
+// Body returns the parsed body fields (for inspection; edits go through Layers, Grids and Height).
+func (t *Terrain) Body() []binsaver.Node {
+	return binsaver.Find(binsaver.Find(t.tree, 1).Children, 1).Children
+}
+
 // Bytes writes the terrain file.
 func (t *Terrain) Bytes() []byte {
 	if g, ok := t.Grids[TagHeight]; ok && g.Data != nil {
