@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>H5 Map Generator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside id="side">
+    <h1>H5 Map Generator</h1>
+    <p id="game" class="muted"></p>
+    <button id="open">Open a map…</button>
+    <h2>Game maps</h2>
+    <ul id="maps"></ul>
+  </aside>
+  <main>
+    <header id="title" class="muted">No map open</header>
+    <div id="stage"><canvas id="view"></canvas></div>
+    <footer id="status" class="muted"></footer>
+  </main>
+  <aside id="legend-panel">
+    <h2>Texture layers</h2>
+    <ul id="legend"></ul>
+  </aside>
+  <script src="main.js"></script>
+</body>
+</html>

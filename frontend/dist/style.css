@@ -1,0 +1,43 @@
+:root {
+  --bg: #18181b;
+  --panel: #222226;
+  --line: #34343a;
+  --text: #e6e6e9;
+  --muted: #9a9aa3;
+  --accent: #c9a24a;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  display: grid;
+  grid-template-columns: 240px 1fr 220px;
+  background: var(--bg);
+  color: var(--text);
+  font: 13px/1.4 "Segoe UI", system-ui, sans-serif;
+  overflow: hidden;
+}
+aside { background: var(--panel); padding: 12px; overflow-y: auto; }
+#side { border-right: 1px solid var(--line); }
+#legend-panel { border-left: 1px solid var(--line); }
+h1 { font-size: 15px; margin: 0 0 4px; color: var(--accent); }
+h2 { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 16px 0 6px; }
+.muted { color: var(--muted); }
+#game { word-break: break-all; margin: 0 0 10px; }
+button {
+  width: 100%; padding: 6px 10px; border: 1px solid var(--line); border-radius: 4px;
+  background: #2c2c31; color: var(--text); font: inherit; cursor: pointer;
+}
+button:hover { border-color: var(--accent); }
+ul { list-style: none; margin: 0; padding: 0; }
+#maps li { padding: 3px 6px; border-radius: 3px; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#maps li:hover { background: #2c2c31; }
+#maps li.active { background: #3a3324; color: var(--accent); }
+main { display: grid; grid-template-rows: auto 1fr auto; min-width: 0; min-height: 0; }
+#title, #status { padding: 6px 12px; border-bottom: 1px solid var(--line); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#status { border-bottom: 0; border-top: 1px solid var(--line); min-height: 29px; }
+#stage { display: grid; place-items: center; min-height: 0; overflow: hidden; padding: 12px; }
+#view { image-rendering: pixelated; max-width: 100%; max-height: 100%; background: #000; }
+#legend li { display: flex; gap: 8px; align-items: center; padding: 2px 0; }
+#legend .swatch { width: 14px; height: 14px; border-radius: 2px; flex: none; border: 1px solid #0006; }
+#legend .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#error { color: #e2735f; }
