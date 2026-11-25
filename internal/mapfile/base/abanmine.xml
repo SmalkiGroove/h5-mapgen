@@ -1,0 +1,29 @@
+		<Item href="#n:inline(AdvMapAbanMine)" id="{{ID}}">
+			<AdvMapAbanMine>
+				<Pos>
+					<x>{{X}}</x>
+					<y>{{Y}}</y>
+					<z>0</z>
+				</Pos>
+				<Rot>{{ROT}}</Rot>
+				<Floor>0</Floor>
+				<Name/>
+				<CombatScript/>
+				<pointLights/>
+				<Shared href="{{SHARED}}"/>
+				<AvailableResources>
+					<Item>0</Item>
+					<Item>0</Item>
+					<Item>1</Item>
+					<Item>1</Item>
+					<Item>1</Item>
+					<Item>1</Item>
+					<Item>1</Item>
+				</AvailableResources>
+				<CaptureTrigger>
+					<Action>
+						<FunctionName/>
+					</Action>
+				</CaptureTrigger>
+			</AdvMapAbanMine>
+		</Item>

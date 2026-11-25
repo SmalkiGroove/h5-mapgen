@@ -7,9 +7,21 @@ import (
 	"fmt"
 	"regexp"
 	"slices"
+	"strings"
 
 	"h5mapgen/internal/biome"
+	"h5mapgen/internal/catalog"
 )
+
+// Placeable tells whether the brush can place a catalog object (mines, treasures, artifacts, monsters).
+func Placeable(kind string) bool {
+	for _, prefix := range []string{"mine_", "res_", "artifact_", "monster_"} {
+		if strings.HasPrefix(kind, prefix) {
+			return true
+		}
+	}
+	return kind == "chest" || kind == "campfire"
+}
 
 // Map sizes of the game (side in tiles), smallest to largest.
 var Sizes = []int{72, 96, 136, 176, 216, 256, 320}
@@ -48,6 +60,40 @@ type Layout struct {
 	Roads   string   `json:"roads,omitempty"`   // RoadsAuto (also ""), RoadsCustom or RoadsNone
 	Links   [][2]int `json:"links,omitempty"`   // custom roads: pairs of player numbers (1..8)
 	NoRoads bool     `json:"noRoads,omitempty"` // old form of Roads = RoadsNone, read only
+
+	// Content: amounts of each kind ("" = Normal), and the objects placed with the brush
+	Mines     string   `json:"mines,omitempty"`
+	Treasures string   `json:"treasures,omitempty"`
+	Guards    string   `json:"guards,omitempty"`
+	Obstacles string   `json:"obstacles,omitempty"`
+	Objects   []Object `json:"objects,omitempty"`
+}
+
+// Object is an object placed with the brush: a catalog key (mine_gold, chest, artifact_major, monster_5, ...)
+// at a position in cell units, like the starts. The generator moves it to the nearest tile where it fits.
+type Object struct {
+	Kind string  `json:"kind"`
+	X    float64 `json:"x"`
+	Y    float64 `json:"y"`
+}
+
+// Content amounts.
+const (
+	AmountNone   = "none"
+	AmountLow    = "low"
+	AmountNormal = "normal"
+	AmountHigh   = "high"
+)
+
+// Amounts lists the content amounts, least first.
+var Amounts = []string{AmountNone, AmountLow, AmountNormal, AmountHigh}
+
+// Amount returns the index of an amount in Amounts (Normal when unset).
+func Amount(a string) int {
+	if a == "" {
+		return 2
+	}
+	return slices.Index(Amounts, a)
 }
 
 // Road modes.
@@ -114,6 +160,19 @@ func (l *Layout) Check() error {
 	for i, s := range l.Starts {
 		if s.X < 0 || s.Y < 0 || s.X > float64(l.Grid) || s.Y > float64(l.Grid) {
 			return fmt.Errorf("player %d starts outside the grid", i+1)
+		}
+	}
+	for _, a := range []struct{ name, value string }{{"mines", l.Mines}, {"treasures", l.Treasures}, {"guards", l.Guards}, {"obstacles", l.Obstacles}} {
+		if Amount(a.value) < 0 {
+			return fmt.Errorf("%s: unknown amount %q", a.name, a.value)
+		}
+	}
+	for i, o := range l.Objects {
+		if _, ok := catalog.All.Objects[o.Kind]; !ok || !Placeable(o.Kind) {
+			return fmt.Errorf("object %d: unknown kind %q", i+1, o.Kind)
+		}
+		if o.X < 0 || o.Y < 0 || o.X > float64(l.Grid) || o.Y > float64(l.Grid) {
+			return fmt.Errorf("object %d (%s) is outside the grid", i+1, o.Kind)
 		}
 	}
 	switch l.RoadMode() {

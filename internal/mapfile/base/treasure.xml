@@ -1,0 +1,18 @@
+		<Item href="#n:inline(AdvMapTreasure)" id="{{ID}}">
+			<AdvMapTreasure>
+				<Pos>
+					<x>{{X}}</x>
+					<y>{{Y}}</y>
+					<z>0</z>
+				</Pos>
+				<Rot>{{ROT}}</Rot>
+				<Floor>0</Floor>
+				<Name/>
+				<CombatScript/>
+				<pointLights/>
+				<Shared href="{{SHARED}}"/>
+				<IsCustom>false</IsCustom>
+				<Amount>0</Amount>
+				<MessageFileRef href=""/>
+			</AdvMapTreasure>
+		</Item>

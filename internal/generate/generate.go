@@ -28,9 +28,14 @@ type Result struct {
 	Terrain *terrain.Terrain
 	Tiles   []string // tile hrefs used by the terrain, for the tiles list of map.xdb
 	Towns   []Town
-	Roads   []bool     // road tiles, size x size, row = y (nil without roads)
-	Links   [][2]int   // the roads built, as pairs of player numbers
-	Rand    *rand.Rand // continues the layout seed, for ids
+	Roads   []bool   // road tiles, size x size, row = y (nil without roads)
+	Paths   []bool   // dirt path tiles from the buildings to the roads, size x size
+	Links   [][2]int // the roads built, as pairs of player numbers
+	Objects []Object // mines, treasures, artifacts, monsters
+	Decor   []Object // decorations
+	// Warnings are the content that could not be placed (the map is still generated)
+	Warnings []string
+	Rand     *rand.Rand // continues the layout seed, for ids
 }
 
 const (
@@ -256,5 +261,39 @@ func Generate(l *layout.Layout) (*Result, error) {
 		}
 	}
 
-	return &Result{Terrain: ter, Tiles: tiles, Towns: towns, Roads: roads, Links: links, Rand: rnd}, nil
+	// Content. Hidden routes between the towns (the automatic roads, unpainted) stay free whatever the road
+	// mode, so obstacles never cut a town off; with water between towns there may be none.
+	keep := make([]bool, size*size)
+	copy(keep, roads)
+	if hidden, err := routeRoads(size, towns, AutoLinks(towns), ter.Height, walk, seed+5); err == nil {
+		for i, on := range hidden {
+			keep[i] = keep[i] || on
+		}
+	}
+	objects, decor, paths, warnings := placeContent(l, size, cellOf, towns, walk, roads, keep, rnd, seed+6)
+
+	// Dirt paths from the buildings to the roads, painted like the roads but leaving the corners of road
+	// tiles alone (their road type gives the movement bonus)
+	full, onRoad := make([]float64, n*n), make([]bool, n*n)
+	for t := range paths {
+		x, y := t%size, t/size
+		for _, v := range [4]int{y*n + x, y*n + x + 1, (y+1)*n + x, (y+1)*n + x + 1} {
+			if paths[t] {
+				full[v] = 1
+			}
+			if roads != nil && roads[t] {
+				onRoad[v] = true
+			}
+		}
+	}
+	fringe := blur(append([]float64(nil), full...), n, 1, 1)
+	addLayer(biome.PathTile, func(i int) float64 {
+		if onRoad[i] {
+			return 0
+		}
+		return math.Max(full[i], fringe[i]*0.4)
+	})
+
+	return &Result{Terrain: ter, Tiles: tiles, Towns: towns, Roads: roads, Paths: paths, Links: links, Objects: objects, Decor: decor,
+		Warnings: warnings, Rand: rnd}, nil
 }

@@ -1,0 +1,3788 @@
+{
+ "objects": {
+  "artifact_major": {
+   "href": "/MapObjects/Random/Random-Major.(AdvMapArtifactShared).xdb#xpointer(/AdvMapArtifactShared)",
+   "type": "AdvMapArtifact",
+   "blocked": null,
+   "active": [[0,0]]
+  },
+  "artifact_minor": {
+   "href": "/MapObjects/Random/Random-Minor.(AdvMapArtifactShared).xdb#xpointer(/AdvMapArtifactShared)",
+   "type": "AdvMapArtifact",
+   "blocked": null,
+   "active": [[0,0]]
+  },
+  "artifact_relic": {
+   "href": "/MapObjects/Random/Random-Relic.(AdvMapArtifactShared).xdb#xpointer(/AdvMapArtifactShared)",
+   "type": "AdvMapArtifact",
+   "blocked": null,
+   "active": [[0,0]]
+  },
+  "campfire": {
+   "href": "/MapObjects/Campfire.(AdvMapTreasureShared).xdb#xpointer(/AdvMapTreasureShared)",
+   "type": "AdvMapTreasure",
+   "blocked": null,
+   "active": [[0,0]]
+  },
+  "chest": {
+   "href": "/MapObjects/Chest.(AdvMapTreasureShared).xdb#xpointer(/AdvMapTreasureShared)",
+   "type": "AdvMapTreasure",
+   "blocked": null,
+   "active": [[0,0]]
+  },
+  "mine_abandoned": {
+   "href": "/MapObjects/Abandoned_Mine.(AdvMapAbanMineShared).xdb#xpointer(/AdvMapAbanMineShared)",
+   "type": "AdvMapAbanMine",
+   "blocked": [[-1,-1],[1,-1],[-1,0],[0,0],[1,0],[-1,1],[0,1],[1,1]],
+   "active": [[0,-1]]
+  },
+  "mine_crystal": {
+   "href": "/MapObjects/Crystal_Cavern.(AdvMapMineShared).xdb#xpointer(/AdvMapMineShared)",
+   "type": "AdvMapMine",
+   "blocked": [[-1,-1],[1,-1],[-1,0],[0,0],[1,0],[-1,1],[0,1],[1,1]],
+   "active": [[0,-1]]
+  },
+  "mine_gem": {
+   "href": "/MapObjects/Gem_Pond.(AdvMapMineShared).xdb#xpointer(/AdvMapMineShared)",
+   "type": "AdvMapMine",
+   "blocked": [[-1,1],[0,1],[-1,0]],
+   "active": [[0,0]]
+  },
+  "mine_gold": {
+   "href": "/MapObjects/Gold_Mine.(AdvMapMineShared).xdb#xpointer(/AdvMapMineShared)",
+   "type": "AdvMapMine",
+   "blocked": [[-1,0],[0,0],[0,1],[1,0],[1,1],[-1,-1],[1,-1],[-1,1]],
+   "active": [[0,-1]]
+  },
+  "mine_mercury": {
+   "href": "/MapObjects/Alchemist_Lab.(AdvMapMineShared).xdb#xpointer(/AdvMapMineShared)",
+   "type": "AdvMapMine",
+   "blocked": [[0,-1],[0,0],[1,-1],[1,0],[-1,-1],[-1,0],[1,1],[-1,1]],
+   "active": [[0,1]]
+  },
+  "mine_ore": {
+   "href": "/MapObjects/Ore_Pit.(AdvMapMineShared).xdb#xpointer(/AdvMapMineShared)",
+   "type": "AdvMapMine",
+   "blocked": [[-1,0],[0,0],[1,0],[-1,1],[0,1],[1,1],[-1,2],[0,2],[1,2],[1,-1]],
+   "active": [[0,-1]]
+  },
+  "mine_sulfur": {
+   "href": "/MapObjects/Sulfur_Dune.(AdvMapMineShared).xdb#xpointer(/AdvMapMineShared)",
+   "type": "AdvMapMine",
+   "blocked": [[-1,1],[0,1],[1,1],[-1,2],[0,2],[1,2],[-1,0],[0,0],[1,0],[1,-1]],
+   "active": [[0,-1]]
+  },
+  "mine_wood": {
+   "href": "/MapObjects/Sawmill.(AdvMapMineShared).xdb#xpointer(/AdvMapMineShared)",
+   "type": "AdvMapMine",
+   "blocked": [[1,0],[-1,0],[-1,1],[0,1],[0,0],[-1,-1],[1,1]],
+   "active": [[0,-1]]
+  },
+  "monster_1": {
+   "href": "/MapObjects/Random/Random-Monster-L1.(AdvMapMonsterShared).xdb#xpointer(/AdvMapMonsterShared)",
+   "type": "AdvMapMonster",
+   "blocked": null,
+   "active": [[0,0]]
+  },
+  "monster_2": {
+   "href": "/MapObjects/Random/Random-Monster-L2.(AdvMapMonsterShared).xdb#xpointer(/AdvMapMonsterShared)",
+   "type": "AdvMapMonster",
+   "blocked": null,
+   "active": [[0,0]]
+  },
+  "monster_3": {
+   "href": "/MapObjects/Random/Random-Monster-L3.(AdvMapMonsterShared).xdb#xpointer(/AdvMapMonsterShared)",
+   "type": "AdvMapMonster",
+   "blocked": null,
+   "active": [[0,0]]
+  },
+  "monster_4": {
+   "href": "/MapObjects/Random/Random-Monster-L4.(AdvMapMonsterShared).xdb#xpointer(/AdvMapMonsterShared)",
+   "type": "AdvMapMonster",
+   "blocked": null,
+   "active": [[0,0]]
+  },
+  "monster_5": {
+   "href": "/MapObjects/Random/Random-Monster-L5.(AdvMapMonsterShared).xdb#xpointer(/AdvMapMonsterShared)",
+   "type": "AdvMapMonster",
+   "blocked": null,
+   "active": [[0,0]]
+  },
+  "monster_6": {
+   "href": "/MapObjects/Random/Random-Monster-L6.(AdvMapMonsterShared).xdb#xpointer(/AdvMapMonsterShared)",
+   "type": "AdvMapMonster",
+   "blocked": null,
+   "active": [[0,0]]
+  },
+  "monster_7": {
+   "href": "/MapObjects/Random/Random-Monster-L7.(AdvMapMonsterShared).xdb#xpointer(/AdvMapMonsterShared)",
+   "type": "AdvMapMonster",
+   "blocked": null,
+   "active": [[0,0]]
+  },
+  "res_crystal": {
+   "href": "/MapObjects/Crystal.(AdvMapTreasureShared).xdb#xpointer(/AdvMapTreasureShared)",
+   "type": "AdvMapTreasure",
+   "blocked": null,
+   "active": [[0,0]]
+  },
+  "res_gem": {
+   "href": "/MapObjects/Gems.(AdvMapTreasureShared).xdb#xpointer(/AdvMapTreasureShared)",
+   "type": "AdvMapTreasure",
+   "blocked": null,
+   "active": [[0,0]]
+  },
+  "res_gold": {
+   "href": "/MapObjects/Gold.(AdvMapTreasureShared).xdb#xpointer(/AdvMapTreasureShared)",
+   "type": "AdvMapTreasure",
+   "blocked": null,
+   "active": [[0,0]]
+  },
+  "res_mercury": {
+   "href": "/MapObjects/Mercury.(AdvMapTreasureShared).xdb#xpointer(/AdvMapTreasureShared)",
+   "type": "AdvMapTreasure",
+   "blocked": null,
+   "active": [[0,0]]
+  },
+  "res_ore": {
+   "href": "/MapObjects/Ore.(AdvMapTreasureShared).xdb#xpointer(/AdvMapTreasureShared)",
+   "type": "AdvMapTreasure",
+   "blocked": null,
+   "active": [[0,0]]
+  },
+  "res_sulfur": {
+   "href": "/MapObjects/Sulfur.(AdvMapTreasureShared).xdb#xpointer(/AdvMapTreasureShared)",
+   "type": "AdvMapTreasure",
+   "blocked": null,
+   "active": [[0,0]]
+  },
+  "res_wood": {
+   "href": "/MapObjects/Wood.(AdvMapTreasureShared).xdb#xpointer(/AdvMapTreasureShared)",
+   "type": "AdvMapTreasure",
+   "blocked": null,
+   "active": [[0,0]]
+  }
+ },
+ "decor": {
+  "deadland": [
+   {
+    "href": "/MapObjects/Lava/LavaStones/LavaStone_5.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "lavastones",
+    "uses": 357,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Lava/LavaStones/LavaStone_8.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "lavastones",
+    "uses": 322,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Lava/LavaStones/LavaStone_4.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "lavastones",
+    "uses": 267,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Lava/Mountains/Mountains_4x3_4.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountains",
+    "uses": 243,
+    "blocked": [[0,-1],[1,-1],[-1,0],[0,0],[1,0],[-1,1],[0,1],[1,1],[0,2],[1,2]]
+   },
+   {
+    "href": "/MapObjects/Lava/LavaStones/LavaStone_2.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "lavastones",
+    "uses": 225,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Lava/LavaStones/LavaStone_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "lavastones",
+    "uses": 213,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Lava/LavaStones/LavaStone_3.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "lavastones",
+    "uses": 199,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Lava/LavaStones/LavaStone_9.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "lavastones",
+    "uses": 187,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Lava/LavaStones/LavaStone_10.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "lavastones",
+    "uses": 182,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Lava/LavaStones/LavaStone_7.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "lavastones",
+    "uses": 176,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Lava/Mountains/Mountains_4x3_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountains",
+    "uses": 172,
+    "blocked": [[0,-2],[1,-2],[-1,-1],[0,-1],[1,-1],[-1,0],[0,0],[1,0],[-1,1],[0,1]]
+   },
+   {
+    "href": "/MapObjects/Lava/Mountains/Mountains_4x3_3.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountains",
+    "uses": 161,
+    "blocked": [[0,-1],[1,-1],[-1,0],[0,0],[1,0],[-1,1],[0,1],[1,1],[0,2],[1,2]]
+   },
+   {
+    "href": "/MapObjects/Lava/FireDots/FireDot01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "firedots",
+    "uses": 154,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Lava/Mountains/Mountains_8x4_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountains",
+    "uses": 150,
+    "blocked": [[-1,-4],[-2,-3],[-1,-3],[-2,-2],[-1,-2],[0,-2],[1,-2],[-2,-1],[-1,-1],[0,-1],[1,-1],[-2,0],[0,0],[1,0],[-2,1],[-1,1],[-1,0],[0,1],[1,1],[-2,2],[-1,2],[0,2],[1,2],[-1,3],[-2,3],[0,3]]
+   },
+   {
+    "href": "/MapObjects/Lava/LavaStones/LavaStone_6.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "lavastones",
+    "uses": 127,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Lava/Mountains/Mountains_4x3_2.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountains",
+    "uses": 122,
+    "blocked": [[-1,-2],[0,-2],[-1,-1],[0,-1],[1,-1],[-1,0],[0,0],[1,0],[0,1],[1,1]]
+   },
+   {
+    "href": "/MapObjects/Lava/Mountains/Mountain10x7.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountains",
+    "uses": 96,
+    "blocked": [[2,-5],[1,-4],[2,-4],[3,-4],[0,-3],[1,-3],[2,-3],[3,-3],[-1,-2],[0,-2],[1,-2],[2,-2],[3,-2],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[3,-1],[-3,0],[-2,0],[-1,0],[0,0],[1,0],[2,0],[3,0],[-3,1],[-2,1],[-1,1],[0,1],[1,1],[2,1],[3,1],[-3,2],[-2,2],[-1,2],[0,2],[1,2],[2,2],[-2,3],[-1,3],[0,3],[1,3],[-1,4],[0,4],[1,4]]
+   },
+   {
+    "href": "/MapObjects/Lava/Lavacracks/Lavacrack7x4_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "lavacracks",
+    "uses": 88,
+    "blocked": [[-3,-1],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[3,-1],[-3,0],[-2,0],[-1,0],[0,0],[1,0],[2,0],[3,0],[-3,1],[-2,1],[-1,1],[0,1],[1,1],[2,1],[3,1],[-3,2],[-2,2],[-1,2],[0,2],[1,2],[2,2],[3,2]]
+   },
+   {
+    "href": "/MapObjects/Lava/Mountains/Mountains_8x4_2.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountains",
+    "uses": 86,
+    "blocked": [[-2,-4],[-1,-4],[0,-4],[-1,-3],[0,-3],[1,-3],[-1,-2],[0,-2],[1,-2],[-2,-1],[-1,-1],[0,-1],[1,-1],[-2,0],[-1,0],[0,0],[1,0],[-2,1],[-1,1],[0,1],[1,1],[-2,2],[-1,2],[0,2],[-1,3]]
+   },
+   {
+    "href": "/MapObjects/Lava/Lavacracks/Lavacrack3x2_2.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "lavacracks",
+    "uses": 78,
+    "blocked": [[-1,-1],[0,-1],[1,-1],[-1,0],[0,0],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Lava/FireDots/FireDot04.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "firedots",
+    "uses": 72,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Lava/Lavacracks/Lavacrack3x2_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "lavacracks",
+    "uses": 68,
+    "blocked": [[-1,-1],[0,-1],[1,-1],[-1,0],[0,0],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Lava/FireDots/FireDot02.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "firedots",
+    "uses": 65,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Lava/Lavacracks/Lavacrack5x3_4.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "lavacracks",
+    "uses": 63,
+    "blocked": [[-2,0],[-1,0],[0,0],[-2,1],[-1,1],[0,1],[1,0],[2,0],[0,-1],[1,-1]]
+   },
+   {
+    "href": "/MapObjects/Lava/Lavacracks/Lavacrack7x2_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "lavacracks",
+    "uses": 59,
+    "blocked": [[-3,-1],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[3,-1],[-3,0],[-2,0],[-1,0],[0,0],[1,0],[2,0],[3,0]]
+   },
+   {
+    "href": "/MapObjects/Lava/Lavacracks/Lavacrack7x5_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "lavacracks",
+    "uses": 57,
+    "blocked": [[-3,-2],[0,-2],[1,-2],[-3,-1],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[3,-1],[-3,0],[-2,0],[-1,0],[0,0],[1,0],[2,0],[3,0],[-3,1],[-2,1],[-1,1],[0,1],[1,1],[2,1],[3,1],[-3,2],[0,2],[1,2],[2,2],[3,2],[-2,-2]]
+   },
+   {
+    "href": "/MapObjects/Lava/Mountains/Hellpikes_2x2_6.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountains",
+    "uses": 57,
+    "blocked": [[-1,-1],[0,-1],[-1,0],[0,0]]
+   },
+   {
+    "href": "/MapObjects/Lava/Mountains/Mountains_8x12.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountains",
+    "uses": 56,
+    "blocked": [[-2,-4],[-1,-4],[0,-4],[1,-4],[2,-4],[-2,-3],[-1,-3],[0,-3],[1,-3],[2,-3],[-2,-2],[-1,-2],[0,-2],[1,-2],[2,-2],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[-3,0],[-2,0],[-1,0],[0,0],[1,0],[2,0],[3,0],[-3,1],[-2,1],[-1,1],[0,1],[1,1],[2,1],[3,1],[-3,2],[-2,2],[-1,2],[0,2],[1,2],[2,2],[3,2],[-3,3],[-2,3],[-1,3],[0,3],[1,3],[2,3],[3,3],[-3,4],[-2,4],[-1,4],[0,4],[1,4],[2,4],[3,4],[-2,5],[-1,5],[0,5],[1,5],[2,5],[3,5],[0,6],[1,6],[2,6]]
+   },
+   {
+    "href": "/MapObjects/Lava/Mountains/Hellpikes_4x4_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountains",
+    "uses": 53,
+    "blocked": [[-1,-2],[0,-2],[1,-2],[-2,-1],[-1,-1],[0,-1],[1,-1],[-2,0],[-1,0],[0,0],[1,0],[-1,1],[0,1]]
+   },
+   {
+    "href": "/MapObjects/Lava/Cross_01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "lava",
+    "uses": 52,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Lava/Mountains/Hellpikes_4x4_2.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountains",
+    "uses": 52,
+    "blocked": [[-2,-2],[-1,-2],[0,-2],[-2,-1],[-1,-1],[0,-1],[1,-1],[-2,0],[-1,0],[0,0],[1,0],[-1,1],[0,1],[1,1]]
+   },
+   {
+    "href": "/MapObjects/Lava/Mountains/Hellpikes_4x4_3.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountains",
+    "uses": 50,
+    "blocked": [[-1,-2],[0,-2],[1,-2],[-2,-1],[-1,-1],[0,-1],[1,-1],[-2,0],[-1,0],[0,0],[1,0],[-1,1],[0,1]]
+   },
+   {
+    "href": "/MapObjects/Lava/Lavacracks/Lavacrack3x2_4.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "lavacracks",
+    "uses": 49,
+    "blocked": [[-1,-1],[0,-1],[1,-1],[-1,0],[0,0],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Lava/Mountains/Mountains_8x4_3.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountains",
+    "uses": 48,
+    "blocked": [[-1,-4],[0,-4],[1,-4],[2,-4],[-1,-3],[0,-3],[1,-3],[2,-3],[-1,-2],[0,-2],[1,-2],[2,-2],[-1,-1],[0,-1],[1,-1],[2,-1],[-1,0],[0,0],[1,0],[2,0],[-1,1],[0,1],[1,1],[2,1],[-1,2],[0,2],[1,2],[2,2],[-1,3],[0,3],[1,3]]
+   },
+   {
+    "href": "/MapObjects/Lava/Mountains/Mountains_8x4_4.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountains",
+    "uses": 43,
+    "blocked": [[-2,-3],[-1,-3],[0,-3],[1,-3],[-2,-2],[-1,-2],[0,-2],[1,-2],[-2,-1],[-1,-1],[0,-1],[1,-1],[-2,0],[-1,0],[0,0],[1,0],[-2,1],[-1,1],[0,1],[1,1],[-2,2],[-1,2],[0,2],[1,2],[-1,3],[0,3],[1,3],[-1,4],[0,4]]
+   },
+   {
+    "href": "/MapObjects/Lava/FireDots/FireDot03.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "firedots",
+    "uses": 42,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Lava/Crystals/CrystalMana.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "crystals",
+    "uses": 39,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Lava/Lavacracks/Lavacrack5x3_2.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "lavacracks",
+    "uses": 33,
+    "blocked": [[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[-2,0],[-1,0],[0,0],[1,0],[2,0],[-2,1],[-1,1],[0,1],[1,1],[2,1]]
+   },
+   {
+    "href": "/MapObjects/Lava/StickOfDeath_02.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "lava",
+    "uses": 33,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Lava/Lavacracks/Lavacrack3x2_3.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "lavacracks",
+    "uses": 31,
+    "blocked": [[-1,-1],[0,-1],[1,-1],[-1,0],[0,0],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Lava/Mountains/Hellpikes_2x2_5.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountains",
+    "uses": 30,
+    "blocked": [[-1,-1],[0,-1],[-1,0],[0,0]]
+   },
+   {
+    "href": "/MapObjects/Lava/Mountains/Hellpikes_4x4_4.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountains",
+    "uses": 29,
+    "blocked": [[-1,-2],[0,-2],[-2,-1],[-1,-1],[0,-1],[1,-1],[-1,0],[0,0],[1,0],[0,1],[-1,1]]
+   },
+   {
+    "href": "/MapObjects/Lava/Mountains/Hellpikes_8x8_3.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountains",
+    "uses": 28,
+    "blocked": [[-1,-3],[0,-3],[1,-3],[-2,-2],[-1,-2],[0,-2],[1,-2],[2,-2],[-3,-1],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[-4,0],[-3,0],[-2,0],[-1,0],[0,0],[1,0],[2,0],[-4,1],[-3,1],[-2,1],[-1,1],[0,1],[1,1],[2,1],[-3,2],[-2,2],[-1,2],[0,2],[1,2],[-2,3],[-1,3],[0,3],[1,3],[-1,4],[0,4],[1,4]]
+   },
+   {
+    "href": "/MapObjects/Lava/StickOfDeath_01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "lava",
+    "uses": 28,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Lava/Mountains/Hellpikes_2x2_2.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountains",
+    "uses": 26,
+    "blocked": [[-1,-1],[0,-1],[-1,0],[0,0]]
+   },
+   {
+    "href": "/MapObjects/Lava/Mountains/Hellpikes_2x2_4.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountains",
+    "uses": 26,
+    "blocked": [[-1,-1],[0,-1],[-1,0],[0,0]]
+   },
+   {
+    "href": "/MapObjects/Lava/Lavacracks/Lavacrack5x3_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "lavacracks",
+    "uses": 24,
+    "blocked": [[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[-2,0],[-1,0],[0,0],[1,0],[2,0],[-2,1],[-1,1],[0,1],[1,1],[2,1]]
+   },
+   {
+    "href": "/MapObjects/Lava/Mountains/Hellpikes_2x2_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountains",
+    "uses": 23,
+    "blocked": [[-1,-1],[0,-1],[-1,0],[0,0]]
+   },
+   {
+    "href": "/MapObjects/Lava/Mountains/Hellpikes_2x2_3.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountains",
+    "uses": 22,
+    "blocked": [[-1,-1],[0,-1],[-1,0],[0,0]]
+   },
+   {
+    "href": "/MapObjects/Lava/Mountains/Hellpikes_8x8_2.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountains",
+    "uses": 22,
+    "blocked": [[-2,-3],[-1,-3],[0,-3],[1,-3],[-3,-2],[-2,-2],[-1,-2],[0,-2],[1,-2],[2,-2],[-4,-1],[-3,-1],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[3,-1],[-4,0],[-3,0],[-2,0],[-1,0],[0,0],[1,0],[2,0],[3,0],[-4,1],[-3,1],[-2,1],[-1,1],[0,1],[1,1],[2,1],[3,1],[-4,2],[-3,2],[-2,2],[-1,2],[0,2],[1,2],[2,2],[3,2],[-3,3],[-2,3],[-1,3],[0,3],[1,3],[2,3],[-2,4],[-1,4],[0,4],[1,4]]
+   },
+   {
+    "href": "/MapObjects/Lava/Craters/Crater_12x10.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "craters",
+    "uses": 16,
+    "blocked": [[-2,-5],[-1,-5],[0,-5],[1,-5],[-3,-4],[-2,-4],[-1,-4],[0,-4],[1,-4],[2,-4],[3,-4],[-3,-3],[-2,-3],[-1,-3],[0,-3],[1,-3],[2,-3],[3,-3],[-5,-2],[-4,-2],[-3,-2],[-2,-2],[-1,-2],[0,-2],[1,-2],[2,-2],[3,-2],[4,-2],[-5,-1],[-4,-1],[-3,-1],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[3,-1],[4,-1],[5,-1],[-5,0],[-4,0],[-3,0],[-2,0],[-1,0],[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[-5,1],[-4,1],[-3,1],[-2,1],[-1,1],[0,1],[1,1],[2,1],[3,1],[4,1],[5,1],[6,1],[-5,2],[-4,2],[-3,2],[-2,2],[-1,2],[0,2],[1,2],[2,2],[3,2],[4,2],[5,2],[6,2],[-5,3],[-4,3],[-3,3],[-2,3],[-1,3],[0,3],[1,3],[2,3],[3,3],[4,3],[5,3],[-2,4],[-1,4],[0,4],[1,4],[2,4],[3,4],[4,4]]
+   },
+   {
+    "href": "/MapObjects/Lava/Craters/Crater_12x9_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "craters",
+    "uses": 15,
+    "blocked": [[-2,-3],[-1,-3],[0,-3],[1,-3],[1,-2],[0,-2],[-2,-2],[-3,-2],[-1,-2],[-3,-1],[-2,-1],[-1,-1],[0,-1],[1,-1],[-2,0],[-1,0],[0,0],[1,0],[2,0],[-2,1],[-1,1],[0,1],[1,1],[2,1],[-1,2],[0,2],[1,2],[2,2],[3,2],[4,2],[3,1],[3,0],[5,2],[5,1],[4,1],[5,3],[4,3],[3,3],[2,3],[1,3],[0,3],[-1,3],[-2,2],[-3,0],[-3,1],[-4,-2],[-4,-1],[-3,-3],[-4,-3],[-1,-4],[-2,-4],[-3,-4],[-4,0],[-3,2],[-2,3],[5,4],[4,4],[6,1],[6,2],[6,3],[4,0],[5,0],[6,0],[3,-1],[2,-1],[2,-2],[1,-4],[0,-4],[6,4],[3,4],[2,4],[1,4],[4,-1]]
+   },
+   {
+    "href": "/MapObjects/Lava/Craters/Crater_10x10_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "craters",
+    "uses": 13,
+    "blocked": [[-2,-5],[-1,-5],[0,-5],[1,-5],[2,-5],[3,-5],[4,-5],[-2,-4],[-1,-4],[0,-4],[1,-4],[2,-4],[3,-4],[4,-4],[-2,-3],[0,-3],[1,-3],[2,-3],[3,-3],[4,-3],[-2,-2],[-1,-2],[0,-2],[1,-2],[2,-2],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[3,-1],[-2,0],[-1,0],[0,0],[1,0],[2,0],[3,0],[4,0],[-2,1],[-1,1],[0,1],[1,1],[2,1],[3,1],[4,1],[5,1],[-2,2],[-1,2],[0,2],[1,2],[2,2],[3,2],[4,2],[5,2],[-2,3],[-1,3],[0,3],[1,3],[2,3],[3,3],[4,3],[-3,-5],[-3,-4],[-3,-3],[-3,-2],[-3,-1],[-3,0],[-3,1],[-4,-4],[-4,-3],[-4,-2],[-1,-3],[3,-2]]
+   },
+   {
+    "href": "/MapObjects/Lava/Mountains/Hellpikes_10x10.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountains",
+    "uses": 10,
+    "blocked": [[-2,-3],[-1,-3],[0,-3],[1,-3],[-3,-2],[-2,-2],[-1,-2],[0,-2],[1,-2],[2,-2],[-3,-1],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[3,-1],[-3,0],[-2,0],[-1,0],[0,0],[1,0],[2,0],[3,0],[-3,1],[-2,1],[-1,1],[0,1],[1,1],[2,1],[3,1],[-3,2],[-2,2],[-1,2],[0,2],[1,2],[2,2],[3,2],[-2,3],[-1,3],[0,3],[1,3],[2,3],[-1,4],[0,4],[1,4]]
+   },
+   {
+    "href": "/MapObjects/Lava/Lavacracks/Lavacrack5x3_3.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "lavacracks",
+    "uses": 9,
+    "blocked": [[-2,-1],[-1,-1],[1,-1],[-2,0],[-1,0],[0,0],[1,0],[2,0],[-1,1],[0,1],[2,1]]
+   },
+   {
+    "href": "/MapObjects/Lava/Craters/Crater_10x10_3.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "craters",
+    "uses": 8,
+    "blocked": [[-3,2],[-2,2],[-1,2],[-2,3],[-3,-3],[-2,-3],[-1,-3],[0,-3],[-3,-2],[-2,-2],[-1,-2],[0,-2],[-3,-1],[-2,-1],[-1,-1],[0,-1],[-3,0],[-2,0],[-1,0],[0,0],[-3,1],[-2,1],[-1,1],[0,1],[-3,-4],[-2,-4],[-4,-2],[-4,-1],[-4,0],[1,1],[2,1],[3,1],[4,1],[0,2],[1,2],[2,2],[3,2],[4,2],[5,2],[4,-3],[4,-2],[4,-1],[4,0],[1,-4],[2,-4],[3,-4],[4,-4],[1,-3],[2,-3],[3,-3],[1,-2],[2,-2],[3,-2],[1,-1],[2,-1],[3,-1],[1,0],[2,0],[3,0],[1,3],[2,3],[3,3],[4,3],[5,3],[-3,3]]
+   },
+   {
+    "href": "/MapObjects/Lava/Mountains/Hellpikes_8x8_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountains",
+    "uses": 8,
+    "blocked": [[-1,-3],[0,-3],[-2,-2],[-1,-2],[0,-2],[1,-2],[-3,-1],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[-4,0],[-3,0],[-2,0],[-1,0],[0,0],[1,0],[2,0],[3,0],[-4,1],[-3,1],[-2,1],[-1,1],[0,1],[1,1],[2,1],[3,1],[-3,2],[-2,2],[-1,2],[0,2],[1,2],[2,2],[-3,3],[-2,3],[-1,3],[0,3],[1,3],[-1,4],[0,4],[2,-2]]
+   }
+  ],
+  "dirt": [
+   {
+    "href": "/MapObjects/Dirt/Bushs/Dirtbush2x2_2.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushs",
+    "uses": 4066,
+    "blocked": [[0,0],[1,0],[0,1],[1,1]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Bushs/Dirtbush2x2_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushs",
+    "uses": 3474,
+    "blocked": [[0,0],[1,0],[0,1]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Bushs/DBushLeafs/DBushLeaf01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushs",
+    "uses": 1177,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Bushs/Dirtbush04.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushs",
+    "uses": 787,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Trees/DirtTree2x3_2.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 761,
+    "blocked": [[0,1],[1,0],[-1,0],[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Bushs/Dirtbush02.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushs",
+    "uses": 715,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Bushs/Dirtbush03.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushs",
+    "uses": 644,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Misc/Will_o_the_wisp.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "misc",
+    "uses": 613,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Dirt/Bushs/Dirtbush01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushs",
+    "uses": 608,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Trees/DirtTree2x3_4.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 606,
+    "blocked": [[-1,1],[0,0],[1,1],[0,1]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Trees/DirtTree1x1_5.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 579,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Trees/DirtTree2x3_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 551,
+    "blocked": [[0,1],[1,0],[-1,0],[-1,1],[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Bushs/Dirtbush1x2_2.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushs",
+    "uses": 531,
+    "blocked": [[0,0],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Bushs/Dirtbush1x2_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushs",
+    "uses": 502,
+    "blocked": [[0,0],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Bushs/DBushLeafs/DRushs03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushs",
+    "uses": 494,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Trees/DirtTree1x1_6.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 485,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Grass/Grass01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "grass",
+    "uses": 465,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Dirt/Trees/DirtTree1x1_3.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 463,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Trees/DirtTree2x3_3.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 457,
+    "blocked": [[-1,0],[0,0],[-1,1],[0,1],[1,0],[1,1]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Bushs/DBushLeafs/DBushLeaf02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushs",
+    "uses": 453,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Trees/DirtTree4x5_2.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 435,
+    "blocked": [[-1,1],[0,1],[1,1],[2,1],[0,2],[1,-1],[2,-1],[1,0],[2,0],[-2,0],[-2,1],[-1,0],[0,0],[-2,2],[-1,2],[0,-1]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Trees/DirtTree1x1_4.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 410,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Rocks/DStone2x1_2.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "rocks",
+    "uses": 409,
+    "blocked": [[0,0],[0,1]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Bushs/Dirtbush1x2_3.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushs",
+    "uses": 408,
+    "blocked": [[0,0],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Trees/DirtTree1x1_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 394,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Bushs/DBushLeafs/DRushs02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushs",
+    "uses": 389,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Misc/SwampHaze2x3.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "misc",
+    "uses": 378,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Dirt/Trees/DirtTree1x1_2.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 319,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Rocks/DStone2x1_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "rocks",
+    "uses": 268,
+    "blocked": [[0,0],[0,1]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Trees/DirtTree5x6_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 264,
+    "blocked": [[-2,-2],[-2,-1],[-1,-1],[0,-1],[0,0],[1,0],[-1,1],[0,1],[1,1],[1,2],[2,0],[2,1],[-2,0],[-1,0],[-3,-1],[-3,0],[-1,-2],[2,2],[-2,1],[1,-1],[0,2],[-3,-2]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Rocks/DStone1x1_9.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "rocks",
+    "uses": 253,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Bushs/DBushLeafs/DRushs01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushs",
+    "uses": 225,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Trees/DirtTreeCrooked2x2_4.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 224,
+    "blocked": [[0,0],[1,0],[0,1],[1,1]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Trees/DirtTreeCrooked2x2_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 218,
+    "blocked": [[0,0],[1,0],[0,1],[1,1]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Trees/DirtTree5x6_2.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 213,
+    "blocked": [[0,-2],[1,-2],[2,-2],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[-3,0],[-2,0],[-1,0],[0,0],[1,0],[-3,1],[-2,1],[-1,1],[0,1],[1,1],[-3,2],[-2,2],[-1,2],[2,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Misc/SwampHaze2x2.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "misc",
+    "uses": 201,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Dirt/Snags/Snag2x2_3.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "snags",
+    "uses": 197,
+    "blocked": [[-1,1],[0,1],[-1,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Bushs/DBushLeafs/DRush04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushs",
+    "uses": 195,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Misc/SwampHaze3x3.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "misc",
+    "uses": 193,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Dirt/Snags/Snag2x2_2.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "snags",
+    "uses": 191,
+    "blocked": [[-1,1],[0,1],[-1,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Snags/Snag2x2_4.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "snags",
+    "uses": 189,
+    "blocked": [[-1,0],[0,0],[-1,1],[0,1]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Trees/DirtTreeCrooked1x1_9.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 171,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Trees/DirtTree4x5_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 167,
+    "blocked": [[-2,-1],[-1,-1],[0,-1],[-2,0],[-1,0],[0,0],[1,0],[2,0],[-2,1],[-1,1],[0,1],[1,1],[2,1],[1,2],[2,2],[0,2]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Snags/Snag1x3_2.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "snags",
+    "uses": 165,
+    "blocked": [[0,-1],[0,0],[0,1]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Rocks/DStone1x1_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "rocks",
+    "uses": 164,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Snags/Snag1x2_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "snags",
+    "uses": 162,
+    "blocked": [[0,-1],[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Rocks/DStone1x1_3.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "rocks",
+    "uses": 150,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Rocks/DStone1x1_7.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "rocks",
+    "uses": 145,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Rocks/DStone1x1_5.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "rocks",
+    "uses": 144,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Snags/Snag2x2_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "snags",
+    "uses": 144,
+    "blocked": [[0,0],[0,1],[-1,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Bushs/DBushLeafs/DRush03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushs",
+    "uses": 141,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Rocks/DStone1x1_8.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "rocks",
+    "uses": 137,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Rocks/DStone1x1_2.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "rocks",
+    "uses": 133,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Bushs/DBushLeafs/DRush02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushs",
+    "uses": 130,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Snags/Snag1x2_2.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "snags",
+    "uses": 127,
+    "blocked": [[0,-1],[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Misc/SwampHaze_column.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "misc",
+    "uses": 123,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Dirt/Trees/DirtTreeCrooked2x2_3.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 120,
+    "blocked": [[0,0],[1,0],[0,1],[1,1]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Rocks/DStone1x1_6.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "rocks",
+    "uses": 111,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Snags/Snag1x3_3.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "snags",
+    "uses": 107,
+    "blocked": [[0,-1],[0,0],[0,1]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Trees/DirtTreeCrooked1x1_3.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 105,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Trees/DirtTreeCrooked1x1_8.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 101,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Rocks/DStone1x1_4.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "rocks",
+    "uses": 94,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Snags/Snag1x3_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "snags",
+    "uses": 90,
+    "blocked": [[0,-1],[0,0],[0,1]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Bushs/DBushLeafs/DBushLeaf04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushs",
+    "uses": 89,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Snags/Snag1x2_3.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "snags",
+    "uses": 83,
+    "blocked": [[0,-1],[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Trees/DirtTreeCrooked2x2_2.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 82,
+    "blocked": [[0,0],[1,0],[0,1],[1,1]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Trees/DirtTreeCrooked1x1_7.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 74,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Bushs/DBushLeafs/DRush01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushs",
+    "uses": 68,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Bushs/DBushLeafs/DBushLeaf03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushs",
+    "uses": 66,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Trees/DirtTreeCrooked1x1_4.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 64,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Trees/DirtTreeCrooked1x1_2.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 62,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Trees/DirtTreeCrooked1x1_10.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 59,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Snags/Snag1x2_4.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "snags",
+    "uses": 58,
+    "blocked": [[0,-1],[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Trees/DirtTreeCrooked1x1_5.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 53,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Trees/DirtTreeCrooked1x1_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 50,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Trees/DirtTreeCrooked1x1_11.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 47,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Trees/DirtTreeCrooked1x1_6.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 46,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Trees/DirtTreeCrooked1x1_12.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 31,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Dirt/Bushs/DBushLeafs/DBushLeaf05.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushs",
+    "uses": 12,
+    "blocked": [[0,0],[1,0]]
+   }
+  ],
+  "grass": [
+   {
+    "href": "/MapObjects/Grass/Bush_10.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "grass",
+    "uses": 15242,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Bush01/Grass/Grass02.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bush01",
+    "uses": 6823,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Grass/Bush01/Grass/Grass03.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bush01",
+    "uses": 6181,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/SpurceTrees/Spruce_02.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 6166,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Bush_09.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "grass",
+    "uses": 6135,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Bush01/Bush_08.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bush01",
+    "uses": 5230,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/SpurceTrees/Spruce_01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 4149,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/SpurceTrees/Spruce_03.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 3818,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Bush01/Grass/Grass01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bush01",
+    "uses": 2850,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Grass/Fern_03.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "grass",
+    "uses": 2542,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Fern_02.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "grass",
+    "uses": 2404,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Fern_04.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "grass",
+    "uses": 2365,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Fern_01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "grass",
+    "uses": 2350,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/SpurceTrees/Spruce_04.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 2262,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Fern_05.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "grass",
+    "uses": 2163,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Mountain/Mountain8x8.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountain",
+    "uses": 2011,
+    "blocked": [[-1,-4],[0,-4],[1,-4],[-2,-3],[-1,-3],[0,-3],[1,-3],[-2,-2],[-1,-2],[0,-2],[1,-2],[-2,-1],[-1,-1],[0,-1],[1,-1],[-2,0],[-1,0],[0,0],[1,0],[-2,1],[-1,1],[0,1],[1,1],[-2,2],[-1,2],[0,2],[1,2],[-1,3],[0,3],[2,-2],[3,-2],[2,-1],[3,-1],[2,0],[3,0],[-3,-1],[-4,0],[-3,0],[-3,1]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/SpurceTrees/Spruce_5x4.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 1808,
+    "blocked": [[-2,1],[-1,1],[0,1],[-2,2],[-1,2],[0,2],[0,-1],[1,-1],[2,-1],[0,0],[1,0],[2,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Birch/Birch04.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 1569,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/SpurceTrees/Spruce_5x6.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 1501,
+    "blocked": [[-2,0],[-1,0],[0,0],[-2,1],[-1,1],[0,1],[-2,2],[-1,2],[0,2],[-2,3],[-1,3],[0,3],[0,-2],[1,-2],[2,-2],[0,-1],[1,-1],[2,-1],[1,0],[2,0],[1,1],[2,1]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Birch/Birch03.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 1490,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Mountain/Mountain10x10.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountain",
+    "uses": 1407,
+    "blocked": [[1,-1],[2,-1],[0,-1],[-1,-1],[-3,-3],[-2,-3],[-1,-3],[0,-3],[1,-3],[2,-3],[-4,-2],[-3,-2],[-2,-2],[-1,-2],[0,-2],[1,-2],[2,-2],[3,-2],[-4,-1],[-3,-1],[-2,-1],[3,-1],[-2,0],[-1,0],[0,0],[1,0],[2,0],[3,0],[-1,-5],[0,-5],[1,-5],[-2,-4],[-1,-4],[0,-4],[1,-4],[-2,1],[-1,1],[0,1],[1,1],[-2,2],[-1,2],[0,2],[1,2],[3,1],[2,2],[3,2],[0,3],[1,3],[2,3],[3,3],[0,4],[1,4],[2,4],[4,-1],[5,-1],[4,0],[5,0],[4,1],[5,1],[4,2],[2,1]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Birch/Birch02.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 1365,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/SpurceTrees/Spruce_5x6_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 1152,
+    "blocked": [[-1,-2],[0,-2],[1,-2],[-1,-1],[0,-1],[1,-1],[-1,0],[0,0],[1,0],[0,1],[1,1],[2,0],[3,0],[2,1],[3,1],[1,2],[2,2],[3,2],[1,3],[2,3],[3,3],[-1,1]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Birch/Birch01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 1121,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Stump3.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 1091,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Misc/Fence_04.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "misc",
+    "uses": 1072,
+    "blocked": [[0,0],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Flowers/Flower_16.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "flowers",
+    "uses": 1037,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Grass/Flowers/Flower_14.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "flowers",
+    "uses": 996,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Grass/Flowers/Flower_13.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "flowers",
+    "uses": 987,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Grass/Flowers/Flower_15.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "flowers",
+    "uses": 976,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Stump2.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 954,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Misc/Fence_03.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "misc",
+    "uses": 935,
+    "blocked": [[0,0],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Oak/Oak03.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 889,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Misc/Fence_01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "misc",
+    "uses": 804,
+    "blocked": [[0,0],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Oak/Oak01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 803,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Oak/Oak02.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 747,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Stump1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 746,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Birch/Birch_aut03.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 694,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Mushrooms/Mushrooms_02.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mushrooms",
+    "uses": 681,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Grass/Mushrooms/Mushrooms_05.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mushrooms",
+    "uses": 678,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Grass/Mushrooms/Mushrooms_01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mushrooms",
+    "uses": 648,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Grass/Mountain/Mountain12x12.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountain",
+    "uses": 642,
+    "blocked": [[-2,-6],[-1,-6],[0,-6],[1,-6],[2,-6],[3,-6],[4,-6],[-3,-5],[-2,-5],[-1,-5],[0,-5],[1,-5],[2,-5],[3,-5],[4,-5],[-3,-4],[-2,-4],[-1,-4],[0,-4],[1,-4],[2,-4],[3,-4],[4,-4],[-3,-3],[-2,-3],[-1,-3],[0,-3],[1,-3],[2,-3],[3,-3],[4,-3],[-3,-2],[-2,-2],[-1,-2],[0,-2],[1,-2],[2,-2],[3,-2],[4,-2],[-3,-1],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[3,-1],[4,-1],[-3,0],[-2,0],[-1,0],[0,0],[1,0],[2,0],[3,0],[4,0],[-3,1],[-2,1],[-1,1],[0,1],[1,1],[2,1],[3,1],[4,1],[-3,2],[-2,2],[-1,2],[0,2],[1,2],[2,2],[3,2],[4,2],[-3,3],[-2,3],[-1,3],[0,3],[1,3],[2,3],[3,3],[4,3],[-2,4],[-1,4],[0,4],[1,4],[2,4],[3,4],[4,4],[0,5],[1,5],[2,5],[-4,-4],[-4,-3],[-4,-2],[-4,-1],[-4,0],[-4,1],[5,-2],[6,-2],[5,-1],[6,-1],[5,0],[5,1],[5,2],[5,3]]
+   },
+   {
+    "href": "/MapObjects/Grass/Mushrooms/Mushrooms_03.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mushrooms",
+    "uses": 639,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Grass/Stones/Stone_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stones",
+    "uses": 635,
+    "blocked": [[0,-2],[1,-2],[-1,-1],[0,-1],[1,-1],[2,-1],[-1,0],[0,0],[1,0],[2,0],[0,1],[1,1]]
+   },
+   {
+    "href": "/MapObjects/Grass/Mushrooms/Mushrooms_04.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mushrooms",
+    "uses": 626,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Birch/Birch5x4.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 618,
+    "blocked": [[-2,1],[-1,1],[0,1],[-2,2],[-1,2],[0,2],[0,-1],[1,-1],[2,-1],[0,0],[1,0],[2,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Birch/Birch_aut02.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 594,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Rocks/Rock2x1R.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "rocks",
+    "uses": 593,
+    "blocked": [[1,0],[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Rocks/Rock2x1L.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "rocks",
+    "uses": 570,
+    "blocked": [[-1,0],[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/SpurceTrees/Spruce_5x4_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 558,
+    "blocked": [[1,1],[2,1],[3,1],[1,2],[2,2],[3,2],[-1,-1],[0,-1],[1,-1],[-1,0],[0,0],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Birch/Birch_aut04.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 532,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Oak/Oak04.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 497,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Misc/Fence_02.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "misc",
+    "uses": 496,
+    "blocked": [[0,0],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Misc/Fireflies_01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "misc",
+    "uses": 484,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Oak/Oak5x4.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 484,
+    "blocked": [[0,-1],[1,-1],[2,-1],[0,0],[1,0],[2,0],[-2,1],[-1,1],[0,1],[-2,2],[-1,2],[0,2]]
+   },
+   {
+    "href": "/MapObjects/Grass/Rocks/Rock1x1_7.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "rocks",
+    "uses": 474,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Oak/Oak6x5_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 465,
+    "blocked": [[-2,-2],[-1,-2],[0,-2],[-2,-1],[-1,-1],[0,-1],[-2,0],[-1,0],[0,0],[-2,1],[-1,1],[0,1],[1,0],[2,0],[1,1],[2,1],[0,2],[1,2],[2,2],[0,3],[1,3],[2,3]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Birch/Birch5x4_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 464,
+    "blocked": [[-2,-1],[-1,-1],[0,-1],[-2,0],[-1,0],[0,0],[0,1],[1,1],[0,2],[1,2],[2,1],[2,2]]
+   },
+   {
+    "href": "/MapObjects/Grass/Rocks/Rock1x1_2.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "rocks",
+    "uses": 461,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Rocks/Rock1x1_5.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "rocks",
+    "uses": 453,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Oak/Oak6x5.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 453,
+    "blocked": [[0,-2],[1,-2],[2,-2],[0,-1],[1,-1],[2,-1],[0,0],[1,0],[2,0],[0,1],[1,1],[2,1],[-2,1],[-1,1],[-2,2],[-1,2],[0,2],[-2,0],[-1,0],[-2,3],[-1,3],[0,3]]
+   },
+   {
+    "href": "/MapObjects/Grass/Rocks/Rock1x1_3.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "rocks",
+    "uses": 449,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Stones/Stone_2.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stones",
+    "uses": 448,
+    "blocked": [[-1,-1],[0,-1],[-2,0],[-1,0],[0,0],[1,0],[-2,1],[-1,1],[0,1],[1,1],[-1,2],[0,2]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Oak/Oak5x4_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 432,
+    "blocked": [[-2,0],[-1,0],[0,0],[-2,1],[-1,1],[0,1],[1,1],[2,1],[0,2],[1,2],[2,2]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Birch/Birch_aut01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 420,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Rocks/Rock1x1_9.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "rocks",
+    "uses": 397,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Rocks/Rock1x1_6.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "rocks",
+    "uses": 365,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Birch/Birch5x6.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 353,
+    "blocked": [[-2,0],[-1,0],[0,0],[-2,1],[-1,1],[0,1],[-2,2],[-1,2],[0,2],[0,-2],[1,-2],[2,-2],[0,-1],[1,-1],[2,-1],[1,0],[2,0],[1,1],[2,1],[-2,3],[-1,3],[0,3]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Oak/Oakaut02.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 349,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Rocks/Rock1x1_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "rocks",
+    "uses": 319,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Flowers/Sunflowers/Sunflowers_3.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "flowers",
+    "uses": 314,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Flowers/Corns_02.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "flowers",
+    "uses": 313,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Flowers/Corns_04.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "flowers",
+    "uses": 310,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Flowers/Sunflowers/Sunflowers_2.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "flowers",
+    "uses": 309,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Rocks/Rock1x1_8.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "rocks",
+    "uses": 306,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Flowers/Corns_01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "flowers",
+    "uses": 296,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Flowers/Sunflowers/Sunflowers_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "flowers",
+    "uses": 296,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Misc/Pumpkin_01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "misc",
+    "uses": 294,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Birch/Birch_aut5x4.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 290,
+    "blocked": [[-2,1],[-1,1],[0,1],[-2,2],[-1,2],[0,2],[0,-1],[1,-1],[2,-1],[0,0],[1,0],[2,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Log1x1_2.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 289,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Birch/Birch_aut5x6.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 288,
+    "blocked": [[-2,0],[-1,0],[0,0],[-2,1],[-1,1],[0,1],[-2,2],[-1,2],[0,2],[-2,3],[-1,3],[0,3],[1,-2],[2,-2],[1,-1],[2,-1],[1,0],[2,0],[1,1],[2,1],[0,-2],[0,-1]]
+   },
+   {
+    "href": "/MapObjects/Grass/Flowers/Sunflowers/Sunflowers_4.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "flowers",
+    "uses": 283,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Oak/Oakaut03.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 279,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Misc/Pumpkin_03.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "misc",
+    "uses": 268,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Rocks/Rock1x1_4.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "rocks",
+    "uses": 266,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Misc/Pumpkin_02.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "misc",
+    "uses": 257,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Flowers/Corns_03.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "flowers",
+    "uses": 252,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Log1x1_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 252,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Bigtree.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 251,
+    "blocked": [[-2,-1],[-1,-1],[0,-1],[1,-1],[-2,0],[-1,0],[0,0],[1,0],[-2,1],[-1,1],[0,1],[1,1],[-2,2],[-1,2],[0,2],[1,2]]
+   },
+   {
+    "href": "/MapObjects/Grass/Misc/Pumpkin_04.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "misc",
+    "uses": 241,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Flowers/Sunflowers/Sunflowers_5.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "flowers",
+    "uses": 237,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Bush01/Grass/Rush01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bush01",
+    "uses": 216,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Birch/Birch5x6_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 207,
+    "blocked": [[-1,-2],[0,-2],[-2,-1],[-1,-1],[0,-1],[-2,0],[-1,0],[0,0],[-2,1],[-1,1],[0,1],[1,0],[2,0],[1,1],[2,1],[0,2],[1,2],[2,2],[0,3],[1,3],[2,3],[-2,-2]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Log2x1_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 202,
+    "blocked": [[0,-1],[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Oak/Oakaut01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 201,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Oak/Oakaut04.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 177,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Birch/Birch_aut5x4_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 147,
+    "blocked": [[-2,-1],[-1,-1],[0,-1],[-2,0],[-1,0],[0,0],[0,1],[1,1],[2,1],[0,2],[1,2],[2,2]]
+   },
+   {
+    "href": "/MapObjects/Grass/Flowers/Wheats/Wheat_01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "flowers",
+    "uses": 139,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Flowers/Wheats/Wheat_02.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "flowers",
+    "uses": 137,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Flowers/Wheats/Wheat_04.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "flowers",
+    "uses": 131,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Bush01/Grass/Rush02.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bush01",
+    "uses": 127,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Grass/Flowers/Wheats/Wheat_03.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "flowers",
+    "uses": 114,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Oak/Oakaut5x4_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 111,
+    "blocked": [[-2,0],[-1,0],[0,0],[-2,-1],[-1,-1],[0,-1],[1,1],[2,1],[1,2],[2,2],[0,2],[0,1]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Oak/Oakaut5x4.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 97,
+    "blocked": [[0,-1],[1,-1],[2,-1],[0,0],[1,0],[2,0],[-2,1],[-1,1],[0,1],[-2,2],[-1,2],[0,2]]
+   },
+   {
+    "href": "/MapObjects/Grass/Misc/Scarecow_01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "misc",
+    "uses": 92,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Birch/Birch_aut5x6_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 92,
+    "blocked": [[-2,-2],[-1,-2],[0,-2],[-2,-1],[-1,-1],[0,-1],[-2,0],[-1,0],[0,0],[-2,1],[-1,1],[0,1],[1,0],[2,0],[1,1],[2,1],[1,2],[2,2],[1,3],[2,3],[0,2],[0,3]]
+   },
+   {
+    "href": "/MapObjects/Grass/Misc/Haystock_02.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "misc",
+    "uses": 81,
+    "blocked": [[0,-1],[1,-1],[0,0],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Oak/Oakaut6x5_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 74,
+    "blocked": [[0,1],[1,1],[2,1],[0,2],[1,2],[2,2],[0,3],[1,3],[2,3],[-2,-2],[-1,-2],[0,-2],[-2,-1],[-1,-1],[0,-1],[-2,0],[-1,0],[0,0],[1,0],[2,0],[-2,1],[-1,1]]
+   },
+   {
+    "href": "/MapObjects/Grass/Misc/Haystock_01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "misc",
+    "uses": 69,
+    "blocked": [[0,-1],[1,-1],[0,0],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Anthills/Anthill1x1_2.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "anthills",
+    "uses": 61,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Tree/Oak/Oakaut6x5.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "tree",
+    "uses": 61,
+    "blocked": [[0,-2],[1,-2],[2,-2],[0,-1],[1,-1],[2,-1],[0,0],[1,0],[2,0],[0,1],[0,2],[0,3],[-1,1],[-1,2],[-1,3],[-2,0],[-1,0],[-2,1],[-2,2],[-2,3],[1,1],[2,1]]
+   },
+   {
+    "href": "/MapObjects/Grass/Anthills/Anthill1x1_1.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "anthills",
+    "uses": 60,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Anthills/Anthill2x1_1.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "anthills",
+    "uses": 46,
+    "blocked": [[0,-1],[0,0]]
+   },
+   {
+    "href": "/MapObjects/Grass/Anthills/Anthill2x1_2.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "anthills",
+    "uses": 39,
+    "blocked": [[0,-1],[0,0]]
+   }
+  ],
+  "sand": [
+   {
+    "href": "/MapObjects/Sand/Sandtrees/Palm_02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sandtrees",
+    "uses": 356,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Sand/Sandtrees/Sandtree04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sandtrees",
+    "uses": 339,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Sand/Sandtrees/Palm_03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sandtrees",
+    "uses": 324,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Sand/Sandtrees/Palm_01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sandtrees",
+    "uses": 321,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Sand/Sand_Bushes/Bush_03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sand_bushes",
+    "uses": 320,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Sand/Sandtrees/Palm_04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sandtrees",
+    "uses": 314,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Sand/Sandtrees/Palm_05.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sandtrees",
+    "uses": 313,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Sand/Cactus/Cactus_04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "cactus",
+    "uses": 286,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Sand/Sandtrees/Sandtree03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sandtrees",
+    "uses": 281,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Sand/Cactus/Cactus01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "cactus",
+    "uses": 270,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Sand/Cactus/Cactus_06.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "cactus",
+    "uses": 261,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Sand/Sandmountains/Sandmount5x5_2.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sandmountains",
+    "uses": 261,
+    "blocked": [[-1,-2],[0,-2],[1,-2],[2,-2],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[-2,0],[-1,0],[0,0],[1,0],[2,0],[-2,1],[-1,1],[0,1],[1,1],[2,1],[-2,2],[-1,2],[0,2],[1,2]]
+   },
+   {
+    "href": "/MapObjects/Sand/Sandmountains/Sandmount5x5_1.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sandmountains",
+    "uses": 258,
+    "blocked": [[-1,-1],[0,-1],[1,-1],[2,-1],[-2,0],[-1,0],[0,0],[1,0],[2,0],[-2,1],[-1,1],[0,1],[1,1],[2,1],[-1,2],[0,2],[1,2],[0,-2]]
+   },
+   {
+    "href": "/MapObjects/Sand/sandstones/Stone1x1_01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sandstones",
+    "uses": 251,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Sand/Cactus/Cactus_02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "cactus",
+    "uses": 250,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Sand/Sand_Bushes/Bush_05.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sand_bushes",
+    "uses": 249,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Sand/Cactus/Cactus_05.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "cactus",
+    "uses": 238,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Sand/Sand_Bushes/Bush_04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sand_bushes",
+    "uses": 227,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Sand/Sandtrees/Sandtree02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sandtrees",
+    "uses": 210,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Sand/Cactus/Cactus_03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "cactus",
+    "uses": 202,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Sand/sandstones/Stone1x1_04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sandstones",
+    "uses": 194,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Sand/Sand_Bushes/Fern_01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sand_bushes",
+    "uses": 190,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Sand/sandstones/Stone_2x2_02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sandstones",
+    "uses": 189,
+    "blocked": [[-1,0],[0,0],[-1,1],[0,1]]
+   },
+   {
+    "href": "/MapObjects/Sand/Cactus/Cactus_07.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "cactus",
+    "uses": 186,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Sand/sandstones/Stone3x3_1.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sandstones",
+    "uses": 175,
+    "blocked": [[-1,-1],[0,-1],[1,-1],[-1,0],[0,0],[1,0],[-1,1],[0,1],[1,1]]
+   },
+   {
+    "href": "/MapObjects/Sand/sandstones/Stone_2x2_01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sandstones",
+    "uses": 174,
+    "blocked": [[-1,0],[0,0],[-1,1],[0,1]]
+   },
+   {
+    "href": "/MapObjects/Sand/Cactus/Cactus_08.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "cactus",
+    "uses": 173,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Sand/Sandtrees/Sandtree01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sandtrees",
+    "uses": 163,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Sand/Sand_Bushes/Fern_04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sand_bushes",
+    "uses": 162,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Sand/Sand_Bushes/Fern_05.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sand_bushes",
+    "uses": 156,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Sand/Sand_Bushes/Fern_02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sand_bushes",
+    "uses": 154,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Sand/Sand_Bushes/Fern_03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sand_bushes",
+    "uses": 144,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Sand/sandstones/Stone3x3_2.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sandstones",
+    "uses": 137,
+    "blocked": [[-1,-1],[0,-1],[-1,0],[0,0],[-1,1],[0,1],[1,0],[1,1]]
+   },
+   {
+    "href": "/MapObjects/Sand/sandstones/Stone1x2_02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sandstones",
+    "uses": 124,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Sand/sandstones/Stone1x2_01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sandstones",
+    "uses": 113,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Sand/sandstones/Stone1x1_02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sandstones",
+    "uses": 103,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Sand/Dinobones/Dinobones03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "dinobones",
+    "uses": 94,
+    "blocked": [[0,0],[0,1],[0,2],[1,2],[2,2],[2,1],[1,1],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Sand/sandstones/Stone1x1_03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sandstones",
+    "uses": 94,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Sand/Sandmountains/sandmount8x6_1.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sandmountains",
+    "uses": 84,
+    "blocked": [[-2,-2],[-1,-2],[0,-2],[1,-2],[2,-2],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[-2,0],[-1,0],[0,0],[1,0],[2,0],[-2,1],[-1,1],[0,1],[1,1],[2,1],[3,-1],[3,0],[4,0],[3,1],[4,1],[-1,2],[0,2],[1,2],[2,2],[3,2],[4,2],[1,3],[2,3],[3,3]]
+   },
+   {
+    "href": "/MapObjects/Sand/Dinobones/Dinobones02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "dinobones",
+    "uses": 73,
+    "blocked": [[0,0],[1,0],[0,1],[1,1],[2,1],[0,2],[1,2],[2,2],[1,3],[1,4]]
+   },
+   {
+    "href": "/MapObjects/Sand/Sandmountains/Sandmount10x10_3.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sandmountains",
+    "uses": 66,
+    "blocked": [[-4,-3],[-3,-3],[-2,-3],[-1,-3],[0,-3],[1,-3],[2,-3],[3,-3],[4,-3],[5,-3],[-4,-2],[-3,-2],[-2,-2],[-1,-2],[0,-2],[1,-2],[2,-2],[3,-2],[4,-2],[5,-2],[-4,-1],[-3,-1],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[3,-1],[4,-1],[5,-1],[-4,0],[-3,0],[-2,0],[-1,0],[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[-4,1],[-3,1],[-2,1],[-1,1],[0,1],[1,1],[2,1],[3,1],[4,1],[-4,2],[-3,2],[-2,2],[-1,2],[0,2],[1,2],[2,2],[3,2],[-3,-4],[-2,-4],[-1,-4],[0,-4],[1,-4],[2,-4],[3,-4],[-2,-5],[-1,-5],[0,-5],[1,-5],[-2,3],[-1,3],[0,3],[1,3],[2,3],[-2,4],[-1,4],[0,4]]
+   },
+   {
+    "href": "/MapObjects/Sand/Sandmountains/Sandmount8x8_2.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sandmountains",
+    "uses": 65,
+    "blocked": [[-3,-3],[-2,-3],[-1,-3],[0,-3],[1,-3],[2,-3],[3,-3],[-4,-2],[-3,-2],[-2,-2],[-1,-2],[0,-2],[1,-2],[2,-2],[3,-2],[-4,-1],[-3,-1],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[3,-1],[-4,0],[-3,0],[-2,0],[-1,0],[0,0],[1,0],[2,0],[3,0],[-4,1],[-3,1],[-2,1],[-1,1],[0,1],[1,1],[2,1],[3,1],[-4,2],[-3,2],[-2,2],[-1,2],[0,2],[1,2],[2,2],[3,2],[-2,3],[-1,3],[0,3],[1,3],[-2,-4],[-1,-4],[0,-4],[1,-4]]
+   },
+   {
+    "href": "/MapObjects/Sand/Sandmountains/Sandmount8x8_1.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sandmountains",
+    "uses": 62,
+    "blocked": [[-4,-3],[-3,-3],[-2,-3],[-1,-3],[0,-3],[1,-3],[2,-3],[3,-3],[-4,-2],[-3,-2],[-2,-2],[-1,-2],[0,-2],[1,-2],[2,-2],[3,-2],[-4,-1],[-3,-1],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[3,-1],[-4,0],[-3,0],[-2,0],[-1,0],[0,0],[1,0],[2,0],[3,0],[-4,1],[-3,1],[-2,1],[-1,1],[0,1],[1,1],[2,1],[3,1],[-4,2],[-3,2],[-2,2],[-1,2],[0,2],[1,2],[2,2],[-2,-4],[-1,-4],[0,-4],[1,-4],[-2,3],[-1,3],[0,3],[1,3]]
+   },
+   {
+    "href": "/MapObjects/Sand/Sandmountains/sandmount10x10_2.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sandmountains",
+    "uses": 54,
+    "blocked": [[-3,-3],[-2,-3],[-1,-3],[0,-3],[1,-3],[2,-3],[3,-3],[4,-3],[-3,-2],[-2,-2],[-1,-2],[0,-2],[1,-2],[2,-2],[3,-2],[4,-2],[-3,-1],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[3,-1],[4,-1],[-3,0],[-2,0],[-1,0],[0,0],[1,0],[2,0],[3,0],[4,0],[-3,1],[-2,1],[-1,1],[0,1],[1,1],[2,1],[3,1],[4,1],[-3,2],[-2,2],[-1,2],[0,2],[1,2],[2,2],[3,2],[4,2],[-3,3],[-2,3],[-1,3],[0,3],[1,3],[2,3],[3,3],[4,3],[-2,4],[-1,4],[0,4],[1,4],[2,4],[3,4],[5,0],[5,1],[5,2],[-2,-5],[-1,-5],[0,-5],[-2,-4],[-1,-4],[0,-4],[1,-4],[-3,-4],[2,-4]]
+   },
+   {
+    "href": "/MapObjects/Sand/Sandmountains/sandmount10x10_1.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sandmountains",
+    "uses": 51,
+    "blocked": [[-3,-4],[-2,-4],[-1,-4],[0,-4],[1,-4],[2,-4],[3,-4],[4,-4],[-4,-3],[-3,-3],[-2,-3],[-1,-3],[0,-3],[1,-3],[2,-3],[3,-3],[4,-3],[-4,-2],[-3,-2],[-2,-2],[-1,-2],[0,-2],[1,-2],[2,-2],[3,-2],[4,-2],[-4,-1],[-3,-1],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[3,-1],[4,-1],[-4,0],[-3,0],[-2,0],[-1,0],[0,0],[1,0],[2,0],[3,0],[4,0],[-4,1],[-3,1],[-2,1],[-1,1],[0,1],[1,1],[2,1],[3,1],[4,1],[-4,2],[-3,2],[-2,2],[-1,2],[0,2],[1,2],[2,2],[3,2],[4,2],[5,-2],[5,-1],[5,0],[5,1],[-3,3],[-2,3],[-1,3],[0,3],[1,3],[2,3]]
+   },
+   {
+    "href": "/MapObjects/Sand/Dinobones/Dinobones01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "dinobones",
+    "uses": 50,
+    "blocked": [[0,2],[1,2],[2,2],[0,1],[1,1],[0,0],[1,3],[1,4],[1,5],[2,3]]
+   },
+   {
+    "href": "/MapObjects/Sand/Sand_Bushes/Bush_01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sand_bushes",
+    "uses": 45,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Sand/Craters/Crater4x3_2.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "craters",
+    "uses": 43,
+    "blocked": [[0,-1],[1,-1],[-1,0],[0,0],[1,0],[0,1],[1,1],[-1,1],[-1,-1],[2,-1],[2,0],[2,1]]
+   },
+   {
+    "href": "/MapObjects/Sand/Craters/Crater4x3_1.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "craters",
+    "uses": 36,
+    "blocked": [[-1,-1],[0,-1],[1,-1],[-1,0],[0,0],[1,0],[2,0],[0,1],[1,1],[-1,1],[2,1]]
+   },
+   {
+    "href": "/MapObjects/Sand/Craters/Crater8x6_3.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "craters",
+    "uses": 28,
+    "blocked": [[-3,-1],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[3,-1],[-3,0],[-2,0],[-1,0],[0,0],[1,0],[2,0],[3,0],[4,0],[-3,1],[-2,1],[-1,1],[0,1],[1,1],[2,1],[3,1],[4,1],[-3,2],[-2,2],[-1,2],[0,2],[1,2],[2,2],[3,2],[-2,3],[-1,3],[0,3],[1,3],[2,3],[3,3],[-2,-2],[-1,-2],[0,-2],[1,-2],[2,-2]]
+   },
+   {
+    "href": "/MapObjects/Sand/Craters/Crater8x6_1.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "craters",
+    "uses": 22,
+    "blocked": [[-2,-1],[-2,0],[-1,-2],[0,-2],[1,-2],[2,-2],[-1,-1],[0,-1],[1,-1],[2,-1],[3,-1],[-1,0],[0,0],[1,0],[2,0],[3,0],[4,0],[-2,1],[-1,1],[0,1],[1,1],[2,1],[3,1],[4,1],[-2,2],[-1,2],[0,2],[1,2],[2,2],[3,2],[-2,3],[-1,3],[0,3],[1,3],[2,3],[-3,1],[-3,0],[-3,2],[3,-2]]
+   },
+   {
+    "href": "/MapObjects/Sand/Craters/Crater8x6_2.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "craters",
+    "uses": 12,
+    "blocked": [[-3,1],[-2,1],[-1,1],[0,1],[1,1],[2,1],[3,1],[-3,0],[-2,0],[-1,0],[0,0],[1,0],[2,0],[3,0],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[3,-1],[4,-1],[-2,-2],[-1,-2],[1,-2],[2,-2],[3,-2],[4,-2],[-3,2],[-2,2],[-1,2],[0,2],[1,2],[2,2],[3,2],[-2,3],[-1,3],[0,3],[2,3],[3,3]]
+   },
+   {
+    "href": "/MapObjects/Sand/Sand_Bushes/Bush_02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "sand_bushes",
+    "uses": 12,
+    "blocked": null
+   }
+  ],
+  "snow": [
+   {
+    "href": "/MapObjects/Snow/Bushes/Bush04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushes",
+    "uses": 1145,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Bushes/Bush03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushes",
+    "uses": 951,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Bushes/Bush02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushes",
+    "uses": 892,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Bushes/Bush01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushes",
+    "uses": 684,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Trees/Spruces/Snowspruce06.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 665,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Trees/Spruces/Snowspruce07.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 528,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Trees/Spruces/Snowspruce04.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 523,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Trees/Spruces/Snowspruce05.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 411,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Trees/Spruces/Snowspruce02.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 386,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Trees/Spruces/Snowspruce5x4_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 366,
+    "blocked": [[-2,0],[-2,1],[-2,2],[0,-2],[0,-1],[-1,0],[0,0],[-1,1],[-1,2],[1,0],[1,-1],[1,-2]]
+   },
+   {
+    "href": "/MapObjects/Snow/Trees/Spruces/CrackedSpruce04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 365,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Trees/Spruces/Snowspruce5x4_2.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 350,
+    "blocked": [[-2,-2],[-1,-2],[-2,-1],[-1,-1],[-2,0],[-1,0],[0,0],[1,0],[0,1],[1,1],[0,2],[1,2]]
+   },
+   {
+    "href": "/MapObjects/Snow/Trees/Spruces/Snowspruce03.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 340,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Mountains/SnowM_8x8_06.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountains",
+    "uses": 330,
+    "blocked": [[-4,0],[-4,1],[-3,-2],[-3,-1],[-3,0],[-3,1],[-3,2],[-3,3],[-2,4],[-1,4],[0,4],[1,4],[2,-2],[2,-1],[2,0],[2,1],[2,2],[2,3],[-2,-3],[-1,-3],[0,-3],[1,-3],[3,-2],[3,-1],[3,0],[3,1],[3,2],[-2,3],[-1,3],[0,3],[1,3],[-2,-2],[-2,-1],[-2,0],[-2,1],[-2,2],[-1,-2],[0,-2],[1,-2],[1,-1],[1,0],[1,1],[1,2],[-1,2],[0,2],[-1,-1],[-1,0],[-1,1],[0,-1],[0,0],[0,1]]
+   },
+   {
+    "href": "/MapObjects/Snow/Trees/Spruces/Snowspruce01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 319,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Trees/Spruces/Snowspruce08.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 310,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Stones/BigStone02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stones",
+    "uses": 280,
+    "blocked": [[0,-1],[0,0],[1,0],[1,-1]]
+   },
+   {
+    "href": "/MapObjects/Snow/Trees/Spruces/Snowspruce6x5_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 278,
+    "blocked": [[-2,-3],[-1,-3],[0,-3],[-2,-2],[-1,-2],[0,-2],[-2,-1],[-1,-1],[0,-1],[1,-1],[0,0],[1,0],[2,0],[0,1],[1,1],[2,1],[0,2],[1,2],[2,2],[-1,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Stones/BigStone03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stones",
+    "uses": 266,
+    "blocked": [[0,-1],[1,-1],[0,0],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Mountains/SnowM_8x8_05.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountains",
+    "uses": 243,
+    "blocked": [[-4,1],[-3,1],[-2,1],[-1,1],[0,1],[1,1],[2,1],[3,1],[-4,2],[-3,2],[-2,2],[-1,2],[0,2],[1,2],[2,2],[3,2],[-3,3],[-2,3],[-1,3],[0,3],[1,3],[-2,4],[-1,4],[0,4],[-3,0],[-2,0],[-1,0],[0,0],[1,0],[2,0],[3,0],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[3,-1],[-1,-2],[0,-2],[1,-2],[2,-2],[3,-2],[0,-3],[1,-3],[2,-3]]
+   },
+   {
+    "href": "/MapObjects/Snow/Trees/Spruces/Snowspruce6x5_2.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 241,
+    "blocked": [[0,-2],[1,-2],[2,-2],[0,-1],[1,-1],[2,-1],[0,0],[1,0],[2,0],[-2,1],[-1,1],[0,1],[1,1],[-2,2],[-1,2],[0,2],[-2,3],[-1,3],[0,3],[-1,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Trees/CrackedTree.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 214,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Snowhommocks/Snowhommock02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "snowhommocks",
+    "uses": 183,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Stones/BigStone04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stones",
+    "uses": 179,
+    "blocked": [[0,-1],[1,-1],[0,0],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Mountains/SnowM_10x12_01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountains",
+    "uses": 172,
+    "blocked": [[-5,-2],[-4,-2],[-3,-2],[-2,-2],[-1,-2],[0,-2],[1,-2],[2,-2],[3,-2],[4,-2],[-5,-1],[-4,-1],[-3,-1],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[3,-1],[4,-1],[-5,0],[-4,0],[-3,0],[-2,0],[-1,0],[0,0],[1,0],[2,0],[3,0],[4,0],[-5,1],[-4,1],[-3,1],[-2,1],[-1,1],[0,1],[1,1],[2,1],[3,1],[4,1],[-5,2],[-4,2],[-3,2],[-2,2],[-1,2],[0,2],[1,2],[2,2],[3,2],[4,2],[-5,3],[-4,3],[-3,3],[-2,3],[-1,3],[0,3],[1,3],[2,3],[3,3],[4,3],[-4,4],[-3,4],[-2,4],[-1,4],[0,4],[1,4],[2,4],[3,4],[4,4],[-3,5],[-2,5],[-1,5],[0,5],[1,5],[2,5],[3,5],[-2,6],[-1,6],[0,6],[1,6],[2,6],[-4,-3],[-3,-3],[-2,-3],[-1,-3],[0,-3],[1,-3],[2,-3],[3,-3],[4,-3],[-3,-4],[-2,-4],[-1,-4],[0,-4],[1,-4],[2,-4],[3,-4],[4,-4],[-3,-5],[-2,-5],[-1,-5],[0,-5],[1,-5],[2,-5],[3,-5]]
+   },
+   {
+    "href": "/MapObjects/Snow/Mountains/SnowM_9x10_03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountains",
+    "uses": 169,
+    "blocked": [[-5,0],[-4,0],[-3,0],[-2,0],[-5,1],[-4,1],[-3,1],[-2,1],[-5,2],[-4,2],[-3,2],[-2,2],[-5,3],[-4,3],[-3,3],[-2,3],[-5,4],[-4,4],[-3,4],[-2,4],[-4,5],[-3,5],[-2,5],[-1,5],[0,5],[-2,-2],[-1,-2],[0,-2],[-2,-1],[-1,-1],[0,-1],[-1,0],[0,0],[-1,1],[0,1],[-1,2],[0,2],[-1,3],[0,3],[-1,4],[0,4],[-4,-2],[-3,-2],[-4,-1],[-3,-1],[-3,-3],[-2,-3],[-1,-3],[0,-3],[1,-3],[2,-3],[1,1],[2,1],[3,1],[1,2],[2,2],[3,2],[1,3],[2,3],[3,3],[1,4],[2,4],[3,4],[1,-2],[2,-2],[1,-1],[2,-1],[1,0],[2,0],[-2,-4],[-1,-4],[0,-4]]
+   },
+   {
+    "href": "/MapObjects/Snow/Mountains/SnowM_10x11_04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountains",
+    "uses": 164,
+    "blocked": [[-4,-2],[-4,-1],[-4,0],[-4,1],[-4,2],[-4,3],[-2,-4],[-1,-4],[0,-4],[1,-4],[2,-4],[3,-4],[-3,-3],[-2,-3],[-1,-3],[0,-3],[1,-3],[2,-3],[3,-3],[4,-3],[-3,-2],[-3,-1],[-3,0],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[3,-1],[-2,0],[-1,0],[0,0],[1,0],[2,0],[3,0],[-2,-2],[-1,-2],[0,-2],[1,-2],[2,-2],[3,-2],[-3,4],[-2,4],[-1,4],[0,4],[1,4],[2,4],[3,4],[4,-2],[4,-1],[4,0],[4,1],[4,2],[-2,5],[-1,5],[0,5],[1,5],[3,1],[3,2],[3,3],[-3,1],[-3,2],[-3,3],[-2,3],[-1,3],[0,3],[1,3],[2,3],[-2,2],[-1,2],[0,2],[1,2],[2,2],[-2,1],[-1,1],[0,1],[1,1],[2,1],[-3,-4]]
+   },
+   {
+    "href": "/MapObjects/Snow/Stones/BigStone01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stones",
+    "uses": 153,
+    "blocked": [[0,-1],[1,-1],[0,0],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Trees/Spruces/SmallSpruce02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 153,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Trees/Spruces/CrackedSpruce01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 148,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Stones/SmallStone01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stones",
+    "uses": 146,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Trees/Spruces/SmallSpruce03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 133,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Mountains/SnowM_9x11_02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mountains",
+    "uses": 126,
+    "blocked": [[-4,0],[-3,0],[-2,0],[-4,1],[-3,1],[-2,1],[-4,2],[-3,2],[-2,2],[-4,3],[-3,3],[-2,3],[-4,4],[-3,4],[-2,4],[-4,5],[-3,5],[-2,5],[-1,0],[0,0],[-1,1],[0,1],[-1,2],[0,2],[-1,3],[0,3],[-1,4],[0,4],[-1,5],[0,5],[-3,-2],[-2,-2],[-1,-2],[0,-2],[1,-2],[2,-2],[3,-2],[4,-2],[-3,-1],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[3,-1],[4,-1],[1,0],[2,0],[1,1],[2,1],[1,2],[2,2],[1,3],[2,3],[1,4],[2,4],[3,0],[4,0],[3,1],[4,1],[-2,-3],[-1,-3],[0,-3],[1,-3],[2,-3],[3,-3],[4,-3],[-1,-4],[0,-4],[1,-4],[2,-4],[3,-4],[4,-4],[0,-5],[1,-5]]
+   },
+   {
+    "href": "/MapObjects/Snow/Stones/SmallStone11.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stones",
+    "uses": 126,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Stones/SmallStone07.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stones",
+    "uses": 125,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Trees/Spruces/SmallSpruce01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 121,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Stones/SmallStone02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stones",
+    "uses": 114,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Snowhommocks/Snowhommock03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "snowhommocks",
+    "uses": 111,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Trees/Spruces/CrackedSpruce03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 110,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Stones/SmallStone05.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stones",
+    "uses": 107,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Stones/SmallStone04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stones",
+    "uses": 104,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Trees/Spruces/CrackedSpruce02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 98,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Stones/SmallStone03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stones",
+    "uses": 96,
+    "blocked": [[-1,0],[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Stones/SmallStone09.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stones",
+    "uses": 87,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Snowhommocks/Snowhommock01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "snowhommocks",
+    "uses": 85,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Stones/SmallStone12.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stones",
+    "uses": 85,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Stones/SmallStone06.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stones",
+    "uses": 84,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Stones/SmallStone08.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stones",
+    "uses": 79,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Stones/SmallStone10.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stones",
+    "uses": 79,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Snow/Trees/Spruces/CrackedSpruce05.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 67,
+    "blocked": [[0,0]]
+   }
+  ],
+  "steppe": [
+   {
+    "href": "/MapObjects/Taiga/Scatter_Hug_2x2_05.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 344,
+    "blocked": [[1,0],[1,-1],[0,-1],[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Hug_2x2_03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 330,
+    "blocked": [[1,0],[1,-1],[0,-1],[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Hug_2x2_01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 321,
+    "blocked": [[1,-1],[1,0],[0,0],[0,-1]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Hug_2x2_04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 321,
+    "blocked": [[1,0],[1,-1],[0,-1],[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Hug_2x2_06.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 314,
+    "blocked": [[1,0],[1,-1],[0,-1],[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Hug_2x2_02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 291,
+    "blocked": [[1,-1],[1,0],[0,0],[0,-1]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Trees/Sosna_05.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 266,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Trees/Sosna_01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 231,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Trees/Sosna_04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 218,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_2x2_05.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 194,
+    "blocked": [[1,-1],[0,-1],[1,0],[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Trees/Sosna_02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 186,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_2x2_04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 173,
+    "blocked": [[1,-1],[1,0],[0,0],[0,-1]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Trees/Sosna_03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 148,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_2x2_01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 147,
+    "blocked": [[0,0],[0,-1],[1,-1],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_2x2_03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 146,
+    "blocked": [[1,-1],[0,-1],[0,0],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_2x2_02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 145,
+    "blocked": [[0,0],[1,0],[1,-1],[0,-1]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_2x2_06.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 143,
+    "blocked": [[1,-1],[1,0],[0,0],[0,-1]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Bushes/Dirtbush_x2_05.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushes",
+    "uses": 100,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Trees/DirtTreeCrooked_x2_02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 97,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Trees/DirtTreeCrooked_x2_03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 95,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Bushes/Dirtbush_x2_03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushes",
+    "uses": 84,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_09.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 84,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Trees/DirtTreeCrooked_x2_04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 83,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_05.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 80,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 78,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_06.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 78,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_05.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 78,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Bushes/Dirtbush_x2_02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushes",
+    "uses": 76,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Bushes/Dirtbush_x2_01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushes",
+    "uses": 74,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 72,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 71,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Bushes/Dirtbush_x2_04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushes",
+    "uses": 70,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 70,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 70,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 68,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_07.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 68,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_Sand_2x2_04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 68,
+    "blocked": [[1,-1],[1,0],[0,0],[0,-1]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Med_02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 68,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_06.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 65,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Med_06.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 63,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Trees/DirtTreeCrooked_x2_01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 63,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 62,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_Sand_2x2_06.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 62,
+    "blocked": [[1,-1],[1,0],[0,0],[0,-1]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Hug_Sand_2x2_03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 61,
+    "blocked": [[1,-1],[1,0],[0,0],[0,-1]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_Sand_2x2_01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 59,
+    "blocked": [[0,-1],[1,-1],[1,0],[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_Sand_2x2_03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 59,
+    "blocked": [[1,-1],[1,0],[0,0],[0,-1]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_Sand_2x2_05.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 59,
+    "blocked": [[1,-1],[1,0],[0,0],[0,-1]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Med_05.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 59,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_08.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 56,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_Sand_2x2_02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 54,
+    "blocked": [[1,0],[1,-1],[0,-1],[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Hug_Sand_2x2_05.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 53,
+    "blocked": [[0,-1],[1,0],[0,0],[1,-1]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Med_01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 53,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Hug_Moss_2x2_01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 52,
+    "blocked": [[1,-1],[1,0],[0,0],[0,-1]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Hug_Sand_2x2_06.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 52,
+    "blocked": [[1,0],[1,-1],[0,0],[0,-1]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Hug_Moss_2x2_05.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 51,
+    "blocked": [[1,0],[0,0],[0,-1],[1,-1]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Hug_Sand_2x2_04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 51,
+    "blocked": [[1,-1],[1,0],[0,0],[0,-1]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_Big_08.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 51,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Hug_Sand_2x2_01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 49,
+    "blocked": [[0,0],[0,-1],[1,-1],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Med_03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 49,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Hug_Sand_2x2_02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 48,
+    "blocked": [[1,-1],[1,0],[0,0],[0,-1]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Hug_Moss_2x2_03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 46,
+    "blocked": [[1,0],[0,0],[0,-1],[1,-1]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Hug_Moss_2x2_04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 45,
+    "blocked": [[1,0],[0,0],[0,-1],[1,-1]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Med_04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 45,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Trees/DirtTreeCrooked_05.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 45,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 41,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_Big_01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 39,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Hug_Moss_2x2_06.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 38,
+    "blocked": [[1,0],[0,0],[0,-1],[1,-1]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_Big_02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 38,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Hug_Moss_2x2_02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 37,
+    "blocked": [[1,-1],[1,0],[0,0],[0,-1]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_Big_06.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 37,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Bushes/Dirtbush02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushes",
+    "uses": 36,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Bushes/Dirtbush03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushes",
+    "uses": 36,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_Big_05.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 36,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Med_Sand_05.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 35,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_Sand_06.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 33,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Trees/DirtTreeCrooked_03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 33,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_Big_03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 32,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_Sand_03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 30,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_Big_07.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 30,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_Big_Sand_04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 30,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 29,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Trees/DirtTreeCrooked_02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 29,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_Big_04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 28,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_Big_Sand_03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 28,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Trees/DirtTreeCrooked_04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 28,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_Sand_02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 27,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Trees/DirtTreeCrooked_01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 27,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Med_Sand_03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 26,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_Sand_01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 26,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_Moss_2x2_01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 25,
+    "blocked": [[1,-1],[0,-1],[0,0],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_Sand_06.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 25,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_Big_Sand_05.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 25,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Trees/DirtTreeCrooked_06.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 25,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Bushes/Dirtbush04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushes",
+    "uses": 24,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_Sand_01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 24,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Med_Moss_02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 24,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Med_Sand_01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 24,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_White_04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 24,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_Moss_03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 24,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Trees/DirtTreeCrooked_07.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "trees",
+    "uses": 24,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Med_Moss_03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 23,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_Big_Sand_06.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 23,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Bushes/Dirtbush01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "bushes",
+    "uses": 22,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Med_Sand_02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 22,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_Sand_03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 22,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_Moss_2x2_05.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 21,
+    "blocked": [[1,-1],[1,0],[0,0],[0,-1]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_Sand_05.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 21,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_Sand_04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 21,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_White_07.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 20,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_Big_Sand_02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 20,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_Moss_04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 20,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_Sand_04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 19,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Med_Sand_04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 19,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Med_Sand_06.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 19,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_Big_Sand_08.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 18,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_Sand_02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 18,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_Moss_2x2_02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 17,
+    "blocked": [[1,-1],[1,0],[0,0],[0,-1]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_Moss_2x2_04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 17,
+    "blocked": [[1,-1],[1,0],[0,0],[0,-1]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 17,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_Big_Sand_01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 17,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_Moss_2x2_03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 16,
+    "blocked": [[1,-1],[1,0],[0,0],[0,-1]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_Moss_2x2_06.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 16,
+    "blocked": [[1,-1],[1,0],[0,0],[0,-1]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Med_Moss_01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 16,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_White_05.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 15,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_Moss_02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 15,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_Moss_06.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 15,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_White_03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 14,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Med_Moss_04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 14,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_Big_Sand_07.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 14,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_Moss_05.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 14,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_Sand_05.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 14,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Med_Moss_06.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 13,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Med_White_04.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 13,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_White_01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 12,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_White_02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 12,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Med_White_05.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 12,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_White_09.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 12,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_Big_Moss_01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 12,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_Moss_01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 12,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_White_08.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 11,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_White_2x2_03.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 10,
+    "blocked": [[1,-1],[1,0],[0,0],[0,-1]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Med_Moss_05.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 10,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Med_White_02.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 10,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_White_01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 10,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 10,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_Big_Moss_06.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 10,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_White_05.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 9,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Taiga/Stone_Big_Moss_05.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 9,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_White_06.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 8,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Taiga/Scatter_Big_White_2x2_01.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "taiga",
+    "uses": 8,
+    "blocked": [[0,-1],[1,-1],[1,0],[0,0]]
+   }
+  ],
+  "subterrain": [
+   {
+    "href": "/MapObjects/Subterra/Dungeonwalls/W_Dno_Down.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "dungeonwalls",
+    "uses": 2653,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Subterra/Columns/Dwarf_Column.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "columns",
+    "uses": 2145,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Rail.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 1428,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Subterra/Fakel_02.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 779,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Lava_Road.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 479,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Subterra/Columns/Column_5x5_06.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "columns",
+    "uses": 447,
+    "blocked": [[-2,0],[-1,0],[0,0],[1,0],[-2,1],[-1,1],[0,1],[1,1],[-1,2],[0,2],[-1,-1],[0,-1],[1,-1],[2,-1],[2,0],[0,-2],[1,-2]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Dungeonwalls/WallInnerDown_01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "dungeonwalls",
+    "uses": 411,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Subterra/Dungeonwalls/WallDown_01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "dungeonwalls",
+    "uses": 407,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Subterra/Stoloktites/Stologtite06.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stoloktites",
+    "uses": 386,
+    "blocked": [[0,0],[-1,-1],[0,-1],[1,-1],[-1,0],[1,0],[-1,1],[0,1],[1,1]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Stoloktites/Stologtite07.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stoloktites",
+    "uses": 381,
+    "blocked": [[0,0],[0,-1],[1,-1],[-1,0],[1,0],[-1,1],[0,1],[1,1]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Dungeonwalls/WallCornerDown_01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "dungeonwalls",
+    "uses": 367,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Subterra/Stoloktites/Stologtite10.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stoloktites",
+    "uses": 364,
+    "blocked": [[0,0],[0,-1],[-1,0],[1,0],[0,1]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Stoloktites/Stologtite05.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stoloktites",
+    "uses": 359,
+    "blocked": [[-1,-1],[0,-1],[1,-1],[-1,0],[0,0],[1,0],[-1,1],[0,1],[1,1],[2,0],[2,1]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Dungeonwalls/WallDown_02.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "dungeonwalls",
+    "uses": 339,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Subterra/Mushrooms/Mushroom1x1_7.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mushrooms",
+    "uses": 337,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Columns/Column_3x3_01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "columns",
+    "uses": 333,
+    "blocked": [[-1,-1],[1,-1],[-1,0],[1,0],[-1,1],[0,1],[1,1],[0,-1],[0,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Stoloktites/Stologmite05.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stoloktites",
+    "uses": 287,
+    "blocked": [[-1,0],[0,0],[1,0],[2,0],[-1,1],[0,1],[1,1],[2,1],[-1,-1],[0,-1],[1,-1]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Columns/Column_5x5_05.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "columns",
+    "uses": 264,
+    "blocked": [[-2,-2],[-1,-2],[0,-2],[1,-2],[2,-2],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[-2,0],[-1,0],[0,0],[1,0],[2,0],[-2,1],[-1,1],[0,1],[1,1],[2,1],[-2,2],[-1,2],[0,2],[1,2],[2,2]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Fakel_01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 264,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Stoloktites/Stologtite08.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stoloktites",
+    "uses": 253,
+    "blocked": [[0,0],[-1,-1],[0,-1],[1,-1],[-1,0],[1,0],[-1,1],[0,1],[1,1]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Stoloktites/Stologtite11.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stoloktites",
+    "uses": 221,
+    "blocked": [[0,0],[-1,-1],[0,-1],[1,-1],[-1,0],[1,0],[-1,1],[0,1],[1,1]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Stoloktites/Stologmite01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stoloktites",
+    "uses": 207,
+    "blocked": [[-1,-1],[0,-1],[1,-1],[-1,0],[0,0],[1,0],[-1,1],[0,1],[1,1]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Down_Bridge_Segment.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 204,
+    "blocked": [[1,0],[-1,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Dungeonwalls/WallDown_03.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "dungeonwalls",
+    "uses": 203,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Subterra/Mushrooms/Mushroom1x1_6.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mushrooms",
+    "uses": 200,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Stoloktites/Stologtite09.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stoloktites",
+    "uses": 199,
+    "blocked": [[0,0],[-1,-1],[0,-1],[1,-1],[-1,0],[1,0],[-1,1],[0,1],[1,1]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Mushrooms/Mushroom1x1_5.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mushrooms",
+    "uses": 194,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Mushrooms/Mushroom1x1_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mushrooms",
+    "uses": 187,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Stoloktites/Stologtite02.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stoloktites",
+    "uses": 187,
+    "blocked": [[-1,-2],[0,-2],[1,-2],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[-2,0],[-1,0],[0,0],[1,0],[2,0],[-2,1],[-1,1],[0,1],[1,1],[2,1],[-1,2],[0,2],[1,2]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Dungeonwalls/WallDown_04.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "dungeonwalls",
+    "uses": 173,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Subterra/Stoloktites/Stologtite01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stoloktites",
+    "uses": 172,
+    "blocked": [[-1,-1],[0,-1],[1,-1],[-1,0],[0,0],[1,0],[-1,1],[0,1],[1,1]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Columns/Column_7x7_02.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "columns",
+    "uses": 163,
+    "blocked": [[-1,-2],[0,-2],[1,-2],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[-2,0],[-1,0],[0,0],[1,0],[2,0],[-2,1],[-1,1],[0,1],[1,1],[2,1],[-1,2],[0,2],[1,2]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Columns/Column_7x7_03.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "columns",
+    "uses": 163,
+    "blocked": [[-2,-3],[-1,-3],[0,-3],[1,-3],[-2,-2],[-1,-2],[0,-2],[1,-2],[2,-2],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[-2,0],[-1,0],[0,0],[1,0],[2,0],[-2,1],[-1,1],[0,1],[1,1],[2,1],[-2,2],[-1,2],[0,2],[1,2],[2,2],[-1,3],[0,3],[1,3],[3,-1],[3,0],[-3,1],[3,1],[-3,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Stoloktites/Stologtite03.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stoloktites",
+    "uses": 154,
+    "blocked": [[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[-2,0],[-1,0],[0,0],[1,0],[2,0],[-2,1],[-1,1],[0,1],[1,1],[2,1],[-1,-2],[0,-2],[1,-2],[-1,2],[0,2],[1,2]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Stoloktites/Stologmite03.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stoloktites",
+    "uses": 151,
+    "blocked": [[-1,-2],[0,-2],[1,-2],[-1,-1],[0,-1],[1,-1],[-1,0],[0,0],[1,0],[-1,1],[0,1],[1,1],[-1,2],[0,2],[1,2],[-2,-1],[2,-1],[-2,0],[2,0],[-2,1],[2,1]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Brick_crash_small.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 135,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Chain_01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 133,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Columns/Column_3x3_04.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "columns",
+    "uses": 121,
+    "blocked": [[-2,-2],[-1,-2],[0,-2],[1,-2],[2,-2],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[-2,0],[-1,0],[0,0],[1,0],[2,0],[-2,1],[-1,1],[0,1],[1,1],[2,1],[-2,2],[-1,2],[0,2],[1,2],[2,2]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Mushrooms/Mushroom1x1_8.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mushrooms",
+    "uses": 119,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Stoloktites/Stologmite04.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stoloktites",
+    "uses": 119,
+    "blocked": [[-1,-2],[0,-2],[1,-2],[-1,-1],[0,-1],[1,-1],[2,-1],[-1,0],[0,0],[1,0],[2,0],[-1,1],[0,1],[1,1],[2,1],[-1,2],[0,2],[1,2],[-2,-1],[-2,0],[-2,1]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Mushrooms/Mushroom1x1_4.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mushrooms",
+    "uses": 113,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Stoloktites/Stologtite04.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stoloktites",
+    "uses": 113,
+    "blocked": [[-1,-2],[0,-2],[1,-2],[-1,-1],[0,-1],[1,-1],[2,-1],[-1,0],[0,0],[1,0],[2,0],[-1,1],[0,1],[1,1],[2,1],[-1,2],[0,2],[1,2],[-2,-1],[-2,0],[-2,1]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Dungeonwalls/Zaglushka.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "dungeonwalls",
+    "uses": 110,
+    "blocked": [[0,0],[0,1]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Torch.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 108,
+    "blocked": [[0,1],[1,1]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Bridge_Segment.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 101,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Subterra/Rail_Wagon.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 93,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Dungeonwalls/Dwarf_Corne02.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "dungeonwalls",
+    "uses": 92,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Subterra/Lava_Road_X.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 85,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Loge.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 84,
+    "blocked": [[1,1],[2,1]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Brick_crash.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 81,
+    "blocked": [[1,0],[0,0],[0,1],[1,1]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Mushrooms/Mushroom1x1_2.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mushrooms",
+    "uses": 81,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Mushrooms/Mushroom2x1_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mushrooms",
+    "uses": 75,
+    "blocked": [[0,0],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Stoloktites/Stologmite02.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "stoloktites",
+    "uses": 73,
+    "blocked": [[0,-2],[0,-1],[0,0],[0,1],[-1,-1],[1,-1],[2,-1],[-1,0],[1,0],[1,-2],[-1,-2],[-2,0],[-1,2],[2,0],[-1,1],[0,2],[1,1],[2,1],[-2,1]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Dwarf_Kladka_02.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 69,
+    "blocked": [[1,0],[1,1],[0,1],[0,0],[-1,0],[-1,1]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Mushrooms/Mushroom2x1_4.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mushrooms",
+    "uses": 67,
+    "blocked": [[0,0],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Wood_Crap_02.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 66,
+    "blocked": [[-2,0],[-1,0],[0,0],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Wood_Crap_04.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 66,
+    "blocked": [[-1,0],[0,0],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Dwarf_Kladka_03.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 64,
+    "blocked": [[1,0],[1,1],[0,1],[0,0],[-1,0],[-1,1]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Brick_big.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 63,
+    "blocked": [[1,0],[1,1],[0,0],[0,-1],[-1,0],[1,-1],[-1,1]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Wood_Crap_Coner_02.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 63,
+    "blocked": [[-2,0],[-2,1],[-2,2],[-2,3],[-1,0],[0,0],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/FireColumn_Duble.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 61,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Mushrooms/Mushroom2x2_2.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mushrooms",
+    "uses": 59,
+    "blocked": [[0,-1],[1,-1],[0,0],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Mushrooms/Mushroom2x1_3.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mushrooms",
+    "uses": 57,
+    "blocked": [[0,0],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/FireColumn_Litle.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 52,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Subterra/Down_Bridge_Door.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 42,
+    "blocked": [[-1,0],[-1,-1],[1,0],[1,-1]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Kolodec.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 42,
+    "blocked": [[0,-1],[1,-1],[0,0],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Wood_Crap_Colonna.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 41,
+    "blocked": [[-1,-1],[-1,0],[-1,1],[0,-1],[1,-1],[1,0],[1,1],[0,1]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Dwarf_Kladka_01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 39,
+    "blocked": [[1,0],[0,0],[-1,0],[1,1],[0,1],[-1,1]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Dwarf_Tubesi_01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 38,
+    "blocked": [[-2,1],[0,2]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Wood_Crap_03.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 38,
+    "blocked": [[-2,0],[-1,0],[0,0],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Wood_Crap_Coner_01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 38,
+    "blocked": [[-2,0],[-1,0],[0,0],[1,0],[2,0],[2,1]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Rail_coner_faza_invert.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 35,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Subterra/Fakel_03.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 34,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Mushrooms/Mushroom2x1_2.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mushrooms",
+    "uses": 34,
+    "blocked": [[0,0],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Mushrooms/Mushroom1x1_3.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mushrooms",
+    "uses": 32,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Wood_Crap_01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 31,
+    "blocked": [[-2,0],[-1,0],[0,0],[1,0],[-2,-2],[-2,-1]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Dungeonwalls/Dwarf_Corne01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "dungeonwalls",
+    "uses": 30,
+    "blocked": [[-1,-1],[0,-1],[1,-1],[-1,0],[0,0],[1,0],[-1,1],[0,1],[1,1]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Rail_razvlika.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 30,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Subterra/Rail_razvilka_invert.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 29,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Subterra/InvisibleBox.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 28,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Rail_coner.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 28,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Subterra/Rail_coner_faza.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 27,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Subterra/Door.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 26,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Subterra/Crystal01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 24,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Subterra/Dungeonwalls/W_StalaktitDown_01.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "dungeonwalls",
+    "uses": 24,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Subterra/Dungeonwalls/W_StalaktitDown_02.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "dungeonwalls",
+    "uses": 22,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Subterra/Crystal04.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 21,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Subterra/FireColumn_Big.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 21,
+    "blocked": [[0,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Mushrooms/Mushroom2x2_1.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "mushrooms",
+    "uses": 18,
+    "blocked": [[0,-1],[1,-1],[0,0],[1,0]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Crystal03.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 16,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Subterra/Dungeonwalls/Dwarf_Wall02.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "dungeonwalls",
+    "uses": 16,
+    "blocked": [[-1,-1],[0,-1],[1,-1],[-1,0],[0,0],[1,0],[-1,1],[0,1],[1,1]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Dwarf_Tubesi_02.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 16,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Subterra/Craters/Crater8x6_4.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "craters",
+    "uses": 15,
+    "blocked": [[-2,-2],[-1,-2],[0,-2],[1,-2],[2,-2],[3,-2],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[3,-1],[-2,0],[-1,0],[0,0],[1,0],[2,0],[3,0],[-2,1],[-1,1],[0,1],[1,1],[2,1],[3,1],[-2,2],[-1,2],[0,2],[1,2],[2,2],[3,2],[-2,3],[-1,3],[0,3],[1,3],[2,3],[3,3]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Chain_02.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 13,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Subterra/Bridge_End.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 12,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Subterra/Craters/Crater4x3_1.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "craters",
+    "uses": 11,
+    "blocked": [[-1,0],[0,0],[1,0],[2,0],[-1,1],[0,1],[1,1],[2,1],[-1,2],[0,2],[1,2],[2,2]]
+   },
+   {
+    "href": "/MapObjects/Subterra/Crystal02.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "subterra",
+    "uses": 8,
+    "blocked": null
+   },
+   {
+    "href": "/MapObjects/Subterra/Dungeonwalls/Dwarf_Corne04.(AdvMapStaticShared).xdb#xpointer(/AdvMapStaticShared)",
+    "group": "dungeonwalls",
+    "uses": 8,
+    "blocked": null
+   }
+  ]
+ }
+}

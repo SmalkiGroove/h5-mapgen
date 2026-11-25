@@ -8,12 +8,13 @@ const SIZE_NAMES = { 72: "Tiny", 96: "Small", 136: "Medium", 176: "Large", 216: 
 const PLAYER_COLORS = ["#d8433a", "#3b6fd8", "#3fa34a", "#d8c03a", "#e0802c", "#9a4ad8", "#35b5b0", "#e06fa8"];
 const STORE_KEY = "h5mapgen.layout";
 const ROAD_COLOR = [222, 206, 160];
+const PATH_TILE = "Grass/Road", PATH_COLOR = [168, 128, 82]; // dirt paths from the buildings to the roads
 const RAMP_COLOR = [238, 226, 190];
 
 let setup = null;     // Setup from Go
 let L = null;         // current layout
 let mode = "biome";   // brush mode: biome | relief | start
-let brush = { biome: "grass", relief: "hills", start: 0 };
+let brush = { biome: "grass", relief: "hills", start: 0, object: "mine_gold" };
 let brushSize = 1;
 let undo = [], redo = [];
 let view = null;      // MapView shown in the preview (generated preview or a game map)
@@ -58,6 +59,7 @@ function refreshPreview() {
     document.querySelectorAll("#maps li").forEach((li) => li.classList.remove("active"));
     autoLinks = v.links || [];
     showView(v);
+    if ((v.warnings || []).length) status(`\u26a0 ${v.warnings.join(" \u00b7 ")}`, "error");
     drawLayout();
     if (mode === "road") renderPalette();
   }).catch((e) => { if (token === previewToken) { $("busy").textContent = ""; fail(e); } });
@@ -69,6 +71,7 @@ function syncForm() {
   $("grid").value = L.grid;
   $("seed").value = L.seed;
   $("roads").value = roadMode();
+  for (const f of AMOUNT_FIELDS) $(f).value = L[f] || "normal";
   $("cell").textContent = `One cell = ${(L.size / L.grid).toFixed(1)} tiles`;
   renderPalette();
 }
@@ -106,6 +109,48 @@ function brushCells(c) {
       if (x >= 0 && y >= 0 && x < L.grid && y < L.grid) cells.push({ x, y });
     }
   return cells;
+}
+
+// ---------- objects ----------
+// Objects of the brush, by group: catalog key, name, colour, mark
+const OBJECT_GROUPS = [
+  ["Mines", [
+    ["mine_wood", "Sawmill", "#8b5a2b", "W"], ["mine_ore", "Ore pit", "#7d7d7d", "O"],
+    ["mine_mercury", "Alchemist's lab", "#c04040", "M"], ["mine_crystal", "Crystal cavern", "#4fb3c8", "C"],
+    ["mine_sulfur", "Sulfur dune", "#d0c030", "S"], ["mine_gem", "Gem pond", "#4caf50", "G"],
+    ["mine_gold", "Gold mine", "#e8b020", "$"], ["mine_abandoned", "Abandoned mine", "#555", "?"]]],
+  ["Treasures", [
+    ["chest", "Chest", "#b8862f", "\u25a3"], ["campfire", "Campfire", "#e06a2c", "\u25b2"], ["res_gold", "Gold pile", "#e8b020", "$"],
+    ["res_wood", "Wood", "#8b5a2b", "w"], ["res_ore", "Ore", "#7d7d7d", "o"], ["res_mercury", "Mercury", "#c04040", "m"],
+    ["res_crystal", "Crystal", "#4fb3c8", "c"], ["res_sulfur", "Sulfur", "#d0c030", "s"], ["res_gem", "Gems", "#4caf50", "g"]]],
+  ["Artifacts", [
+    ["artifact_minor", "Minor artifact", "#8a6ad0", "a"], ["artifact_major", "Major artifact", "#7a4ae0", "A"],
+    ["artifact_relic", "Relic", "#c040e0", "R"]]],
+  ["Monsters", [1, 2, 3, 4, 5, 6, 7].map((n) => [`monster_${n}`, `Monster, level ${n}`, "#c03030", String(n)])],
+];
+const OBJECTS = Object.fromEntries(OBJECT_GROUPS.flatMap(([, list]) => list.map(([key, name, color, mark]) => [key, { name, color, mark }])));
+const objectCategory = (key) => key.startsWith("mine_") ? "Mine" : key.startsWith("artifact_") ? "Artifact" : key.startsWith("monster_") ? "Monster" : "Treasure";
+const CATEGORY_COLORS = { Mine: "#ffffff", Treasure: "#ffd84a", Artifact: "#d070ff", Monster: "#ff3030" };
+
+// Index of the brush object under a pointer position (cell units), -1 when none
+function objectAt(c) {
+  const r = $("layout").getBoundingClientRect(), cellPx = r.width / L.grid;
+  const reach = Math.max(7, Math.min(12, cellPx * 0.35)) / cellPx + 0.1;
+  let best = -1, bestD = reach;
+  (L.objects || []).forEach((o, i) => {
+    const d = Math.hypot(o.x - c.fx, o.y - c.fy);
+    if (d < bestD) { best = i; bestD = d; }
+  });
+  return best;
+}
+
+function drawObjectMark(ctx, x, y, key, r, hot) {
+  const o = OBJECTS[key] || { color: "#888", mark: "?" };
+  ctx.fillStyle = o.color; ctx.strokeStyle = hot ? "#fff" : "#000c"; ctx.lineWidth = Math.max(1.5, r / 5);
+  ctx.beginPath(); ctx.rect(x - r, y - r, 2 * r, 2 * r); ctx.fill(); ctx.stroke();
+  ctx.fillStyle = "#fff"; ctx.font = `700 ${Math.round(r * 1.3)}px Segoe UI, sans-serif`;
+  ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  ctx.fillText(o.mark, x, y + r * 0.05);
 }
 
 // ---------- drawing ----------
@@ -196,6 +241,8 @@ function drawLayout() {
     ctx.lineWidth = r * 0.25; ctx.strokeStyle = "#fff";
     ctx.beginPath(); ctx.moveTo(...at(linkFrom)); ctx.lineTo((hover.fx / g) * side, (1 - hover.fy / g) * side); ctx.stroke();
   }
+  const hot = mode === "object" && hover ? objectAt(hover) : -1;
+  (L.objects || []).forEach((o, i) => drawObjectMark(ctx, (o.x / g) * side, (1 - o.y / g) * side, o.kind, r * 0.6, i === hot));
   L.starts.forEach((s, p) => drawStart(ctx, (s.x / g) * side, (1 - s.y / g) * side, p, r,
     (mode === "start" && brush.start === p) || (mode === "road" && linkFrom === p)));
 }
@@ -216,6 +263,7 @@ function tileColor(href) {
     if (b.road === name) return ROAD_COLOR;
     if (b.accents.includes(name)) return hex(b.color).map((v, k) => Math.max(0, Math.min(255, v + ((hash >> (k * 4)) % 31) - 15)));
   }
+  if (name === PATH_TILE) return PATH_COLOR;
   if (/road/i.test(name)) return ROAD_COLOR;
   const families = { grass: "#5c8f3e", dirt: "#8a6a45", sand: "#d6be78", snow: "#e4ebf0", lava: "#6e3a2c", subterrain: "#5f5068", orc_terrain: "#7f9a4a", water: "#2f5f9a" };
   const fam = families[name.split("/")[0].toLowerCase()];
@@ -230,7 +278,7 @@ const bytes = (b64) => Uint8Array.from(atob(b64 || ""), (c) => c.charCodeAt(0));
 let viewCache = null; // decoded current view
 function showView(v) {
   view = v;
-  viewCache = { dominant: bytes(v.dominant), height: bytes(v.height), levels: bytes(v.levels), ramps: bytes(v.ramps), colors: v.layers.map(tileColor) };
+  viewCache = { dominant: bytes(v.dominant), height: bytes(v.height), levels: bytes(v.levels), ramps: bytes(v.ramps), decor: bytes(v.decor), colors: v.layers.map(tileColor) };
   drawPreview();
   $("legend").innerHTML = "";
   v.layers.forEach((href, i) => {
@@ -245,6 +293,8 @@ function showView(v) {
     ["Water", "rgb(46,96,168)", levels.some((l) => l === 0)],
     ["Cliff", "rgb(40,40,40)", levels.some((l) => l > 16)],
     ["Ramp", `rgb(${RAMP_COLOR.join(",")})`, ramps.some((r) => r)],
+    ["Obstacle", "rgb(40,52,30)", viewCache.decor.some((d) => d === 1)],
+    ...Object.entries(CATEGORY_COLORS).map(([cat, color]) => [cat, color, (v.objects || []).some((o) => objectCategory(o.key) === cat)]),
   ]) {
     if (!present) continue;
     const li = document.createElement("li");
@@ -255,7 +305,7 @@ function showView(v) {
 
 function drawPreview() {
   if (!view) return;
-  const n = view.size + 1, { dominant, height, levels, ramps, colors } = viewCache;
+  const n = view.size + 1, { dominant, height, levels, ramps, decor, colors } = viewCache;
   const img = new ImageData(n, n);
   const clampAt = (a, x, y) => a[Math.max(0, Math.min(n - 1, y)) * n + Math.max(0, Math.min(n - 1, x))];
   const hAt = (x, y) => clampAt(height, x, y);
@@ -274,6 +324,11 @@ function drawPreview() {
           shade *= 0.35; // foot of a cliff
         shade *= 0.85 + 0.05 * Math.min(4, lv / 16); // higher levels a bit lighter
       }
+      if (decor.length === view.size * view.size && x < view.size && y < view.size) {
+        const d = decor[y * view.size + x];
+        if (d === 1) c = c.map((v, k) => v * 0.45 + [20, 30, 10][k] * 0.55);
+        else if (d === 2) shade *= 0.9;
+      }
       shade = Math.max(0.3, Math.min(1.35, shade));
       img.data[o] = c[0] * shade; img.data[o + 1] = c[1] * shade; img.data[o + 2] = c[2] * shade; img.data[o + 3] = 255;
     }
@@ -284,6 +339,15 @@ function drawPreview() {
   ctx.imageSmoothingEnabled = false;
   ctx.drawImage(off, 0, 0, side, side);
   const k = side / view.size, r = Math.max(6, Math.min(14, k * 4));
+  for (const o of view.objects || []) {
+    const cat = objectCategory(o.key), s = Math.max(2, k * (cat === "Mine" ? 1.6 : 0.8));
+    const x = (o.x + 0.5) * k, y = (view.size - o.y - 0.5) * k;
+    ctx.fillStyle = cat === "Mine" ? (OBJECTS[o.key] || {}).color || "#fff" : CATEGORY_COLORS[cat];
+    ctx.strokeStyle = "#000"; ctx.lineWidth = Math.max(1, k / 4);
+    ctx.beginPath();
+    if (cat === "Monster") ctx.arc(x, y, s, 0, Math.PI * 2); else ctx.rect(x - s, y - s, 2 * s, 2 * s);
+    ctx.fill(); ctx.stroke();
+  }
   for (const t of view.towns || []) {
     const x = (t.x + 0.5) * k, y = (view.size - t.y - 0.5) * k;
     // entrance tile: (1, -5) turned counter-clockwise t.turns times
@@ -316,6 +380,15 @@ function renderPalette() {
   } else if (mode === "relief") {
     for (const r of RELIEFS) item(r.name, r.color, brush.relief === r.id, () => { brush.relief = r.id; renderPalette(); }, r.mark);
     hint("Plateaus end in cliffs and get ramps by themselves. A town stands on the level of its cell, never in water; water and cliffs can cut roads.");
+  } else if (mode === "object") {
+    hint("Click the layout to place an object, click an object to remove it. It moves to the nearest tile where it fits; mines, chests and artifacts get a guard. The content settings add more by themselves.");
+    for (const [group, list] of OBJECT_GROUPS) {
+      const h = document.createElement("li"); h.className = "hint group"; h.textContent = group; ul.append(h);
+      for (const [key, name, color, mark] of list) item(name, color, brush.object === key, () => { brush.object = key; renderPalette(); }, mark);
+    }
+    if ((L.objects || []).length) item(`Remove the ${L.objects.length} placed objects`, "#555", false, () => {
+      remember(); delete L.objects; renderPalette(); changed();
+    }, "\u2715");
   } else if (mode === "road") {
     const auto = roadMode() === "auto";
     hint(auto ? "Automatic roads (dashed). Click a town, then another, to add or remove a road: the roads become chosen ones."
@@ -419,6 +492,18 @@ function paintAt(c) {
 
 $("layout").addEventListener("pointerdown", (e) => {
   if (e.button !== 0) return;
+  if (mode === "object") {
+    const c = cellAt(e);
+    if (!c.inside) return;
+    remember();
+    const i = objectAt(c);
+    L.objects = L.objects || [];
+    if (i >= 0) L.objects.splice(i, 1);
+    else L.objects.push({ kind: brush.object, x: Math.round(c.fx * 100) / 100, y: Math.round(c.fy * 100) / 100 });
+    if (!L.objects.length) delete L.objects;
+    renderPalette(); changed();
+    return;
+  }
   if (mode === "road") {
     const p = startAt(cellAt(e));
     if (p < 0) linkFrom = -1;
@@ -471,6 +556,8 @@ $("roads").onchange = () => {
   L.roads = $("roads").value; delete L.noRoads;
   renderPalette(); changed();
 };
+const AMOUNT_FIELDS = ["mines", "treasures", "guards", "obstacles"];
+for (const f of AMOUNT_FIELDS) $(f).onchange = () => { remember(); L[f] = $(f).value; changed(); };
 $("dice").onclick = () => { remember(); L.seed = Math.floor(Math.random() * 1e6); syncForm(); changed(); };
 $("grid").onchange = () => {
   remember();
@@ -481,6 +568,7 @@ $("grid").onchange = () => {
       biomes.push(L.biomes[i]); relief.push(L.relief[i]);
     }
   L.starts = L.starts.map((s) => ({ x: (s.x * g) / g0, y: (s.y * g) / g0 }));
+  if (L.objects) L.objects = L.objects.map((o) => ({ ...o, x: (o.x * g) / g0, y: (o.y * g) / g0 }));
   Object.assign(L, { grid: g, biomes, relief });
   syncForm(); changed();
 };

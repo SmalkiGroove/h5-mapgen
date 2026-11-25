@@ -8,10 +8,13 @@ package mapfile
 import (
 	"embed"
 	"fmt"
+	"math"
 	"math/rand"
+	"strconv"
 	"strings"
 	"unicode/utf16"
 
+	"h5mapgen/internal/catalog"
 	"h5mapgen/internal/generate"
 	"h5mapgen/internal/h5m"
 	"h5mapgen/internal/layout"
@@ -66,6 +69,36 @@ func Folder(l *layout.Layout) string {
 	return "Maps/Multiplayer/" + strings.ReplaceAll(l.Name, " ", "_") + "/"
 }
 
+// templates of the catalog object types
+var objectTemplates = map[string]string{
+	"AdvMapMine": "mine.xml", "AdvMapAbanMine": "abanmine.xml", "AdvMapTreasure": "treasure.xml",
+	"AdvMapArtifact": "artifact.xml", "AdvMapMonster": "monster.xml",
+}
+
+// number writes a coordinate or angle: integers bare, else up to 4 decimals.
+func number(v float64) string {
+	return strconv.FormatFloat(math.Round(v*10000)/10000, 'f', -1, 64)
+}
+
+// objectXML writes an object of the objects list: a catalog object or a decoration.
+func objectXML(o generate.Object, rnd *rand.Rand) string {
+	values := map[string]string{"ID": "item_" + guid(rnd), "X": number(o.X), "Y": number(o.Y), "ROT": rotations[o.Turns&3]}
+	if o.Key == "" {
+		values["SHARED"] = o.Href
+		if o.Rot != 0 {
+			values["ROT"] = number(o.Rot)
+		}
+		return fill(baseFile("static.xml"), values)
+	}
+	c := catalog.Get(o.Key)
+	values["SHARED"] = c.Href
+	if c.Type == "AdvMapMonster" {
+		// count from the difficulty, like a monster placed in the editor
+		values["CUSTOM"], values["AMOUNT"], values["AMOUNT2"] = "false", "0", "0"
+	}
+	return fill(baseFile(objectTemplates[c.Type]), values)
+}
+
 // Build writes the .h5m archive of a generated map.
 func Build(l *layout.Layout, res *generate.Result) ([]byte, error) {
 	const nl = "\r\n"
@@ -80,6 +113,12 @@ func Build(l *layout.Layout, res *generate.Result) ([]byte, error) {
 			"ID": id, "X": fmt.Sprint(t.X), "Y": fmt.Sprint(t.Y), "ROT": rotations[t.Turns&3],
 			"PLAYER": fmt.Sprintf("PLAYER_%d", t.Player),
 		}))
+	}
+	for _, o := range res.Objects {
+		objects = append(objects, objectXML(o, res.Rand))
+	}
+	for _, o := range res.Decor {
+		objects = append(objects, objectXML(o, res.Rand))
 	}
 	var players []string
 	for p := 1; p <= layout.MaxPlayers; p++ {

@@ -19,6 +19,10 @@ type Biome struct {
 	Bed     string   `json:"bed"`
 }
 
+// PathTile is the dirt path from the buildings to the roads, on every biome. It is TT_GRASS (no movement
+// bonus), named Road in the editor's grass tiles.
+const PathTile = "Grass/Road"
+
 // All biomes, in palette order. The first one is the default ground.
 var All = []Biome{
 	{ID: "grass", Name: "Grass", Color: "#5c8f3e", Base: "Grass/Grass",

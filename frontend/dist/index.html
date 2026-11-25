@@ -28,6 +28,23 @@
         <option value="none">None</option>
       </select>
     </label>
+    <h2>Content</h2>
+    <div class="row">
+      <label>Mines
+        <select id="mines"><option value="none">None</option><option value="low">Low</option><option value="normal">Normal</option><option value="high">High</option></select>
+      </label>
+      <label>Treasures
+        <select id="treasures"><option value="none">None</option><option value="low">Low</option><option value="normal">Normal</option><option value="high">High</option></select>
+      </label>
+    </div>
+    <div class="row">
+      <label>Guards
+        <select id="guards"><option value="none">None</option><option value="low">Low</option><option value="normal">Normal</option><option value="high">High</option></select>
+      </label>
+      <label>Obstacles
+        <select id="obstacles"><option value="none">None</option><option value="low">Low</option><option value="normal">Normal</option><option value="high">High</option></select>
+      </label>
+    </div>
     <button id="generate" class="primary">Generate map</button>
 
     <h2>Layout</h2>
@@ -66,6 +83,7 @@
       <button data-mode="relief">Relief</button>
       <button data-mode="start">Players</button>
       <button data-mode="road">Roads</button>
+      <button data-mode="object">Objects</button>
     </div>
     <ul id="palette"></ul>
     <div id="brush-size">

@@ -88,16 +88,19 @@ func (a *App) NewLayout(size, grid int) *layout.Layout {
 
 // MapView is a map's ground terrain, for display.
 type MapView struct {
-	Path     string          `json:"path"`   // "" for a preview
-	Folder   string          `json:"folder"` // Maps/<Kind>/<Name>/ in the archive
-	Size     int             `json:"size"`   // tiles; vertex grids are size + 1 wide
-	Layers   []string        `json:"layers"` // tile hrefs, in paint order
-	Dominant []byte          `json:"dominant"`
-	Height   []byte          `json:"height"` // height x 25, clamped to 0..255
-	Levels   []byte          `json:"levels"` // plateau level ([7]: 0 water, 16 ground, +16 per cliff)
-	Ramps    []byte          `json:"ramps"`  // 1 on ramps ([8])
-	Towns    []generate.Town `json:"towns"`
-	Links    [][2]int        `json:"links"` // roads of a preview, as pairs of player numbers
+	Path     string            `json:"path"`   // "" for a preview
+	Folder   string            `json:"folder"` // Maps/<Kind>/<Name>/ in the archive
+	Size     int               `json:"size"`   // tiles; vertex grids are size + 1 wide
+	Layers   []string          `json:"layers"` // tile hrefs, in paint order
+	Dominant []byte            `json:"dominant"`
+	Height   []byte            `json:"height"` // height x 25, clamped to 0..255
+	Levels   []byte            `json:"levels"` // plateau level ([7]: 0 water, 16 ground, +16 per cliff)
+	Ramps    []byte            `json:"ramps"`  // 1 on ramps ([8])
+	Towns    []generate.Town   `json:"towns"`
+	Links    [][2]int          `json:"links"`    // roads of a preview, as pairs of player numbers
+	Objects  []generate.Object `json:"objects"`  // mines, treasures, artifacts, monsters of a preview
+	Decor    []byte            `json:"decor"`    // size x size: 1 tile blocked by a decoration, 2 ground cover
+	Warnings []string          `json:"warnings"` // content that could not be placed
 }
 
 // viewOf summarizes a terrain per vertex (row = y, bottom to top): Dominant is the index of the last layer
@@ -106,7 +109,8 @@ type MapView struct {
 func viewOf(t *terrain.Terrain) *MapView {
 	n := t.Size + 1
 	view := &MapView{Size: t.Size, Layers: []string{}, Dominant: make([]byte, n*n), Height: make([]byte, n*n),
-		Levels: make([]byte, n*n), Ramps: make([]byte, n*n), Towns: []generate.Town{}, Links: [][2]int{}}
+		Levels: make([]byte, n*n), Ramps: make([]byte, n*n), Towns: []generate.Town{}, Links: [][2]int{},
+		Objects: []generate.Object{}, Warnings: []string{}}
 	if g := t.Grids[terrain.TagLevel]; len(g.Data) == n*n {
 		copy(view.Levels, g.Data)
 	}
@@ -165,6 +169,17 @@ func (a *App) Preview(l *layout.Layout) (*MapView, error) {
 	view.Towns = res.Towns
 	if res.Links != nil {
 		view.Links = res.Links
+	}
+	view.Objects, view.Warnings = res.Objects, res.Warnings
+	view.Decor = make([]byte, l.Size*l.Size)
+	for _, d := range res.Decor {
+		blocked, _ := d.Tiles()
+		for _, t := range blocked {
+			view.Decor[t[1]*l.Size+t[0]] = 1
+		}
+		if x, y := int(d.X), int(d.Y); len(blocked) == 0 && x >= 0 && y >= 0 && x < l.Size && y < l.Size && view.Decor[y*l.Size+x] == 0 {
+			view.Decor[y*l.Size+x] = 2
+		}
 	}
 	return view, nil
 }
