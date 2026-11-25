@@ -72,7 +72,8 @@ func Folder(l *layout.Layout) string {
 // templates of the catalog object types
 var objectTemplates = map[string]string{
 	"AdvMapMine": "mine.xml", "AdvMapAbanMine": "abanmine.xml", "AdvMapTreasure": "treasure.xml",
-	"AdvMapArtifact": "artifact.xml", "AdvMapMonster": "monster.xml",
+	"AdvMapArtifact": "artifact.xml", "AdvMapMonster": "monster.xml", "AdvMapBuilding": "building.xml",
+	"AdvMapShrine": "shrine.xml",
 }
 
 // number writes a coordinate or angle: integers bare, else up to 4 decimals.

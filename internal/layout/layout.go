@@ -13,9 +13,10 @@ import (
 	"h5mapgen/internal/catalog"
 )
 
-// Placeable tells whether the brush can place a catalog object (mines, treasures, artifacts, monsters).
+// Placeable tells whether the brush can place a catalog object (mines, stat givers, buildings, treasures,
+// artifacts, monsters).
 func Placeable(kind string) bool {
-	for _, prefix := range []string{"mine_", "res_", "artifact_", "monster_"} {
+	for _, prefix := range []string{"mine_", "stat_", "building_", "res_", "artifact_", "monster_"} {
 		if strings.HasPrefix(kind, prefix) {
 			return true
 		}
@@ -64,6 +65,8 @@ type Layout struct {
 	// Content: amounts of each kind ("" = Normal), and the objects placed with the brush
 	Mines     string   `json:"mines,omitempty"`
 	Treasures string   `json:"treasures,omitempty"`
+	Stats     string   `json:"stats,omitempty"`     // stat givers
+	Buildings string   `json:"buildings,omitempty"` // other visitable buildings
 	Guards    string   `json:"guards,omitempty"`
 	Obstacles string   `json:"obstacles,omitempty"`
 	Objects   []Object `json:"objects,omitempty"`
@@ -162,7 +165,7 @@ func (l *Layout) Check() error {
 			return fmt.Errorf("player %d starts outside the grid", i+1)
 		}
 	}
-	for _, a := range []struct{ name, value string }{{"mines", l.Mines}, {"treasures", l.Treasures}, {"guards", l.Guards}, {"obstacles", l.Obstacles}} {
+	for _, a := range []struct{ name, value string }{{"mines", l.Mines}, {"treasures", l.Treasures}, {"stats", l.Stats}, {"buildings", l.Buildings}, {"guards", l.Guards}, {"obstacles", l.Obstacles}} {
 		if Amount(a.value) < 0 {
 			return fmt.Errorf("%s: unknown amount %q", a.name, a.value)
 		}

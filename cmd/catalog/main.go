@@ -30,6 +30,37 @@ var fixed = []struct{ key, file, typ string }{
 	{"mine_gem", "MapObjects/Gem_Pond.(AdvMapMineShared).xdb", "AdvMapMine"},
 	{"mine_gold", "MapObjects/Gold_Mine.(AdvMapMineShared).xdb", "AdvMapMine"},
 	{"mine_abandoned", "MapObjects/Abandoned_Mine.(AdvMapAbanMineShared).xdb", "AdvMapAbanMine"},
+	{"stat_mercenary_camp", "MapObjects/Mercenary_Camp.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"stat_marletto_tower", "MapObjects/Marletto_Tower.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"stat_star_axis", "MapObjects/Star_Axis.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"stat_garden_of_revelation", "MapObjects/Garden_Of_Revelation.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"stat_learning_stone", "MapObjects/Learning_Stone.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"stat_arena", "MapObjects/Arena.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"stat_school_of_magic", "MapObjects/SchoolofMagic.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"stat_library", "MapObjects/LibraryOfEnlightenment.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"stat_tree_of_knowledge", "MapObjects/Tree_of_Knowledge.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"stat_war_academy", "MapObjects/WarAcademy.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"building_windmill", "MapObjects/Windmill.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"building_water_wheel", "MapObjects/Water_Wheel.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"building_mystical_garden", "MapObjects/Mystical_Garden.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"building_magic_well", "MapObjects/Magic_Well.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"building_magic_spring", "MapObjects/Magic_Spring.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"building_rally_flag", "MapObjects/Rally_Flag.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"building_idol_of_fortune", "MapObjects/Idol_Of_Fortune.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"building_fountain_of_fortune", "MapObjects/Fountain_Of_Fortune.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"building_faerie_ring", "MapObjects/Faerie_Ring.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"building_fountain_of_youth", "MapObjects/Fountain_Of_Youth.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"building_stables", "MapObjects/Stables.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"stat_temple", "MapObjects/Temple.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"building_redwood_observatory", "MapObjects/Redwood_Observatory.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"stat_witch_hut", "MapObjects/Witch_Hut.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"building_trading_post", "MapObjects/Trading_Post.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"building_tavern", "MapObjects/Tavern.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"building_black_market", "MapObjects/Black_Market.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"building_sanctuary", "MapObjects/Sanctuary.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"building_shrine_1", "MapObjects/Shrine_Of_Magic_1.(AdvMapShrineShared).xdb", "AdvMapShrine"},
+	{"building_shrine_2", "MapObjects/Shrine_Of_Magic_2.(AdvMapShrineShared).xdb", "AdvMapShrine"},
+	{"building_shrine_3", "MapObjects/Shrine_Of_Magic_3.(AdvMapShrineShared).xdb", "AdvMapShrine"},
 	{"res_wood", "MapObjects/Wood.(AdvMapTreasureShared).xdb", "AdvMapTreasure"},
 	{"res_ore", "MapObjects/Ore.(AdvMapTreasureShared).xdb", "AdvMapTreasure"},
 	{"res_mercury", "MapObjects/Mercury.(AdvMapTreasureShared).xdb", "AdvMapTreasure"},
@@ -98,6 +129,9 @@ func main() {
 	}
 	h5ms, _ := filepath.Glob(filepath.Join(game, "Maps", "*.h5m"))
 	for _, p := range h5ms {
+		if strings.HasPrefix(strings.ToLower(filepath.Base(p)), "mapgen") {
+			continue // maps made by this tool would weigh its own choices
+		}
 		z, err := zip.OpenReader(p)
 		check(err)
 		for _, f := range z.File {
@@ -188,7 +222,9 @@ func main() {
 				Blocked: blocked,
 			})
 		}
-		sort.Slice(list, func(i, j int) bool { return list[i].Uses > list[j].Uses || (list[i].Uses == list[j].Uses && list[i].Href < list[j].Href) })
+		sort.Slice(list, func(i, j int) bool {
+			return list[i].Uses > list[j].Uses || (list[i].Uses == list[j].Uses && list[i].Href < list[j].Href)
+		})
 		cat.Decor[biome] = list
 	}
 

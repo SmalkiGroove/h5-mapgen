@@ -81,9 +81,19 @@ func footprint(o catalog.Object, x, y, turns int) (blocked, active [][2]int) {
 	return
 }
 
-// building tells whether an object is a building: it stays away from the towns and gets a path to the
-// roads.
-func building(key string) bool { return strings.HasPrefix(key, "mine_") }
+// building tells whether an object is a building: it stays away from the towns and from other buildings.
+func building(key string) bool {
+	return strings.HasPrefix(key, "mine_") || strings.HasPrefix(key, "stat_") || strings.HasPrefix(key, "building_")
+}
+
+// pathed lists the buildings other than mines that get a dirt path to the roads (the user's choice).
+var pathed = map[string]bool{
+	"stat_war_academy": true, "stat_arena": true, "stat_school_of_magic": true, "stat_library": true,
+	"building_trading_post": true, "building_tavern": true, "building_black_market": true,
+}
+
+// important tells whether a building gets a dirt path to the roads: mines and the pathed buildings.
+func important(key string) bool { return strings.HasPrefix(key, "mine_") || pathed[key] }
 
 // fits tells whether a catalog object can stand at (x, y): every tile inside the map, walkable, free, off
 // the kept tiles and at least margin from roads, buildings away from the towns, objects objectSpace apart,
@@ -277,6 +287,9 @@ func placeContent(l *layout.Layout, size int, cellOf []int, towns []Town, walk, 
 	guards := layout.Amount(l.Guards)
 	c.userObjects()
 	c.mines()
+	c.statBuildings()
+	c.library()
+	c.buildings(visitBuildings, visitRate, l.Buildings)
 	c.treasures()
 	c.connect()
 	if guards > 0 {
@@ -285,9 +298,18 @@ func placeContent(l *layout.Layout, size int, cellOf []int, towns []Town, walk, 
 	c.buildingPaths()
 	decor = c.decorate(field)
 
-	for _, o := range c.objects {
+	// drop the removed objects; Guards indices follow
+	index := make([]int, len(c.objects))
+	for i, o := range c.objects {
+		index[i] = -1
 		if o.Key != "" {
+			index[i] = len(objects)
 			objects = append(objects, o)
+		}
+	}
+	for i := range objects {
+		if g := objects[i].Guards; g >= 0 {
+			objects[i].Guards = index[g]
 		}
 	}
 	return objects, decor, c.paths, c.warnings
@@ -340,7 +362,7 @@ func (c *content) guardLevel(o Object) int {
 	case "chest":
 		return 2
 	}
-	return 0
+	return buildingKinds[o.Key].guard
 }
 
 // userObjects places the brush objects near where they were put.
@@ -622,7 +644,7 @@ func (c *content) buildingPaths() {
 	}
 	from := make([]int, c.size*c.size)
 	for _, o := range c.objects {
-		if o.Key == "" || !building(o.Key) {
+		if o.Key == "" || !important(o.Key) {
 			continue
 		}
 		_, active := footprint(catalog.Get(o.Key), int(o.X), int(o.Y), o.Turns)
@@ -738,12 +760,29 @@ func (c *content) decorate(field noise) []Object {
 		}
 		return false
 	}
+	// a ring of one tile around the buildings stays clear: their models are often wider than their footprint
+	around := make([]bool, c.size*c.size)
+	for _, o := range c.objects {
+		if o.Key == "" || !building(o.Key) {
+			continue
+		}
+		blocked, active := o.Tiles()
+		for _, t := range append(blocked, active...) {
+			for dy := -1; dy <= 1; dy++ {
+				for dx := -1; dx <= 1; dx++ {
+					if x, y := t[0]+dx, t[1]+dy; x >= 0 && y >= 0 && x < c.size && y < c.size {
+						around[y*c.size+x] = true
+					}
+				}
+			}
+		}
+	}
 	free := func(x, y int) bool {
 		if !c.inside(x, y) {
 			return false
 		}
 		i := y*c.size + x
-		if !c.walk[i] || c.occ[i] != tFree || c.keep[i] || nearTown(x, y) {
+		if !c.walk[i] || c.occ[i] != tFree || c.keep[i] || around[i] || nearTown(x, y) {
 			return false
 		}
 		for _, s := range [4][2]int{{1, 0}, {-1, 0}, {0, 1}, {0, -1}} { // keep visit tiles reachable from every side

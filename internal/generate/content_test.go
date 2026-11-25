@@ -114,8 +114,8 @@ func checkContent(t *testing.T, name string, l *layout.Layout, res *Result) {
 					}
 				}
 			}
-			// its path leads to a road (tiles meeting at a corner share a painted vertex)
-			if res.Roads != nil {
+			// mines and pathed buildings have a path to a road (tiles meeting at a corner share a painted vertex)
+			if res.Roads != nil && important(o.Key) {
 				a := active[0][1]*size + active[0][0]
 				seen := map[int]bool{a: true}
 				queue, found := []int{a}, false
@@ -190,5 +190,40 @@ func TestContent(t *testing.T) {
 		}
 		t.Logf("layout %d (size %d): %d objects (%d mines), %d decorations, %d warnings %v", k, size, len(res.Objects), mines, len(res.Decor), len(res.Warnings), res.Warnings)
 		checkContent(t, "layout "+string(rune('0'+k)), l, res)
+		checkStatParity(t, "layout "+string(rune('0'+k)), res)
 	}
+}
+
+// checkStatParity checks that the stat givers keep the attributes at par: as many of each +1 building, as
+// many Arenas as Schools of Magic, at most one Library per neutral area at Normal.
+func checkStatParity(t *testing.T, name string, res *Result) {
+	t.Helper()
+	for _, w := range res.Warnings {
+		if strings.HasPrefix(w, "stat_") {
+			return // a stat giver was left out after placing: parity isn't promised
+		}
+	}
+	count := map[string]int{}
+	for _, o := range res.Objects {
+		count[o.Key]++
+	}
+	for _, key := range plusOneStats[1:] {
+		if count[key] != count[plusOneStats[0]] {
+			t.Errorf("%s: %d %s but %d %s", name, count[key], key, count[plusOneStats[0]], plusOneStats[0])
+		}
+	}
+	if count["stat_arena"] != count["stat_school_of_magic"] {
+		t.Errorf("%s: %d arenas but %d schools of magic", name, count["stat_arena"], count["stat_school_of_magic"])
+	}
+	if count["stat_library"] > 1 {
+		t.Errorf("%s: %d libraries at Normal", name, count["stat_library"])
+	}
+	weekly := 0
+	for _, key := range weeklyStats {
+		weekly += count[key]
+	}
+	if weekly == 0 {
+		t.Errorf("%s: no weekly stat giver", name)
+	}
+	t.Logf("%s: stat givers %v", name, count)
 }

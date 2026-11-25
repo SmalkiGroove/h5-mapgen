@@ -1,0 +1,16 @@
+		<Item href="#n:inline(AdvMapShrine)" id="{{ID}}">
+			<AdvMapShrine>
+				<Pos>
+					<x>{{X}}</x>
+					<y>{{Y}}</y>
+					<z>0</z>
+				</Pos>
+				<Rot>{{ROT}}</Rot>
+				<Floor>0</Floor>
+				<Name/>
+				<CombatScript/>
+				<pointLights/>
+				<Shared href="{{SHARED}}"/>
+				<SpellID>SPELL_NONE</SpellID>
+			</AdvMapShrine>
+		</Item>

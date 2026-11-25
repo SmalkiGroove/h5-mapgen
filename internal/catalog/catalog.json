@@ -18,6 +18,120 @@
    "blocked": null,
    "active": [[0,0]]
   },
+  "building_black_market": {
+   "href": "/MapObjects/Black_Market.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[-1,1],[0,1],[-1,0]],
+   "active": [[0,0]]
+  },
+  "building_faerie_ring": {
+   "href": "/MapObjects/Faerie_Ring.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[0,1],[1,1]],
+   "active": [[0,0],[1,0]]
+  },
+  "building_fountain_of_fortune": {
+   "href": "/MapObjects/Fountain_Of_Fortune.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": null,
+   "active": [[0,0]]
+  },
+  "building_fountain_of_youth": {
+   "href": "/MapObjects/Fountain_Of_Youth.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[-1,-1],[-1,0],[0,0]],
+   "active": [[0,-1]]
+  },
+  "building_idol_of_fortune": {
+   "href": "/MapObjects/Idol_Of_Fortune.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": null,
+   "active": [[0,0]]
+  },
+  "building_magic_spring": {
+   "href": "/MapObjects/Magic_Spring.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[-2,0],[-2,1],[-1,1],[1,0],[1,1],[0,2],[-1,2],[-2,2],[0,1],[0,0]],
+   "active": [[-1,0]]
+  },
+  "building_magic_well": {
+   "href": "/MapObjects/Magic_Well.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": null,
+   "active": [[0,0]]
+  },
+  "building_mystical_garden": {
+   "href": "/MapObjects/Mystical_Garden.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[-1,1],[0,1],[-1,0]],
+   "active": [[0,0]]
+  },
+  "building_rally_flag": {
+   "href": "/MapObjects/Rally_Flag.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": null,
+   "active": [[0,0]]
+  },
+  "building_redwood_observatory": {
+   "href": "/MapObjects/Redwood_Observatory.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": null,
+   "active": [[0,0]]
+  },
+  "building_sanctuary": {
+   "href": "/MapObjects/Sanctuary.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[0,1],[1,1],[0,0],[-1,-1],[1,-1],[-1,0],[1,0],[-1,1]],
+   "active": [[0,-1]]
+  },
+  "building_shrine_1": {
+   "href": "/MapObjects/Shrine_Of_Magic_1.(AdvMapShrineShared).xdb#xpointer(/AdvMapShrineShared)",
+   "type": "AdvMapShrine",
+   "blocked": null,
+   "active": [[0,0]]
+  },
+  "building_shrine_2": {
+   "href": "/MapObjects/Shrine_Of_Magic_2.(AdvMapShrineShared).xdb#xpointer(/AdvMapShrineShared)",
+   "type": "AdvMapShrine",
+   "blocked": [[0,0],[0,1],[1,1]],
+   "active": [[1,0]]
+  },
+  "building_shrine_3": {
+   "href": "/MapObjects/Shrine_Of_Magic_3.(AdvMapShrineShared).xdb#xpointer(/AdvMapShrineShared)",
+   "type": "AdvMapShrine",
+   "blocked": [[-1,1],[0,1],[-1,0]],
+   "active": [[0,0]]
+  },
+  "building_stables": {
+   "href": "/MapObjects/Stables.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[0,0],[0,1]],
+   "active": [[0,-1]]
+  },
+  "building_tavern": {
+   "href": "/MapObjects/Tavern.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[-1,1],[0,1],[1,1],[1,0],[0,0]],
+   "active": [[-1,0]]
+  },
+  "building_trading_post": {
+   "href": "/MapObjects/Trading_Post.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[-1,-1],[1,-1],[-1,0],[0,0],[1,0],[-1,1],[0,1],[1,1]],
+   "active": [[0,-1]]
+  },
+  "building_water_wheel": {
+   "href": "/MapObjects/Water_Wheel.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[1,0],[2,0],[3,0],[2,1],[3,1]],
+   "active": [[1,1]]
+  },
+  "building_windmill": {
+   "href": "/MapObjects/Windmill.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[-1,1],[0,1],[-1,0]],
+   "active": [[0,0]]
+  },
   "campfire": {
    "href": "/MapObjects/Campfire.(AdvMapTreasureShared).xdb#xpointer(/AdvMapTreasureShared)",
    "type": "AdvMapTreasure",
@@ -160,6 +274,78 @@
    "href": "/MapObjects/Wood.(AdvMapTreasureShared).xdb#xpointer(/AdvMapTreasureShared)",
    "type": "AdvMapTreasure",
    "blocked": null,
+   "active": [[0,0]]
+  },
+  "stat_arena": {
+   "href": "/MapObjects/Arena.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[-1,-1],[-1,0],[0,0],[1,0],[-1,1],[0,1],[1,1],[1,-1]],
+   "active": [[0,-1]]
+  },
+  "stat_garden_of_revelation": {
+   "href": "/MapObjects/Garden_Of_Revelation.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[0,0],[0,1],[1,1]],
+   "active": [[1,0]]
+  },
+  "stat_learning_stone": {
+   "href": "/MapObjects/Learning_Stone.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": null,
+   "active": [[0,0]]
+  },
+  "stat_library": {
+   "href": "/MapObjects/LibraryOfEnlightenment.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[-2,-2],[-1,-2],[1,-2],[2,-2],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[-2,0],[-1,0],[0,0],[1,0],[2,0],[-2,1],[-1,1],[0,1],[1,1],[2,1],[-2,2],[-1,2],[0,2],[1,2],[2,2]],
+   "active": [[0,-2]]
+  },
+  "stat_marletto_tower": {
+   "href": "/MapObjects/Marletto_Tower.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[-1,0],[-1,1],[0,1],[0,0],[1,1],[1,0],[1,-1],[-1,-1]],
+   "active": [[0,-1]]
+  },
+  "stat_mercenary_camp": {
+   "href": "/MapObjects/Mercenary_Camp.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[-2,0],[-2,1],[-1,1],[-1,0],[0,1]],
+   "active": [[0,0]]
+  },
+  "stat_school_of_magic": {
+   "href": "/MapObjects/SchoolofMagic.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[-1,-3],[0,-3],[1,-3],[-1,-2],[0,-2],[1,-2],[-1,-1],[0,-1],[1,-1],[-1,0],[0,0],[1,0],[2,0],[-1,1],[0,1],[1,1],[2,1],[2,-1]],
+   "active": [[2,-2]]
+  },
+  "stat_star_axis": {
+   "href": "/MapObjects/Star_Axis.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": null,
+   "active": [[0,0]]
+  },
+  "stat_temple": {
+   "href": "/MapObjects/Temple.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[-1,0],[-1,1],[0,1]],
+   "active": [[0,0]]
+  },
+  "stat_tree_of_knowledge": {
+   "href": "/MapObjects/Tree_of_Knowledge.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[-1,-1],[0,-1],[1,-1],[-1,0],[0,0],[-1,1],[0,1],[1,1]],
+   "active": [[1,0]]
+  },
+  "stat_war_academy": {
+   "href": "/MapObjects/WarAcademy.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[-1,-1],[1,-1],[-1,0],[0,0],[1,0],[-1,1],[0,1],[1,1]],
+   "active": [[0,-1]]
+  },
+  "stat_witch_hut": {
+   "href": "/MapObjects/Witch_Hut.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[-1,0],[1,0],[-1,1],[0,1],[1,1],[-1,2],[0,2],[1,2]],
    "active": [[0,0]]
   }
  },
