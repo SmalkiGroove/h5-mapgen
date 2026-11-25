@@ -31,16 +31,16 @@ import (
 
 // Tags of the body fields.
 const (
-	TagLayers   = 4
-	TagHeight   = 5
-	TagHeight8  = 7
-	TagGrid8    = 8
-	TagHalfMask = 10
-	TagGrid15   = 15
+	TagLayers = 4
+	TagHeight = 5
+	TagLevel  = 7  // plateau level of each vertex: height x 8 (0 water, 16 ground, +16 per step; 8 and 24.. on ramps)
+	TagRamp   = 8  // 1 on the vertices of a ramp
+	TagRiver  = 10 // (2N+1)^2, unknown: not water; probably rivers
+	TagGrid15 = 15
 )
 
 // GridTags are the body grids kept in Terrain.Grids (raw bytes; the height is decoded in Terrain.Height).
-var GridTags = []byte{TagHeight, TagHeight8, TagGrid8, TagHalfMask, TagGrid15}
+var GridTags = []byte{TagHeight, TagLevel, TagRamp, TagRiver, TagGrid15}
 
 var schema = func() binsaver.Schema {
 	paths := [][]byte{{1}, {1, 1}, {1, 1, 4}, {1, 1, 4, 1}, {1, 1, 4, 1, 2}, {1, 1, 4, 1, 3},

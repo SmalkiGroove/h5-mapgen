@@ -8,6 +8,7 @@ const SIZE_NAMES = { 72: "Tiny", 96: "Small", 136: "Medium", 176: "Large", 216: 
 const PLAYER_COLORS = ["#d8433a", "#3b6fd8", "#3fa34a", "#d8c03a", "#e0802c", "#9a4ad8", "#35b5b0", "#e06fa8"];
 const STORE_KEY = "h5mapgen.layout";
 const ROAD_COLOR = [222, 206, 160];
+const RAMP_COLOR = [238, 226, 190];
 
 let setup = null;     // Setup from Go
 let L = null;         // current layout
@@ -108,6 +109,16 @@ function brushCells(c) {
 }
 
 // ---------- drawing ----------
+// Reliefs, lowest first: level 0 water, 1 ground, 2 and 3 one and two cliffs up
+const RELIEFS = [
+  { id: "water", name: "Water", color: "#2f64a8", mark: "≈", level: 0 },
+  { id: "flat", name: "Flat", color: "#777", mark: "", level: 1 },
+  { id: "hills", name: "Hills", color: "#777", mark: "⌒", level: 1 },
+  { id: "plateau", name: "Plateau", color: "#8f8f8f", mark: "▲", level: 2 },
+  { id: "high", name: "High plateau", color: "#a8a8a8", mark: "▲▲", level: 3 },
+];
+const reliefLevel = (id) => (RELIEFS.find((r) => r.id === id) || RELIEFS[1]).level;
+
 function hatchPattern(ctx, px) {
   const s = Math.max(6, Math.round(px / 2));
   const tile = document.createElement("canvas");
@@ -139,8 +150,24 @@ function drawLayout() {
       const w = Math.floor((x + 1) * px) - sx, h = Math.floor((g - y) * px) - sy;
       ctx.fillStyle = colors[L.biomes[i]] || "#000";
       ctx.fillRect(sx, sy, w, h);
+      const lv = reliefLevel(L.relief[i]);
+      if (lv === 0) { ctx.fillStyle = "rgba(38,88,160,0.85)"; ctx.fillRect(sx, sy, w, h); }
+      if (lv >= 2) { ctx.fillStyle = `rgba(255,255,255,${lv === 2 ? 0.22 : 0.42})`; ctx.fillRect(sx, sy, w, h); }
       if (L.relief[i] === "hills") { ctx.fillStyle = hatch; ctx.fillRect(sx, sy, w, h); }
     }
+  // cliffs and shores: the cell edges between two levels
+  ctx.strokeStyle = "rgba(0,0,0,0.6)"; ctx.lineWidth = Math.max(1.5, px / 10); ctx.lineCap = "butt"; ctx.beginPath();
+  for (let y = 0; y < g; y++)
+    for (let x = 0; x < g; x++) {
+      const lv = reliefLevel(L.relief[y * g + x]);
+      if (x + 1 < g && reliefLevel(L.relief[y * g + x + 1]) !== lv) {
+        const ex = Math.floor((x + 1) * px); ctx.moveTo(ex, Math.floor((g - 1 - y) * px)); ctx.lineTo(ex, Math.floor((g - y) * px));
+      }
+      if (y + 1 < g && reliefLevel(L.relief[(y + 1) * g + x]) !== lv) {
+        const ey = Math.floor((g - 1 - y) * px); ctx.moveTo(Math.floor(x * px), ey); ctx.lineTo(Math.floor((x + 1) * px), ey);
+      }
+    }
+  ctx.stroke();
   if (px >= 8) {
     ctx.strokeStyle = "rgba(0,0,0,0.18)"; ctx.lineWidth = 1; ctx.beginPath();
     for (let k = 1; k < g; k++) {
@@ -203,7 +230,7 @@ const bytes = (b64) => Uint8Array.from(atob(b64 || ""), (c) => c.charCodeAt(0));
 let viewCache = null; // decoded current view
 function showView(v) {
   view = v;
-  viewCache = { dominant: bytes(v.dominant), height: bytes(v.height), colors: v.layers.map(tileColor) };
+  viewCache = { dominant: bytes(v.dominant), height: bytes(v.height), levels: bytes(v.levels), ramps: bytes(v.ramps), colors: v.layers.map(tileColor) };
   drawPreview();
   $("legend").innerHTML = "";
   v.layers.forEach((href, i) => {
@@ -213,21 +240,41 @@ function showView(v) {
     li.title = href;
     $("legend").append(li);
   });
+  const { levels, ramps } = viewCache;
+  for (const [name, color, present] of [
+    ["Water", "rgb(46,96,168)", levels.some((l) => l === 0)],
+    ["Cliff", "rgb(40,40,40)", levels.some((l) => l > 16)],
+    ["Ramp", `rgb(${RAMP_COLOR.join(",")})`, ramps.some((r) => r)],
+  ]) {
+    if (!present) continue;
+    const li = document.createElement("li");
+    li.innerHTML = `<span class="swatch" style="background:${color}"></span><span class="name">${name}</span>`;
+    $("legend").append(li);
+  }
 }
 
 function drawPreview() {
   if (!view) return;
-  const n = view.size + 1, { dominant, height, colors } = viewCache;
+  const n = view.size + 1, { dominant, height, levels, ramps, colors } = viewCache;
   const img = new ImageData(n, n);
-  const hAt = (x, y) => height[Math.max(0, Math.min(n - 1, y)) * n + Math.max(0, Math.min(n - 1, x))];
+  const clampAt = (a, x, y) => a[Math.max(0, Math.min(n - 1, y)) * n + Math.max(0, Math.min(n - 1, x))];
+  const hAt = (x, y) => clampAt(height, x, y);
+  const hasLevels = levels.length === n * n;
   for (let y = 0; y < n; y++)
     for (let x = 0; x < n; x++) {
       const i = y * n + x, o = ((n - 1 - y) * n + x) * 4;
-      const c = colors[dominant[i]] || [0, 0, 0];
-      // light from the top left; lowered ground (height < 1) darker
-      let shade = 1 + ((hAt(x - 1, y) - hAt(x + 1, y)) + (hAt(x, y + 1) - hAt(x, y - 1))) * 0.05;
-      if (height[i] < 50) shade *= 0.55;
-      shade = Math.max(0.45, Math.min(1.35, shade));
+      let c = colors[dominant[i]] || [0, 0, 0];
+      // light from the top left
+      let shade = 1 + ((hAt(x - 1, y) - hAt(x + 1, y)) + (hAt(x, y + 1) - hAt(x, y - 1))) * 0.1;
+      if (hasLevels) {
+        const lv = levels[i];
+        if (lv === 0) { c = [46, 96, 168]; shade = 1; }
+        else if (ramps[i]) c = c.map((v, k) => v * 0.4 + RAMP_COLOR[k] * 0.6);
+        else if ([[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dy]) => { const o = clampAt(levels, x + dx, y + dy); return o > lv && o > 0 && !clampAt(ramps, x + dx, y + dy); }))
+          shade *= 0.35; // foot of a cliff
+        shade *= 0.85 + 0.05 * Math.min(4, lv / 16); // higher levels a bit lighter
+      }
+      shade = Math.max(0.3, Math.min(1.35, shade));
       img.data[o] = c[0] * shade; img.data[o + 1] = c[1] * shade; img.data[o + 2] = c[2] * shade; img.data[o + 3] = 255;
     }
   const off = document.createElement("canvas");
@@ -267,9 +314,8 @@ function renderPalette() {
   if (mode === "biome") {
     for (const b of setup.biomes) item(b.name, b.color, brush.biome === b.id, () => { brush.biome = b.id; renderPalette(); });
   } else if (mode === "relief") {
-    item("Flat", "#777", brush.relief === "flat", () => { brush.relief = "flat"; renderPalette(); });
-    item("Hills", "#777", brush.relief === "hills", () => { brush.relief = "hills"; renderPalette(); }, "⌒");
-    hint("Water and cliffs come later.");
+    for (const r of RELIEFS) item(r.name, r.color, brush.relief === r.id, () => { brush.relief = r.id; renderPalette(); }, r.mark);
+    hint("Plateaus end in cliffs and get ramps by themselves. A town stands on the level of its cell, never in water; water and cliffs can cut roads.");
   } else if (mode === "road") {
     const auto = roadMode() === "auto";
     hint(auto ? "Automatic roads (dashed). Click a town, then another, to add or remove a road: the roads become chosen ones."

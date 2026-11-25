@@ -6,11 +6,12 @@ import (
 	"h5mapgen/internal/binsaver"
 )
 
-// Plateau levels of grid [7] (height x 8): lowered (water, lava, rim), ground, raised.
+// Plateau levels of grid [7] (height x 8): water, ground, and one step between two levels (a cliff is
+// one step high; the vertices of a ramp take the levels in between).
 const (
-	LevelLowered = 0
-	LevelGround  = 16
-	LevelRaised  = 32
+	LevelWater  = 0
+	LevelGround = 16
+	LevelStep   = 16
 )
 
 // DetailSize is the side of the [16] grid for a map of size tiles: floor((size + 1) / 3) + 1.
@@ -41,7 +42,7 @@ func newTerrain(size int, detail []byte) *Terrain {
 	body := []binsaver.Node{
 		u32(2, size), u32(3, size),
 		binsaver.Container(TagLayers, u32(2, 0)),
-		grid(TagHeight, n, n), grid(TagHeight8, n, n), grid(TagGrid8, n, n), grid(TagHalfMask, 2*size+1, 2*size+1),
+		grid(TagHeight, n, n), grid(TagLevel, n, n), grid(TagRamp, n, n), grid(TagRiver, 2*size+1, 2*size+1),
 		binsaver.Container(13, u32(1, 0), u32(2, 0)),
 		binsaver.Leaf(14, []byte{1}),
 		grid(TagGrid15, n, n),
@@ -52,11 +53,11 @@ func newTerrain(size int, detail []byte) *Terrain {
 		tree: []binsaver.Node{u32(4, 4), binsaver.Container(1, binsaver.Container(1, body...)), empty(0), empty(2), empty(5)},
 		Size: size,
 		Grids: map[byte]Grid{
-			TagHeight:   {W: n, H: n, Data: []byte{}},
-			TagHeight8:  {W: n, H: n, Data: filled(n*n, LevelGround)},
-			TagGrid8:    {W: n, H: n, Data: make([]byte, n*n)},
-			TagHalfMask: {W: 2*size + 1, H: 2*size + 1, Data: make([]byte, (2*size+1)*(2*size+1))},
-			TagGrid15:   {W: n, H: n, Data: filled(n*n, 1)},
+			TagHeight: {W: n, H: n, Data: []byte{}},
+			TagLevel:  {W: n, H: n, Data: filled(n*n, LevelGround)},
+			TagRamp:   {W: n, H: n, Data: make([]byte, n*n)},
+			TagRiver:  {W: 2*size + 1, H: 2*size + 1, Data: make([]byte, (2*size+1)*(2*size+1))},
+			TagGrid15: {W: n, H: n, Data: filled(n*n, 1)},
 		},
 		Height: make([]float32, n*n),
 	}

@@ -67,6 +67,26 @@ func checkTowns(size int, towns []Town) error {
 	return nil
 }
 
+// checkTownGround reports a town that does not stand on walkable ground of one level: its footprint, its
+// entrance and the tile in front of it.
+func checkTownGround(size int, towns []Town, walk []bool, lvl []int) error {
+	n := size + 1
+	for _, t := range towns {
+		e := t.Entrance()
+		out := turn([2]int{0, -1}, t.Turns)
+		tiles := append(t.Blocked(), e, [2]int{e[0] + out[0], e[1] + out[1]})
+		for _, b := range tiles {
+			if b[0] < 0 || b[1] < 0 || b[0] >= size || b[1] >= size {
+				return fmt.Errorf("the town of player %d is too close to the map edge", t.Player)
+			}
+			if !walk[b[1]*size+b[0]] || lvl[b[1]*n+b[0]] != lvl[t.Y*n+t.X] {
+				return fmt.Errorf("the town of player %d stands on a cliff edge or in water: move it", t.Player)
+			}
+		}
+	}
+	return nil
+}
+
 // Road costs: a tile step costs its length times (base + noise) plus the slope; tiles already on a road
 // are cheaper, so later roads join earlier ones.
 const (
@@ -138,10 +158,14 @@ func (q *queue) Pop() interface{} {
 }
 
 // routeRoads returns the road tiles (size x size, row = y) of the links (pairs of player numbers), shortest
-// first so that longer roads can join them. height is the vertex height grid ((size + 1)^2).
-func routeRoads(size int, towns []Town, links [][2]int, height []float32, field noise) []bool {
+// first so that longer roads can join them. height is the vertex height grid ((size + 1)^2), walk the tiles
+// a road may cross.
+func routeRoads(size int, towns []Town, links [][2]int, height []float32, walk []bool, field noise) ([]bool, error) {
 	road := make([]bool, size*size)
 	blocked := make([]bool, size*size)
+	for i, w := range walk {
+		blocked[i] = !w
+	}
 	for _, t := range towns {
 		for _, b := range t.Blocked() {
 			if b[0] >= 0 && b[1] >= 0 && b[0] < size && b[1] < size {
@@ -209,7 +233,7 @@ func routeRoads(size int, towns []Town, links [][2]int, height []float32, field 
 			}
 		}
 		if _, ok := cost[goal]; !ok {
-			continue // no route (shouldn't happen on open ground)
+			return nil, fmt.Errorf("no road can join players %d and %d: water or cliffs are in the way", e[0], e[1])
 		}
 		for t := goal; ; t = came[t] {
 			road[t] = true
@@ -227,5 +251,5 @@ func routeRoads(size int, towns []Town, links [][2]int, height []float32, field 
 			}
 		}
 	}
-	return road
+	return road, nil
 }

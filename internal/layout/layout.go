@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"regexp"
+	"slices"
 
 	"h5mapgen/internal/biome"
 )
@@ -15,9 +16,15 @@ var Sizes = []int{72, 96, 136, 176, 216, 256, 320}
 
 // Reliefs a cell can take.
 const (
-	Flat  = "flat"
-	Hills = "hills"
+	Water   = "water"
+	Flat    = "flat"
+	Hills   = "hills"
+	Plateau = "plateau" // one cliff above the ground
+	High    = "high"    // two cliffs above the ground
 )
+
+// Reliefs lists the reliefs, lowest first.
+var Reliefs = []string{Water, Flat, Hills, Plateau, High}
 
 // MaxPlayers is the number of player slots of a map.
 const MaxPlayers = 8
@@ -100,7 +107,7 @@ func (l *Layout) Check() error {
 		}
 	}
 	for _, r := range l.Relief {
-		if r != Flat && r != Hills {
+		if !slices.Contains(Reliefs, r) {
 			return fmt.Errorf("unknown relief %q", r)
 		}
 	}

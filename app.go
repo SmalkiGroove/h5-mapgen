@@ -93,16 +93,26 @@ type MapView struct {
 	Size     int             `json:"size"`   // tiles; vertex grids are size + 1 wide
 	Layers   []string        `json:"layers"` // tile hrefs, in paint order
 	Dominant []byte          `json:"dominant"`
-	Height   []byte          `json:"height"`
+	Height   []byte          `json:"height"` // height x 25, clamped to 0..255
+	Levels   []byte          `json:"levels"` // plateau level ([7]: 0 water, 16 ground, +16 per cliff)
+	Ramps    []byte          `json:"ramps"`  // 1 on ramps ([8])
 	Towns    []generate.Town `json:"towns"`
 	Links    [][2]int        `json:"links"` // roads of a preview, as pairs of player numbers
 }
 
 // viewOf summarizes a terrain per vertex (row = y, bottom to top): Dominant is the index of the last layer
-// weighing at least half (255 when none), Height the height x 50 clamped to 0..255.
+// weighing at least half (255 when none), Height the height x 25 clamped to 0..255, Levels and Ramps the
+// plateau grids.
 func viewOf(t *terrain.Terrain) *MapView {
 	n := t.Size + 1
-	view := &MapView{Size: t.Size, Layers: []string{}, Dominant: make([]byte, n*n), Height: make([]byte, n*n), Towns: []generate.Town{}, Links: [][2]int{}}
+	view := &MapView{Size: t.Size, Layers: []string{}, Dominant: make([]byte, n*n), Height: make([]byte, n*n),
+		Levels: make([]byte, n*n), Ramps: make([]byte, n*n), Towns: []generate.Town{}, Links: [][2]int{}}
+	if g := t.Grids[terrain.TagLevel]; len(g.Data) == n*n {
+		copy(view.Levels, g.Data)
+	}
+	if g := t.Grids[terrain.TagRamp]; len(g.Data) == n*n {
+		copy(view.Ramps, g.Data)
+	}
 	for i := range view.Dominant {
 		view.Dominant[i] = 255
 	}
@@ -119,7 +129,7 @@ func viewOf(t *terrain.Terrain) *MapView {
 	}
 	for i, h := range t.Height {
 		if i < len(view.Height) {
-			view.Height[i] = byte(min(max(h*50, 0), 255))
+			view.Height[i] = byte(min(max(h*25, 0), 255))
 		}
 	}
 	return view

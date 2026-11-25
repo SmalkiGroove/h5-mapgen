@@ -4,6 +4,7 @@ package generate
 import (
 	"math"
 	"math/rand"
+	"slices"
 	"sort"
 
 	"h5mapgen/internal/biome"
@@ -152,7 +153,53 @@ func Generate(l *layout.Layout) (*Result, error) {
 		return nil, err
 	}
 
-	// Hills: noise heights where the relief is hills, flat around the towns
+	// Plateau levels, water and ramps; the base height of a vertex is its level / 8
+	lvl, ramp, err := levels(l, size, cellOf, towns, rnd)
+	if err != nil {
+		return nil, err
+	}
+	walk := walkableTiles(size, lvl, ramp)
+	if err := checkTownGround(size, towns, walk, lvl); err != nil {
+		return nil, err
+	}
+	levelData, rampData := ter.Grids[terrain.TagLevel].Data, ter.Grids[terrain.TagRamp].Data
+	for i, v := range lvl {
+		levelData[i] = byte(v)
+		if ramp[i] {
+			rampData[i] = 1
+		}
+		ter.Height[i] = float32(v) / 8
+	}
+
+	// Lakebeds: the bed tile of the biome under water, fading out over about two tiles of shore. Biomes that
+	// share a bed tile share its layer.
+	water := make([]float64, n*n)
+	anyWater := false
+	for i, v := range lvl {
+		if v == terrain.LevelWater {
+			water[i], anyWater = 1, true
+		}
+	}
+	if anyWater {
+		shore := blur(append([]float64(nil), water...), n, 2, 1)
+		var beds []string
+		for _, id := range order {
+			b, _ := biome.ByID(id)
+			if !slices.Contains(beds, b.Bed) {
+				beds = append(beds, b.Bed)
+			}
+		}
+		for _, bed := range beds {
+			addLayer(bed, func(i int) float64 {
+				if b, _ := biome.ByID(l.Biomes[cellOf[i]]); b.Bed != bed {
+					return 0
+				}
+				return math.Max(water[i], math.Min(1, shore[i]*2))
+			})
+		}
+	}
+
+	// Hills: noise heights where the relief is hills (on the ground level, off ramps), flat around the towns
 	hills := make([]float64, n*n)
 	for i, c := range cellOf {
 		if l.Relief[c] == layout.Hills {
@@ -162,7 +209,7 @@ func Generate(l *layout.Layout) (*Result, error) {
 	hills = blur(hills, n, max(1, int(cs/3)), 3)
 	hillField := seed + 3
 	for i := range ter.Height {
-		if hills[i] == 0 {
+		if hills[i] == 0 || lvl[i] != terrain.LevelGround || ramp[i] {
 			continue
 		}
 		x, y := float64(i%n), float64(i/n)
@@ -186,7 +233,9 @@ func Generate(l *layout.Layout) (*Result, error) {
 		links = cleanLinks(l.Links)
 	}
 	if len(links) > 0 {
-		roads = routeRoads(size, towns, links, ter.Height, seed+4)
+		if roads, err = routeRoads(size, towns, links, ter.Height, walk, seed+4); err != nil {
+			return nil, err
+		}
 		full := make([]float64, n*n)
 		for t, on := range roads {
 			if on {
