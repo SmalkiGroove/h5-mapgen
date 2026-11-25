@@ -99,7 +99,8 @@ func checkContent(t *testing.T, name string, l *layout.Layout, res *Result) {
 		}
 		if o.Guards >= 0 {
 			g := res.Objects[o.Guards]
-			if abs(int(g.X)-active[0][0])+abs(int(g.Y)-active[0][1]) != 1 {
+			dx, dy := abs(int(g.X)-active[0][0]), abs(int(g.Y)-active[0][1])
+			if dx+dy != 1 && !(dx == 1 && dy == 1 && o.Key == "stat_tomb_of_the_warrior") { // the tomb is entered from its corners
 				t.Errorf("%s: the guard of %s at (%v, %v) is not beside its visit tile", name, o.Key, o.X, o.Y)
 			}
 		}
@@ -224,6 +225,14 @@ func checkStatParity(t *testing.T, name string, res *Result) {
 	}
 	if weekly == 0 {
 		t.Errorf("%s: no weekly stat giver", name)
+	}
+	for _, o := range res.Objects {
+		if isRandomDwelling(o.Key) && o.Player == 0 {
+			t.Errorf("%s: %s at (%v, %v) is linked to no player", name, o.Key, o.X, o.Y)
+		}
+	}
+	if count["dwelling_military_post"] == 0 {
+		t.Errorf("%s: no military post at Normal", name)
 	}
 	t.Logf("%s: stat givers %v", name, count)
 }

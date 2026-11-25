@@ -18,6 +18,66 @@
    "blocked": null,
    "active": [[0,0]]
   },
+  "bank_blood_temple": {
+   "href": "/MapObjects/WitchBank.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[-1,-1],[1,-1],[-1,0],[0,0],[1,0],[-1,1],[0,1],[1,1]],
+   "active": [[0,-1]]
+  },
+  "bank_crypt": {
+   "href": "/MapObjects/Crypt.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[-1,1],[0,1],[1,1],[1,0],[-1,0],[0,0],[-1,-1],[1,-1]],
+   "active": [[0,-1]]
+  },
+  "bank_cyclops_stockpile": {
+   "href": "/MapObjects/Cyclops_Stockpile.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[0,1],[0,0],[0,-1],[1,0],[1,1]],
+   "active": [[1,-1]]
+  },
+  "bank_dragon_utopia": {
+   "href": "/MapObjects/Dragon_Utopia.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[-1,0],[2,0],[-1,1],[2,1],[1,-1],[1,2],[0,-1],[0,2],[1,1],[0,1],[0,0],[1,0],[-1,2],[2,2],[2,-1],[-1,-1]],
+   "active": [[1,-2],[0,-2],[3,0],[3,1],[1,3],[0,3],[-2,0],[-2,1]]
+  },
+  "bank_dwarven_treasury": {
+   "href": "/MapObjects/DwarvenTreasury.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[-1,-1],[1,-1],[0,0],[1,0],[1,1],[0,1],[-1,1],[-1,0]],
+   "active": [[0,-1]]
+  },
+  "bank_elemental_stockpile": {
+   "href": "/MapObjects/Elemantal_Stockpile.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[-1,0],[0,0],[1,0],[0,1]],
+   "active": [[0,-1]]
+  },
+  "bank_gargoyle_stonevault": {
+   "href": "/MapObjects/GargoyleStonevault.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[0,0]],
+   "active": [[1,-1],[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1],[0,-1]]
+  },
+  "bank_naga_bank": {
+   "href": "/MapObjects/MagiVault.xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[-1,-1],[1,-1],[1,0],[1,1],[0,1],[-1,1],[-1,0],[0,0]],
+   "active": [[0,-1]]
+  },
+  "bank_pyramid": {
+   "href": "/MapObjects/Pyramid.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[-1,0],[-1,1],[0,1],[0,0],[-2,-2],[-1,-2],[2,-2],[3,-2],[-2,-1],[-1,-1],[2,-1],[3,-1],[-2,0],[1,0],[2,0],[3,0],[-2,1],[1,1],[2,1],[3,1],[-2,2],[-1,2],[0,2],[1,2],[2,2],[3,2],[-2,3],[-1,3],[1,3],[2,3],[3,3],[0,3],[0,-1],[1,-1]],
+   "active": [[1,-2],[0,-2]]
+  },
+  "bank_treant_thicket": {
+   "href": "/MapObjects/TreantThicket.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[-1,-1],[0,-1],[1,-1],[0,0],[1,0],[-1,1],[0,1],[1,1]],
+   "active": [[-1,0]]
+  },
   "building_black_market": {
    "href": "/MapObjects/Black_Market.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
    "type": "AdvMapBuilding",
@@ -143,6 +203,42 @@
    "type": "AdvMapTreasure",
    "blocked": null,
    "active": [[0,0]]
+  },
+  "dwelling_1": {
+   "href": "/MapObjects/Random/RandomDwelling1.xdb#xpointer(/AdvMapDwellingShared)",
+   "type": "AdvMapDwelling",
+   "blocked": [[-1,0],[1,0],[-1,1],[0,1],[1,1]],
+   "active": [[0,0]]
+  },
+  "dwelling_2": {
+   "href": "/MapObjects/Random/RandomDwelling2.xdb#xpointer(/AdvMapDwellingShared)",
+   "type": "AdvMapDwelling",
+   "blocked": [[1,0],[0,1],[1,1]],
+   "active": [[0,0]]
+  },
+  "dwelling_3": {
+   "href": "/MapObjects/Random/RandomDwelling3.xdb#xpointer(/AdvMapDwellingShared)",
+   "type": "AdvMapDwelling",
+   "blocked": [[0,0],[1,-1],[-1,-1],[1,1],[1,0],[0,1],[-1,0],[-1,1]],
+   "active": [[0,-1]]
+  },
+  "dwelling_elemental_conflux": {
+   "href": "/MapObjects/Special/ElementalConflux.xdb#xpointer(/AdvMapDwellingShared)",
+   "type": "AdvMapDwelling",
+   "blocked": null,
+   "active": [[0,0],[1,0],[1,-1],[0,-1]]
+  },
+  "dwelling_military_post": {
+   "href": "/MapObjects/Haven/Heaven_Military_Post.(AdvMapDwellingShared).xdb#xpointer(/AdvMapDwellingShared)",
+   "type": "AdvMapDwelling",
+   "blocked": [[-1,-1],[1,-1],[2,-1],[-1,0],[0,0],[1,0],[2,0],[-1,1],[0,1],[1,1],[2,1],[-1,2],[0,2],[1,2],[2,2]],
+   "active": [[0,-1]]
+  },
+  "dwelling_refugee_camp": {
+   "href": "/MapObjects/Special/RefugeeCamp.xdb#xpointer(/AdvMapDwellingShared)",
+   "type": "AdvMapDwelling",
+   "blocked": [[0,0],[0,1],[-1,0],[-1,1],[-1,-1]],
+   "active": [[0,-1]]
   },
   "mine_abandoned": {
    "href": "/MapObjects/Abandoned_Mine.(AdvMapAbanMineShared).xdb#xpointer(/AdvMapAbanMineShared)",
@@ -328,6 +424,12 @@
    "href": "/MapObjects/Temple.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
    "type": "AdvMapBuilding",
    "blocked": [[-1,0],[-1,1],[0,1]],
+   "active": [[0,0]]
+  },
+  "stat_tomb_of_the_warrior": {
+   "href": "/MapObjects/TombOfTheWarrior.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[-1,0],[0,1],[1,0],[0,-1]],
    "active": [[0,0]]
   },
   "stat_tree_of_knowledge": {

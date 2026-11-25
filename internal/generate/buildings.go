@@ -14,23 +14,28 @@ type buildingKind struct {
 	guard  int     // guard level before the Guards setting, 0 unguarded
 	zone   float64 // nearest relative distance from the towns (0 at a town, 1 among the farthest tiles)
 	weight int     // how often the game's maps place it
+	biome  string  // "" anywhere, else only this deep inside this biome (biomeDepth)
 }
+
+// biomeDepth is how far from another biome a building restricted to a biome stands, in tiles.
+const biomeDepth = 8
 
 // statGivers raise a hero's skills once or every week; the H5X texts give their effects. They are placed
 // by statUnits, not drawn by weight.
 var statGivers = []buildingKind{
-	{"stat_temple", 3, 0.3, 0},               // experience to all heroes, every week
-	{"stat_war_academy", 5, 0.5, 0},          // +1 to the lowest attribute, every week
-	{"stat_witch_hut", 3, 0.3, 0},            // a brew for mercury, every week
-	{"stat_mercenary_camp", 2, 0.2, 0},       // +1 attack
-	{"stat_marletto_tower", 2, 0.2, 0},       // +1 defence
-	{"stat_star_axis", 2, 0.2, 0},            // +1 spellpower
-	{"stat_garden_of_revelation", 2, 0.2, 0}, // +1 knowledge
-	{"stat_arena", 4, 0.45, 0},               // +2 attack or defence
-	{"stat_school_of_magic", 4, 0.45, 0},     // +2 spellpower or knowledge
-	{"stat_learning_stone", 1, 0, 0},         // +1000 experience
-	{"stat_tree_of_knowledge", 4, 0.45, 0},   // a level
-	{"stat_library", 5, 0.6, 0},              // +2 to every attribute for experienced heroes: neutral areas only
+	{"stat_temple", 3, 0.3, 0, ""},               // experience to all heroes, every week
+	{"stat_war_academy", 5, 0.5, 0, ""},          // +1 to the lowest attribute, every week
+	{"stat_witch_hut", 3, 0.3, 0, ""},            // a brew for mercury, every week
+	{"stat_mercenary_camp", 2, 0.2, 0, ""},       // +1 attack
+	{"stat_marletto_tower", 2, 0.2, 0, ""},       // +1 defence
+	{"stat_star_axis", 2, 0.2, 0, ""},            // +1 spellpower
+	{"stat_garden_of_revelation", 2, 0.2, 0, ""}, // +1 knowledge
+	{"stat_arena", 4, 0.45, 0, ""},               // +2 attack or defence
+	{"stat_school_of_magic", 4, 0.45, 0, ""},     // +2 spellpower or knowledge
+	{"stat_learning_stone", 1, 0, 0, ""},         // +1000 experience
+	{"stat_tree_of_knowledge", 4, 0.45, 0, ""},   // a level
+	{"stat_tomb_of_the_warrior", 3, 0.35, 0, ""}, // +1 attack and defence and 3000 experience, outside parity
+	{"stat_library", 5, 0.6, 0, ""},              // +2 to every attribute for experienced heroes: neutral areas only
 }
 
 // Stat givers come in units that a town gets whole, so that the attributes stay at par: the four +1
@@ -39,49 +44,96 @@ var (
 	weeklyStats  = []string{"stat_temple", "stat_war_academy", "stat_witch_hut"}
 	plusOneStats = []string{"stat_mercenary_camp", "stat_marletto_tower", "stat_star_axis", "stat_garden_of_revelation"}
 	plusTwoStats = []string{"stat_arena", "stat_school_of_magic"}
-	otherStats   = [][]string{{"stat_learning_stone"}, {"stat_tree_of_knowledge"}}
+	otherStats   = [][]string{{"stat_learning_stone"}, {"stat_tree_of_knowledge"}, {"stat_tomb_of_the_warrior"}}
 )
 
 // visitBuildings are the other buildings: weekly resources, mana, luck and morale, movement, spells,
 // trade.
 var visitBuildings = []buildingKind{
-	{"building_windmill", 2, 0.2, 85},
-	{"building_water_wheel", 2, 0.2, 40},
-	{"building_mystical_garden", 1, 0.1, 51},
-	{"building_magic_well", 0, 0, 204},
-	{"building_magic_spring", 2, 0.4, 36},
-	{"building_rally_flag", 0, 0, 189},
-	{"building_idol_of_fortune", 0, 0, 122},
-	{"building_fountain_of_fortune", 0, 0, 115},
-	{"building_faerie_ring", 0, 0, 37},
-	{"building_fountain_of_youth", 0, 0.1, 79},
-	{"building_stables", 0, 0, 80},
-	{"building_redwood_observatory", 0, 0, 118},
-	{"building_shrine_1", 1, 0, 93},
-	{"building_shrine_2", 3, 0.3, 99},
-	{"building_shrine_3", 5, 0.6, 73},
-	{"building_trading_post", 0, 0, 54},
-	{"building_tavern", 0, 0.2, 20},
-	{"building_black_market", 3, 0.4, 70},
-	{"building_sanctuary", 0, 0.2, 42},
+	{"building_windmill", 2, 0.2, 85, ""},
+	{"building_water_wheel", 2, 0.2, 40, ""},
+	{"building_mystical_garden", 1, 0.1, 51, ""},
+	{"building_magic_well", 0, 0, 204, ""},
+	{"building_magic_spring", 2, 0.4, 36, ""},
+	{"building_rally_flag", 0, 0, 189, ""},
+	{"building_idol_of_fortune", 0, 0, 122, ""},
+	{"building_fountain_of_fortune", 0, 0, 115, ""},
+	{"building_faerie_ring", 0, 0, 37, ""},
+	{"building_fountain_of_youth", 0, 0.1, 79, ""},
+	{"building_stables", 0, 0, 80, ""},
+	{"building_redwood_observatory", 0, 0, 118, ""},
+	{"building_shrine_1", 1, 0, 93, ""},
+	{"building_shrine_2", 3, 0.3, 99, ""},
+	{"building_shrine_3", 5, 0.6, 73, ""},
+	{"building_trading_post", 0, 0, 54, ""},
+	{"building_tavern", 0, 0.2, 20, ""},
+	{"building_black_market", 3, 0.4, 70, ""},
+	{"building_sanctuary", 0, 0.2, 42, ""},
+}
+
+// dwellingKinds are the random dwellings of a player's area, by level, and the military post: linked to the
+// player, they take the faction of its town (the military post is the Haven one, turned like the random
+// dwellings). Random dwellings of levels 4 to 7 exist too, but what they turn into is not known.
+var dwellingKinds = []buildingKind{
+	{"dwelling_1", 2, 0.15, 0, ""},
+	{"dwelling_2", 3, 0.3, 0, ""},
+	{"dwelling_3", 4, 0.45, 0, ""},
+	{"dwelling_military_post", 4, 0.5, 0, ""},
+}
+
+// isRandomDwelling tells whether a key is a random dwelling of dwellingKinds.
+func isRandomDwelling(key string) bool {
+	for _, d := range dwellingKinds {
+		if d.key == key {
+			return true
+		}
+	}
+	return false
+}
+
+// neutralDwellings recruit creatures of every faction: neutral areas only.
+var neutralDwellings = []buildingKind{
+	{"dwelling_refugee_camp", 5, 0.5, 0, ""},      // high level creatures, a new kind every week
+	{"dwelling_elemental_conflux", 4, 0.5, 0, ""}, // elementals
+}
+
+// banks fight with their own creatures (no guard), the stronger the farther from the towns.
+var banks = []buildingKind{
+	{"bank_crypt", 0, 0.3, 56, ""},
+	{"bank_treant_thicket", 0, 0.35, 20, ""},
+	{"bank_gargoyle_stonevault", 0, 0.4, 21, ""},
+	{"bank_dwarven_treasury", 0, 0.45, 15, ""},
+	{"bank_naga_bank", 0, 0.5, 36, ""},
+	{"bank_elemental_stockpile", 0, 0.5, 38, ""},
+	{"bank_cyclops_stockpile", 0, 0.55, 20, ""},
+	{"bank_blood_temple", 0, 0.55, 12, ""},
+}
+
+// vaults are the strongest banks: neutral areas only.
+var vaults = []buildingKind{
+	{"bank_pyramid", 0, 0.6, 6, "sand"},   // a spell; sand only
+	{"bank_dragon_utopia", 0, 0.6, 9, ""}, // dragons
 }
 
 var buildingKinds = func() map[string]buildingKind {
 	m := map[string]buildingKind{}
-	for _, b := range append(append([]buildingKind(nil), statGivers...), visitBuildings...) {
-		m[b.key] = b
+	for _, set := range [][]buildingKind{statGivers, visitBuildings, dwellingKinds, neutralDwellings, banks, vaults} {
+		for _, b := range set {
+			m[b.key] = b
+		}
 	}
 	return m
 }()
 
 // Building placement
 const (
-	statRate    = 1.0 / 450 // stat givers per reachable tile at Normal (9 per town on a 136 map with 3 players)
-	visitRate   = 1.0 / 650 // other buildings per reachable tile at Normal
-	buildingGap = 8         // tiles between two buildings
-	sameKindGap = 24        // tiles between two buildings of the same kind
-	zoneWidth   = 0.45      // a building goes in [zone, zone + zoneWidth] of relative distance when it can
-	neutralBand = 0.15      // a neutral tile is at most this much (relative) nearer to its town than to another
+	statRate    = 1.0 / 450  // stat givers per reachable tile at Normal (9 per town on a 136 map with 3 players)
+	visitRate   = 1.0 / 650  // other buildings per reachable tile at Normal
+	bankRate    = 1.0 / 1300 // banks per reachable tile at Normal (3 per town on a 136 map with 3 players)
+	buildingGap = 8          // tiles between two buildings
+	sameKindGap = 24         // tiles between two buildings of the same kind
+	zoneWidth   = 0.45       // a building goes in [zone, zone + zoneWidth] of relative distance when it can
+	neutralBand = 0.15       // a neutral tile is at most this much (relative) nearer to its town than to another
 )
 
 // buildingCount is the number of buildings of a set per town for an amount setting (Low 0.6 times Normal,
@@ -161,15 +213,52 @@ func (c *content) placeUnit(k int, unit []string, far float64) {
 	}
 }
 
-// library places Libraries of Enlightenment in neutral areas: tiles about as far from two towns, away from
-// all of them (none at Low or on a map of one town).
-func (c *content) library() {
-	count := []int{0, 0, 1, 2}[layout.Amount(c.l.Stats)]
+// dwellings gives every town dwellings of its faction: level 1 at Low, levels 1 to 3 and a military post at
+// Normal, two of levels 1 and 2, one of level 3 and a military post at High.
+func (c *content) dwellings() {
+	keys := [][]string{nil, {"dwelling_1"}, {"dwelling_1", "dwelling_2", "dwelling_3", "dwelling_military_post"},
+		{"dwelling_1", "dwelling_1", "dwelling_2", "dwelling_2", "dwelling_3", "dwelling_military_post"}}[layout.Amount(c.l.Dwellings)]
+	far := c.farDistance()
+	for _, key := range keys {
+		kind := buildingKinds[key]
+		for k := range c.towns {
+			if c.placeBuilding(k, kind, far) {
+				c.objects[len(c.objects)-1].Player = c.towns[k].Player
+			} else {
+				c.warnings = append(c.warnings, fmt.Sprintf("player %d: no room for %s", c.towns[k].Player, kind.key))
+			}
+		}
+	}
+}
+
+// neutralCount is the number of neutral buildings of a setting: none at Low, 1 at Normal, 2 at High.
+func neutralCount(setting string) int { return []int{0, 0, 1, 2}[layout.Amount(setting)] }
+
+// neutral places count buildings in neutral areas: tiles about as far from two towns, away from all of
+// them (none on a map of one town). The kinds take turns, in a random order.
+func (c *content) neutral(set []buildingKind, count int) {
 	if count == 0 || len(c.towns) < 2 {
 		return
 	}
+	order := c.rnd.Perm(len(set))
+	for n := 0; n < count; n++ {
+		placed := false
+		for k := 0; k < len(set) && !placed; k++ { // another kind when this one has no room
+			placed = c.neutralOne(set[order[(n+k)%len(set)]])
+		}
+		if !placed {
+			c.warnings = append(c.warnings, "no neutral area for "+set[order[n%len(set)]].key)
+		}
+	}
+}
+
+// neutralOne places a building on a neutral tile.
+func (c *content) neutralOne(kind buildingKind) bool {
+	margin := guardMargin
+	if kind.guard == 0 {
+		margin = 1
+	}
 	far := c.farDistance()
-	kind := buildingKinds["stat_library"]
 	var tiles []int
 	for i, k := range c.near {
 		if k < 0 || c.occ[i] != tFree {
@@ -181,27 +270,21 @@ func (c *content) library() {
 				d2 = min(d2, c.dist[j][i])
 			}
 		}
-		if d2 < unreached && float64(d2-d1) <= neutralBand*far && float64(d1) >= kind.zone*far {
+		if d2 < unreached && float64(d2-d1) <= neutralBand*far && float64(d1) >= kind.zone*far && c.inBiome(kind, i) {
 			tiles = append(tiles, i)
 		}
 	}
 	c.rnd.Shuffle(len(tiles), func(a, b int) { tiles[a], tiles[b] = tiles[b], tiles[a] })
 	for _, i := range tiles {
-		if count == 0 {
-			return
-		}
 		x, y := i%c.size, i/c.size
 		if !c.buildingRoom(kind.key, x, y) {
 			continue
 		}
-		if turns := c.bestTurns(kind.key, x, y, guardMargin); turns >= 0 {
-			c.put(kind.key, x, y, turns)
-			count--
+		if turns := c.bestTurns(kind.key, x, y, margin); turns >= 0 && c.putReachable(kind.key, x, y, turns) {
+			return true
 		}
 	}
-	if count > 0 {
-		c.warnings = append(c.warnings, "no neutral area for a Library of Enlightenment")
-	}
+	return false
 }
 
 // buildings places a set of buildings, the same kinds for every town, in each town's part of the map: a
@@ -259,8 +342,7 @@ func (c *content) placeBuilding(k int, kind buildingKind, far float64) bool {
 			if f < zone[0] || f > zone[1] || !c.buildingRoom(kind.key, x, y) {
 				continue
 			}
-			if turns := c.bestTurns(kind.key, x, y, margin); turns >= 0 {
-				c.put(kind.key, x, y, turns)
+			if turns := c.bestTurns(kind.key, x, y, margin); turns >= 0 && c.putReachable(kind.key, x, y, turns) {
 				return true
 			}
 		}
@@ -281,4 +363,28 @@ func (c *content) buildingRoom(key string, x, y int) bool {
 		}
 	}
 	return true
+}
+
+// inBiome tells whether a building restricted to a biome may stand on tile i: biomeDepth tiles inside it.
+func (c *content) inBiome(kind buildingKind, i int) bool {
+	if kind.biome == "" {
+		return true
+	}
+	if c.depth == nil {
+		c.depth = map[string][]int{}
+	}
+	d, ok := c.depth[kind.biome]
+	if !ok {
+		n := c.size + 1
+		other := make([]bool, c.size*c.size)
+		for t := range other {
+			x, y := t%c.size, t/c.size
+			for _, v := range [4]int{y*n + x, y*n + x + 1, (y+1)*n + x, (y+1)*n + x + 1} {
+				other[t] = other[t] || c.l.Biomes[c.cellOf[v]] != kind.biome
+			}
+		}
+		d = chebyshevDistance(other, c.size)
+		c.depth[kind.biome] = d
+	}
+	return d[i] >= biomeDepth
 }

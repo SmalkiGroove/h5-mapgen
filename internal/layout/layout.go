@@ -16,7 +16,7 @@ import (
 // Placeable tells whether the brush can place a catalog object (mines, stat givers, buildings, treasures,
 // artifacts, monsters).
 func Placeable(kind string) bool {
-	for _, prefix := range []string{"mine_", "stat_", "building_", "res_", "artifact_", "monster_"} {
+	for _, prefix := range []string{"mine_", "stat_", "building_", "dwelling_", "bank_", "res_", "artifact_", "monster_"} {
 		if strings.HasPrefix(kind, prefix) {
 			return true
 		}
@@ -67,6 +67,8 @@ type Layout struct {
 	Treasures string   `json:"treasures,omitempty"`
 	Stats     string   `json:"stats,omitempty"`     // stat givers
 	Buildings string   `json:"buildings,omitempty"` // other visitable buildings
+	Dwellings string   `json:"dwellings,omitempty"` // creature dwellings
+	Banks     string   `json:"banks,omitempty"`     // creature banks and vaults
 	Guards    string   `json:"guards,omitempty"`
 	Obstacles string   `json:"obstacles,omitempty"`
 	Objects   []Object `json:"objects,omitempty"`
@@ -165,7 +167,7 @@ func (l *Layout) Check() error {
 			return fmt.Errorf("player %d starts outside the grid", i+1)
 		}
 	}
-	for _, a := range []struct{ name, value string }{{"mines", l.Mines}, {"treasures", l.Treasures}, {"stats", l.Stats}, {"buildings", l.Buildings}, {"guards", l.Guards}, {"obstacles", l.Obstacles}} {
+	for _, a := range []struct{ name, value string }{{"mines", l.Mines}, {"treasures", l.Treasures}, {"stats", l.Stats}, {"buildings", l.Buildings}, {"dwellings", l.Dwellings}, {"banks", l.Banks}, {"guards", l.Guards}, {"obstacles", l.Obstacles}} {
 		if Amount(a.value) < 0 {
 			return fmt.Errorf("%s: unknown amount %q", a.name, a.value)
 		}

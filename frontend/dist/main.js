@@ -119,8 +119,10 @@ const OBJECT_GROUPS = [
     ["mine_mercury", "Alchemist's lab", "#c04040", "M"], ["mine_crystal", "Crystal cavern", "#4fb3c8", "C"],
     ["mine_sulfur", "Sulfur dune", "#d0c030", "S"], ["mine_gem", "Gem pond", "#4caf50", "G"],
     ["mine_gold", "Gold mine", "#e8b020", "$"], ["mine_abandoned", "Abandoned mine", "#555", "?"]]],
-  ["Stat givers", [["stat_learning_stone", "Learning stone (+1000 xp)", "#38c0b0", "X"], ["stat_mercenary_camp", "Mercenary camp (+1 attack)", "#38c0b0", "A"], ["stat_marletto_tower", "Marletto tower (+1 defence)", "#38c0b0", "D"], ["stat_star_axis", "Star axis (+1 spellpower)", "#38c0b0", "S"], ["stat_garden_of_revelation", "Garden of revelation (+1 knowledge)", "#38c0b0", "K"], ["stat_arena", "Arena (+2 attack or defence)", "#38c0b0", "2"], ["stat_school_of_magic", "School of magic (+2 spellpower or knowledge)", "#38c0b0", "2"], ["stat_tree_of_knowledge", "Tree of knowledge (a level)", "#38c0b0", "L"], ["stat_library", "Library of enlightenment (neutral areas)", "#38c0b0", "E"], ["stat_war_academy", "War academy (weekly +1)", "#38c0b0", "W"], ["stat_temple", "Temple (weekly experience)", "#38c0b0", "T"], ["stat_witch_hut", "Witch hut (weekly brew)", "#38c0b0", "H"]]],
+  ["Stat givers", [["stat_learning_stone", "Learning stone (+1000 xp)", "#38c0b0", "X"], ["stat_mercenary_camp", "Mercenary camp (+1 attack)", "#38c0b0", "A"], ["stat_marletto_tower", "Marletto tower (+1 defence)", "#38c0b0", "D"], ["stat_star_axis", "Star axis (+1 spellpower)", "#38c0b0", "S"], ["stat_garden_of_revelation", "Garden of revelation (+1 knowledge)", "#38c0b0", "K"], ["stat_arena", "Arena (+2 attack or defence)", "#38c0b0", "2"], ["stat_school_of_magic", "School of magic (+2 spellpower or knowledge)", "#38c0b0", "2"], ["stat_tree_of_knowledge", "Tree of knowledge (a level)", "#38c0b0", "L"], ["stat_library", "Library of enlightenment (neutral areas)", "#38c0b0", "E"], ["stat_war_academy", "War academy (weekly +1)", "#38c0b0", "W"], ["stat_temple", "Temple (weekly experience)", "#38c0b0", "T"], ["stat_tomb_of_the_warrior", "Tomb of the warrior (+1 attack and defence)", "#38c0b0", "+"], ["stat_witch_hut", "Witch hut (weekly brew)", "#38c0b0", "H"]]],
   ["Buildings", [["building_windmill", "Windmill", "#4f8fe0", "W"], ["building_water_wheel", "Water wheel", "#4f8fe0", "$"], ["building_mystical_garden", "Mystical garden", "#4f8fe0", "G"], ["building_magic_well", "Magic well", "#4f8fe0", "M"], ["building_magic_spring", "Magic spring", "#4f8fe0", "M"], ["building_rally_flag", "Rally flag", "#4f8fe0", "F"], ["building_idol_of_fortune", "Idol of fortune", "#4f8fe0", "I"], ["building_fountain_of_fortune", "Fountain of fortune", "#4f8fe0", "L"], ["building_faerie_ring", "Faerie ring", "#4f8fe0", "L"], ["building_fountain_of_youth", "Fountain of youth", "#4f8fe0", "Y"], ["building_stables", "Stables", "#4f8fe0", "S"], ["building_redwood_observatory", "Redwood observatory", "#4f8fe0", "O"], ["building_shrine_1", "Shrine of magic, circle 1", "#4f8fe0", "1"], ["building_shrine_2", "Shrine of magic, circle 2", "#4f8fe0", "2"], ["building_shrine_3", "Shrine of magic, circle 3", "#4f8fe0", "3"], ["building_trading_post", "Trading post", "#4f8fe0", "$"], ["building_tavern", "Tavern", "#4f8fe0", "T"], ["building_black_market", "Black market", "#4f8fe0", "B"], ["building_sanctuary", "Sanctuary", "#4f8fe0", "+"]]],
+  ["Dwellings", [["dwelling_1", "Dwelling, level 1 (player's faction)", "#f08a30", "1"], ["dwelling_2", "Dwelling, level 2 (player's faction)", "#f08a30", "2"], ["dwelling_3", "Dwelling, level 3 (player's faction)", "#f08a30", "3"], ["dwelling_military_post", "Military post (player's faction)", "#f08a30", "M"], ["dwelling_refugee_camp", "Refugee camp", "#f08a30", "R"], ["dwelling_elemental_conflux", "Elemental conflux", "#f08a30", "E"]]],
+  ["Banks", [["bank_crypt", "Crypt", "#a0522d", "C"], ["bank_treant_thicket", "Treant thicket", "#a0522d", "T"], ["bank_gargoyle_stonevault", "Gargoyle stonevault", "#a0522d", "G"], ["bank_dwarven_treasury", "Dwarven treasury", "#a0522d", "D"], ["bank_naga_bank", "Naga bank", "#a0522d", "N"], ["bank_elemental_stockpile", "Elemental stockpile", "#a0522d", "E"], ["bank_cyclops_stockpile", "Cyclops stockpile", "#a0522d", "Y"], ["bank_blood_temple", "Blood temple", "#a0522d", "B"], ["bank_pyramid", "Pyramid (vault)", "#a0522d", "P"], ["bank_dragon_utopia", "Dragon utopia (vault)", "#a0522d", "U"]]],
   ["Treasures", [
     ["chest", "Chest", "#b8862f", "\u25a3"], ["campfire", "Campfire", "#e06a2c", "\u25b2"], ["res_gold", "Gold pile", "#e8b020", "$"],
     ["res_wood", "Wood", "#8b5a2b", "w"], ["res_ore", "Ore", "#7d7d7d", "o"], ["res_mercury", "Mercury", "#c04040", "m"],
@@ -131,10 +133,10 @@ const OBJECT_GROUPS = [
   ["Monsters", [1, 2, 3, 4, 5, 6, 7].map((n) => [`monster_${n}`, `Monster, level ${n}`, "#c03030", String(n)])],
 ];
 const OBJECTS = Object.fromEntries(OBJECT_GROUPS.flatMap(([, list]) => list.map(([key, name, color, mark]) => [key, { name, color, mark }])));
-const objectCategory = (key) => key.startsWith("mine_") ? "Mine" : key.startsWith("stat_") ? "Stat giver" : key.startsWith("building_") ? "Building"
+const objectCategory = (key) => key.startsWith("mine_") ? "Mine" : key.startsWith("stat_") ? "Stat giver" : key.startsWith("building_") ? "Building" : key.startsWith("dwelling_") ? "Dwelling" : key.startsWith("bank_") ? "Bank"
   : key.startsWith("artifact_") ? "Artifact" : key.startsWith("monster_") ? "Monster" : "Treasure";
-const CATEGORY_COLORS = { Mine: "#ffffff", "Stat giver": "#38c0b0", Building: "#4f8fe0", Treasure: "#ffd84a", Artifact: "#d070ff", Monster: "#ff3030" };
-const BIG_CATEGORIES = ["Mine", "Stat giver", "Building"]; // drawn larger in the preview
+const CATEGORY_COLORS = { Mine: "#ffffff", "Stat giver": "#38c0b0", Building: "#4f8fe0", Dwelling: "#f08a30", Bank: "#a0522d", Treasure: "#ffd84a", Artifact: "#d070ff", Monster: "#ff3030" };
+const BIG_CATEGORIES = ["Mine", "Stat giver", "Building", "Dwelling", "Bank"]; // drawn larger in the preview
 
 // Index of the brush object under a pointer position (cell units), -1 when none
 function objectAt(c) {
@@ -560,7 +562,7 @@ $("roads").onchange = () => {
   L.roads = $("roads").value; delete L.noRoads;
   renderPalette(); changed();
 };
-const AMOUNT_FIELDS = ["mines", "treasures", "stats", "buildings", "guards", "obstacles"];
+const AMOUNT_FIELDS = ["mines", "treasures", "stats", "buildings", "dwellings", "banks", "guards", "obstacles"];
 for (const f of AMOUNT_FIELDS) $(f).onchange = () => { remember(); L[f] = $(f).value; changed(); };
 $("dice").onclick = () => { remember(); L.seed = Math.floor(Math.random() * 1e6); syncForm(); changed(); };
 $("grid").onchange = () => {

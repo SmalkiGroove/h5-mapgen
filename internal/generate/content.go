@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math"
 	"math/rand"
+	"slices"
 	"sort"
 	"strings"
 
@@ -20,6 +21,7 @@ type Object struct {
 	Turns  int     `json:"turns"` // quarter turns counter-clockwise (objects and blocking decorations)
 	Rot    float64 `json:"-"`     // radians, for decorations that block nothing
 	Guards int     `json:"-"`     // index in Objects of the monster guarding it, -1 when unguarded
+	Player int     `json:"-"`     // a random dwelling's player, whose town's faction it takes (0: random)
 }
 
 // Content placement (distances in tiles, walking along walkable ground).
@@ -61,7 +63,9 @@ type content struct {
 	dist     [][]int // walking distance from each town's entrance
 	near     []int   // index of the nearest town by walking, -1 when unreached
 	objects  []Object
-	footOf   map[int]bool // tiles of the footprint being checked (scratch)
+	footOf   map[int]bool     // tiles of the footprint being checked (scratch)
+	seen     []bool           // tiles reached by putReachable (scratch)
+	depth    map[string][]int // per biome: Chebyshev distance of each tile to a tile of another biome
 	rnd      *rand.Rand
 	warnings []string
 }
@@ -83,7 +87,12 @@ func footprint(o catalog.Object, x, y, turns int) (blocked, active [][2]int) {
 
 // building tells whether an object is a building: it stays away from the towns and from other buildings.
 func building(key string) bool {
-	return strings.HasPrefix(key, "mine_") || strings.HasPrefix(key, "stat_") || strings.HasPrefix(key, "building_")
+	for _, prefix := range []string{"mine_", "stat_", "building_", "dwelling_", "bank_"} {
+		if strings.HasPrefix(key, prefix) {
+			return true
+		}
+	}
+	return false
 }
 
 // pathed lists the buildings other than mines that get a dirt path to the roads (the user's choice).
@@ -92,8 +101,11 @@ var pathed = map[string]bool{
 	"building_trading_post": true, "building_tavern": true, "building_black_market": true,
 }
 
-// important tells whether a building gets a dirt path to the roads: mines and the pathed buildings.
-func important(key string) bool { return strings.HasPrefix(key, "mine_") || pathed[key] }
+// important tells whether a building gets a dirt path to the roads: mines, dwellings, banks and the pathed
+// buildings.
+func important(key string) bool {
+	return strings.HasPrefix(key, "mine_") || strings.HasPrefix(key, "dwelling_") || strings.HasPrefix(key, "bank_") || pathed[key]
+}
 
 // fits tells whether a catalog object can stand at (x, y): every tile inside the map, walkable, free, off
 // the kept tiles and at least margin from roads, buildings away from the towns, objects objectSpace apart,
@@ -126,7 +138,7 @@ func (c *content) fits(key string, x, y, turns, margin int) bool {
 		}
 	}
 	for _, a := range active {
-		if c.approach(a, nil) < 0 {
+		if c.approach(key, a, nil) < 0 {
 			return false
 		}
 	}
@@ -139,9 +151,35 @@ var sides = [4][2]int{{1, 0}, {-1, 0}, {0, 1}, {0, -1}}
 // approach returns a free walkable tile beside a visit tile (orthogonal, so that a guard there stands in
 // front of it; outside the footprint being checked), the one with the lowest score when score is given,
 // or -1.
-func (c *content) approach(a [2]int, score func(i int) int) int {
-	best, bestScore := -1, unreached+1
+func (c *content) approach(key string, a [2]int, score func(i int) int) int {
+	if cornerEntry(key) {
+		return c.approachFrom(a, score, corners[:]) // walled in on its sides by its own model (Tomb of the Warrior)
+	}
+	return c.approachFrom(a, score, sides[:])
+}
+
+// cornerEntry tells whether an object's first visit tile has its 4 sides blocked by the object itself, so
+// that it is entered from a corner.
+func cornerEntry(key string) bool {
+	o := catalog.Get(key)
+	if len(o.Active) == 0 {
+		return false
+	}
+	a := o.Active[0]
 	for _, d := range sides {
+		if !slices.Contains(o.Blocked, [2]int{a[0] + d[0], a[1] + d[1]}) {
+			return false
+		}
+	}
+	return true
+}
+
+// corners are the 4 diagonal neighbours.
+var corners = [4][2]int{{1, 1}, {1, -1}, {-1, 1}, {-1, -1}}
+
+func (c *content) approachFrom(a [2]int, score func(i int) int, dirs [][2]int) int {
+	best, bestScore := -1, unreached+1
+	for _, d := range dirs {
 		x, y := a[0]+d[0], a[1]+d[1]
 		if !c.inside(x, y) {
 			continue
@@ -173,6 +211,56 @@ func (c *content) put(key string, x, y, turns int) int {
 	}
 	c.objects = append(c.objects, Object{Key: key, X: float64(x), Y: float64(y), Turns: turns, Guards: -1})
 	return len(c.objects) - 1
+}
+
+// putReachable places a building unless it cuts an object placed before off the towns (it then takes it
+// back and returns false). The objects of the other kinds are small enough not to.
+func (c *content) putReachable(key string, x, y, turns int) bool {
+	k := c.put(key, x, y, turns)
+	n := c.size * c.size
+	if len(c.seen) != n {
+		c.seen = make([]bool, n)
+	}
+	clear(c.seen)
+	var queue []int
+	for _, t := range c.towns {
+		e := t.Entrance()
+		i := e[1]*c.size + e[0]
+		c.seen[i] = true
+		queue = append(queue, i)
+	}
+	for q := 0; q < len(queue); q++ {
+		cx, cy := queue[q]%c.size, queue[q]/c.size
+		for _, d := range [8][2]int{{1, 0}, {-1, 0}, {0, 1}, {0, -1}, {1, 1}, {1, -1}, {-1, 1}, {-1, -1}} {
+			x, y := cx+d[0], cy+d[1]
+			if x < 0 || y < 0 || x >= c.size || y >= c.size {
+				continue
+			}
+			if i := y*c.size + x; !c.seen[i] && c.walk[i] && c.occ[i] == tFree {
+				c.seen[i] = true
+				queue = append(queue, i)
+			}
+		}
+	}
+	for _, o := range c.objects {
+		if o.Key == "" {
+			continue
+		}
+		_, active := footprint(catalog.Get(o.Key), int(o.X), int(o.Y), o.Turns)
+		for _, a := range active {
+			ok := false
+			for _, d := range append(sides[:], corners[:]...) { // heroes step diagonally too
+				if x, y := a[0]+d[0], a[1]+d[1]; x >= 0 && y >= 0 && x < c.size && y < c.size && c.seen[y*c.size+x] {
+					ok = true
+				}
+			}
+			if !ok {
+				c.remove(k)
+				return false
+			}
+		}
+	}
+	return true
 }
 
 // remove frees the tiles of an object (it stays in the list, with an empty key, until compact).
@@ -288,7 +376,11 @@ func placeContent(l *layout.Layout, size int, cellOf []int, towns []Town, walk, 
 	c.userObjects()
 	c.mines()
 	c.statBuildings()
-	c.library()
+	c.neutral([]buildingKind{buildingKinds["stat_library"]}, neutralCount(l.Stats))
+	c.dwellings()
+	c.neutral(neutralDwellings, neutralCount(l.Dwellings))
+	c.neutral(vaults, neutralCount(l.Banks))
+	c.buildings(banks, bankRate, l.Banks)
 	c.buildings(visitBuildings, visitRate, l.Buildings)
 	c.treasures()
 	c.connect()
@@ -379,6 +471,9 @@ func (c *content) userObjects() {
 			for _, p := range ring(tx, ty, r) {
 				if turns := c.bestTurns(u.Kind, p[0], p[1], margin); turns >= 0 {
 					c.put(u.Kind, p[0], p[1], turns)
+					if k := c.near[p[1]*c.size+p[0]]; k >= 0 && isRandomDwelling(u.Kind) {
+						c.objects[len(c.objects)-1].Player = c.towns[k].Player // the faction of the nearest town
+					}
 					placed = true
 					break
 				}
@@ -453,8 +548,7 @@ func (c *content) placeNear(k int, key string, band [2]int) bool {
 		}
 		c.rnd.Shuffle(len(tiles), func(a, b int) { tiles[a], tiles[b] = tiles[b], tiles[a] })
 		for _, i := range tiles {
-			if turns := c.bestTurns(key, i%c.size, i/c.size, margin); turns >= 0 {
-				c.put(key, i%c.size, i/c.size, turns)
+			if turns := c.bestTurns(key, i%c.size, i/c.size, margin); turns >= 0 && c.putReachable(key, i%c.size, i/c.size, turns) {
 				return true
 			}
 		}
@@ -580,7 +674,7 @@ func (c *content) connect() {
 		_, active := footprint(catalog.Get(o.Key), int(o.X), int(o.Y), o.Turns)
 		ok := true
 		for _, a := range active {
-			start := c.approach(a, func(i int) int { return dist[i] })
+			start := c.approach(o.Key, a, func(i int) int { return dist[i] })
 			if start < 0 || dist[start] == unreached {
 				ok = false
 				break
@@ -616,7 +710,7 @@ func (c *content) guard(amount int) {
 			continue
 		}
 		// on the kept path when possible, and with its zone off the roads and entrances
-		g := c.approach(active[0], func(i int) int {
+		g := c.approach(o.Key, active[0], func(i int) int {
 			s := 0
 			if !c.keep[i] {
 				s += 10
@@ -658,7 +752,7 @@ func (c *content) buildingPaths() {
 			start = int(g.Y)*c.size + int(g.X)
 		} else {
 			clear(c.footOf)
-			start = c.approach(a, nil)
+			start = c.approach(o.Key, a, nil)
 		}
 		if start < 0 {
 			continue

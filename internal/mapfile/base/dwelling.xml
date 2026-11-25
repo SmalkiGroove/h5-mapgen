@@ -1,0 +1,26 @@
+		<Item href="#n:inline(AdvMapDwelling)" id="{{ID}}">
+			<AdvMapDwelling>
+				<Pos>
+					<x>{{X}}</x>
+					<y>{{Y}}</y>
+					<z>0</z>
+				</Pos>
+				<Rot>{{ROT}}</Rot>
+				<Floor>0</Floor>
+				{{NAME}}
+				<CombatScript/>
+				<pointLights/>
+				<Shared href="{{SHARED}}"/>
+				<PlayerID>PLAYER_NONE</PlayerID>
+				<CaptureTrigger>
+					<Action>
+						<FunctionName/>
+					</Action>
+				</CaptureTrigger>
+				<RandomCreatures>true</RandomCreatures>
+				<creaturesEnabled/>
+				<RndSource>{{RNDSOURCE}}</RndSource>
+				<LinkToPlayer>{{LINK}}</LinkToPlayer>
+				<LinkToTown/>
+			</AdvMapDwelling>
+		</Item>
