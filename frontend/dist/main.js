@@ -123,6 +123,12 @@ const OBJECT_GROUPS = [
   ["Buildings", [["building_windmill", "Windmill", "#4f8fe0", "W"], ["building_water_wheel", "Water wheel", "#4f8fe0", "$"], ["building_mystical_garden", "Mystical garden", "#4f8fe0", "G"], ["building_magic_well", "Magic well", "#4f8fe0", "M"], ["building_magic_spring", "Magic spring", "#4f8fe0", "M"], ["building_rally_flag", "Rally flag", "#4f8fe0", "F"], ["building_idol_of_fortune", "Idol of fortune", "#4f8fe0", "I"], ["building_fountain_of_fortune", "Fountain of fortune", "#4f8fe0", "L"], ["building_faerie_ring", "Faerie ring", "#4f8fe0", "L"], ["building_fountain_of_youth", "Fountain of youth", "#4f8fe0", "Y"], ["building_stables", "Stables", "#4f8fe0", "S"], ["building_redwood_observatory", "Redwood observatory", "#4f8fe0", "O"], ["building_shrine_1", "Shrine of magic, circle 1", "#4f8fe0", "1"], ["building_shrine_2", "Shrine of magic, circle 2", "#4f8fe0", "2"], ["building_shrine_3", "Shrine of magic, circle 3", "#4f8fe0", "3"], ["building_trading_post", "Trading post", "#4f8fe0", "$"], ["building_tavern", "Tavern", "#4f8fe0", "T"], ["building_black_market", "Black market", "#4f8fe0", "B"], ["building_sanctuary", "Sanctuary", "#4f8fe0", "+"]]],
   ["Dwellings", [["dwelling_1", "Dwelling, level 1 (player's faction)", "#f08a30", "1"], ["dwelling_2", "Dwelling, level 2 (player's faction)", "#f08a30", "2"], ["dwelling_3", "Dwelling, level 3 (player's faction)", "#f08a30", "3"], ["dwelling_refugee_camp", "Refugee camp", "#f08a30", "R"], ["dwelling_elemental_conflux", "Elemental conflux", "#f08a30", "E"]]],
   ["Banks", [["bank_crypt", "Crypt", "#a0522d", "C"], ["bank_treant_thicket", "Treant thicket", "#a0522d", "T"], ["bank_gargoyle_stonevault", "Gargoyle stonevault", "#a0522d", "G"], ["bank_dwarven_treasury", "Dwarven treasury", "#a0522d", "D"], ["bank_naga_bank", "Naga bank", "#a0522d", "N"], ["bank_elemental_stockpile", "Elemental stockpile", "#a0522d", "E"], ["bank_cyclops_stockpile", "Cyclops stockpile", "#a0522d", "Y"], ["bank_blood_temple", "Blood temple", "#a0522d", "B"], ["bank_pyramid", "Pyramid (vault)", "#a0522d", "P"], ["bank_dragon_utopia", "Dragon utopia (vault)", "#a0522d", "U"]]],
+  ["Water", [["shipyard", "Shipyard (boats on the nearest sea)", "#1e90ff", "S"], ["building_lighthouse", "Lighthouse (on a shore)", "#4f8fe0", "L"],
+    ["water_sea_chest", "Sea chest", "#40d0f0", "\u25a3"], ["water_footman_wreck", "Shipwrecked footman", "#40d0f0", "f"], ["water_peasant_wreck", "Shipwrecked peasant", "#40d0f0", "p"],
+    ["water_buoy", "Buoy", "#40d0f0", "b"], ["water_mermaids", "Mermaids", "#40d0f0", "m"], ["water_sirens", "Sirens", "#40d0f0", "s"],
+    ["water_wrecked_junk", "Wrecked junk", "#40d0f0", "J"], ["water_wrecked_galley", "Wrecked galley", "#40d0f0", "G"], ["water_wrecked_galleon", "Wrecked galleon", "#40d0f0", "W"],
+    ["water_floatsam", "Floatsam", "#40d0f0", "~"], ["water_sunken_temple", "Sunken temple", "#40d0f0", "T"], ["water_aging_junk", "Aging junk", "#40d0f0", "j"],
+    ["water_weatherbeaten_galleon", "Weatherbeaten galleon", "#40d0f0", "w"], ["water_whirlpool", "Whirlpool (all of the brush's lead to one another)", "#40d0f0", "@"]]],
   ["Treasures", [
     ["chest", "Chest", "#b8862f", "\u25a3"], ["campfire", "Campfire", "#e06a2c", "\u25b2"], ["res_gold", "Gold pile", "#e8b020", "$"],
     ["res_wood", "Wood", "#8b5a2b", "w"], ["res_ore", "Ore", "#7d7d7d", "o"], ["res_mercury", "Mercury", "#c04040", "m"],
@@ -133,10 +139,10 @@ const OBJECT_GROUPS = [
   ["Monsters", [1, 2, 3, 4, 5, 6, 7].map((n) => [`monster_${n}`, `Monster, level ${n}`, "#c03030", String(n)])],
 ];
 const OBJECTS = Object.fromEntries(OBJECT_GROUPS.flatMap(([, list]) => list.map(([key, name, color, mark]) => [key, { name, color, mark }])));
-const objectCategory = (key) => key.startsWith("mine_") ? "Mine" : key.startsWith("stat_") ? "Stat giver" : key.startsWith("building_") ? "Building" : key.startsWith("dwelling_") ? "Dwelling" : key.startsWith("bank_") ? "Bank"
+const objectCategory = (key) => key === "shipyard" ? "Shipyard" : key.startsWith("water_") ? "Sea" : key.startsWith("mine_") ? "Mine" : key.startsWith("stat_") ? "Stat giver" : key.startsWith("building_") ? "Building" : key.startsWith("dwelling_") ? "Dwelling" : key.startsWith("bank_") ? "Bank"
   : key.startsWith("artifact_") ? "Artifact" : key.startsWith("monster_") ? "Monster" : "Treasure";
-const CATEGORY_COLORS = { Mine: "#ffffff", "Stat giver": "#38c0b0", Building: "#4f8fe0", Dwelling: "#f08a30", Bank: "#a0522d", Treasure: "#ffd84a", Artifact: "#d070ff", Monster: "#ff3030" };
-const BIG_CATEGORIES = ["Mine", "Stat giver", "Building", "Dwelling", "Bank"]; // drawn larger in the preview
+const CATEGORY_COLORS = { Mine: "#ffffff", "Stat giver": "#38c0b0", Building: "#4f8fe0", Dwelling: "#f08a30", Bank: "#a0522d", Shipyard: "#1e90ff", Sea: "#40d0f0", Treasure: "#ffd84a", Artifact: "#d070ff", Monster: "#ff3030" };
+const BIG_CATEGORIES = ["Mine", "Stat giver", "Building", "Dwelling", "Bank", "Shipyard"]; // drawn larger in the preview
 
 // Index of the brush object under a pointer position (cell units), -1 when none
 function objectAt(c) {
@@ -163,6 +169,7 @@ function drawObjectMark(ctx, x, y, key, r, hot) {
 // Reliefs, lowest first: level 0 water, 1 ground, 2 and 3 one and two cliffs up
 const RELIEFS = [
   { id: "water", name: "Water", color: "#2f64a8", mark: "≈", level: 0 },
+  { id: "river", name: "River (no boats)", color: "#3d8fcf", mark: "~", level: 0 },
   { id: "flat", name: "Flat", color: "#777", mark: "", level: 1 },
   { id: "hills", name: "Hills", color: "#777", mark: "⌒", level: 1 },
   { id: "plateau", name: "Plateau", color: "#8f8f8f", mark: "▲", level: 2 },
@@ -202,7 +209,7 @@ function drawLayout() {
       ctx.fillStyle = colors[L.biomes[i]] || "#000";
       ctx.fillRect(sx, sy, w, h);
       const lv = reliefLevel(L.relief[i]);
-      if (lv === 0) { ctx.fillStyle = "rgba(38,88,160,0.85)"; ctx.fillRect(sx, sy, w, h); }
+      if (lv === 0) { ctx.fillStyle = L.relief[i] === "river" ? "rgba(56,138,200,0.85)" : "rgba(38,88,160,0.85)"; ctx.fillRect(sx, sy, w, h); }
       if (lv >= 2) { ctx.fillStyle = `rgba(255,255,255,${lv === 2 ? 0.22 : 0.42})`; ctx.fillRect(sx, sy, w, h); }
       if (L.relief[i] === "hills") { ctx.fillStyle = hatch; ctx.fillRect(sx, sy, w, h); }
     }
@@ -562,7 +569,7 @@ $("roads").onchange = () => {
   L.roads = $("roads").value; delete L.noRoads;
   renderPalette(); changed();
 };
-const AMOUNT_FIELDS = ["mines", "treasures", "stats", "buildings", "dwellings", "banks", "guards", "obstacles"];
+const AMOUNT_FIELDS = ["mines", "treasures", "stats", "buildings", "dwellings", "banks", "guards", "obstacles", "water"];
 for (const f of AMOUNT_FIELDS) $(f).onchange = () => { remember(); L[f] = $(f).value; changed(); };
 $("dice").onclick = () => { remember(); L.seed = Math.floor(Math.random() * 1e6); syncForm(); changed(); };
 $("grid").onchange = () => {

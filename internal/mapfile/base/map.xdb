@@ -20,7 +20,7 @@
 	<UndergroundAmbientLights>
 		<Item/>
 	</UndergroundAmbientLights>
-	<ReflectiveWater>false</ReflectiveWater>
+	<ReflectiveWater>{{REFLECTIVE}}</ReflectiveWater>
 	{{TILES}}
 	<regions/>
 	<GroundTerrainFileName href="GroundTerrain.bin"/>

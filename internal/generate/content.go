@@ -22,6 +22,8 @@ type Object struct {
 	Rot    float64 `json:"-"`     // radians, for decorations that block nothing
 	Guards int     `json:"-"`     // index in Objects of the monster guarding it, -1 when unguarded
 	Player int     `json:"-"`     // a random dwelling's player, whose town's faction it takes (0: random)
+	Ship   *[2]int `json:"-"`     // a shipyard's boat tile, relative to its position
+	Group  int     `json:"-"`     // whirlpools of a group lead to one another
 }
 
 // Content placement (distances in tiles, walking along walkable ground).
@@ -33,6 +35,7 @@ const (
 	buildingClear = 10.0 // no building within this distance of a town's footprint
 	decorScale    = 9.0  // size of obstacle clusters, tiles
 	userSearch    = 1.5  // a brush object may move this many cells to fit
+	pocket        = 6    // tiles a building may cut off the towns besides its own footprint
 	unreached     = 1 << 30
 )
 
@@ -49,25 +52,39 @@ const (
 )
 
 type content struct {
-	l        *layout.Layout
-	size     int
-	cellOf   []int // vertex -> layout cell
-	walk     []bool
-	occ      []byte
-	keep     []bool    // must stay passable: roads, hidden routes between towns, entrances, paths to objects
-	keepDist []int     // Chebyshev distance to the nearest keep tile at the start (roads and entrances)
-	roads    []bool    // painted road tiles (nil without roads)
-	paths    []bool    // dirt paths from buildings to the roads
-	townDist []float64 // distance to the nearest tile of a town's footprint
-	towns    []Town
-	dist     [][]int // walking distance from each town's entrance
-	near     []int   // index of the nearest town by walking, -1 when unreached
-	objects  []Object
-	footOf   map[int]bool     // tiles of the footprint being checked (scratch)
-	seen     []bool           // tiles reached by putReachable (scratch)
-	depth    map[string][]int // per biome: Chebyshev distance of each tile to a tile of another biome
-	rnd      *rand.Rand
-	warnings []string
+	l           *layout.Layout
+	size        int
+	cellOf      []int // vertex -> layout cell
+	walk        []bool
+	occ         []byte
+	keep        []bool    // must stay passable: roads, hidden routes between towns, entrances, paths to objects
+	keepDist    []int     // Chebyshev distance to the nearest keep tile at the start (roads and entrances)
+	roads       []bool    // painted road tiles (nil without roads)
+	paths       []bool    // dirt paths from buildings to the roads
+	townDist    []float64 // distance to the nearest tile of a town's footprint
+	towns       []Town
+	dist        [][]int // walking distance from each town's entrance
+	near        []int   // index of the nearest town by walking, -1 when unreached
+	objects     []Object
+	footOf      map[int]bool // tiles of the footprint being checked (scratch)
+	seen        []bool       // tiles reached by putReachable (scratch)
+	changes     int          // count of changes to the occupied tiles and the navigable seas
+	reachBase   int          // tiles the towns reach, as of baseChanges
+	baseChanges int
+	depth       map[string][]int // per biome: Chebyshev distance of each tile to a tile of another biome
+	land        []int            // land mass of each walkable tile (-1 elsewhere)
+	sea         []bool           // tiles with four corners in water (water.go)
+	rampTile    []bool           // walkable tiles with a ramp corner: kept free (heroes cross cliffs and board there)
+	berth       []bool           // sea tiles beside a ramp tile: boats wait there
+	coastDist   []int            // Chebyshev distance of each tile to a tile that is not sea
+	seaOf       []int            // sea of each sea tile (-1 elsewhere)
+	seaSize     map[int]int      // tiles of each sea
+	seaWide     map[int]bool     // seas reaching seaWide tiles from the shore somewhere
+	seaRiver    map[int]bool     // seas painted as rivers, at least in part: no boats of the Water setting
+	navigable   map[int]bool     // seas with a shipyard
+	landing     []bool           // ground tiles a hero reaches from a boat
+	rnd         *rand.Rand
+	warnings    []string
 }
 
 func (c *content) inside(x, y int) bool { return x >= 1 && y >= 1 && x < c.size-1 && y < c.size-1 }
@@ -87,7 +104,7 @@ func footprint(o catalog.Object, x, y, turns int) (blocked, active [][2]int) {
 
 // building tells whether an object is a building: it stays away from the towns and from other buildings.
 func building(key string) bool {
-	for _, prefix := range []string{"mine_", "stat_", "building_", "dwelling_", "bank_"} {
+	for _, prefix := range []string{"mine_", "stat_", "building_", "dwelling_", "bank_", "shipyard"} {
 		if strings.HasPrefix(key, prefix) {
 			return true
 		}
@@ -98,7 +115,7 @@ func building(key string) bool {
 // pathed lists the buildings other than mines that get a dirt path to the roads (the user's choice).
 var pathed = map[string]bool{
 	"stat_war_academy": true, "stat_arena": true, "stat_school_of_magic": true, "stat_library": true,
-	"building_trading_post": true, "building_tavern": true, "building_black_market": true,
+	"building_trading_post": true, "building_tavern": true, "building_black_market": true, "shipyard": true,
 }
 
 // important tells whether a building gets a dirt path to the roads: mines, dwellings, banks and the pathed
@@ -113,16 +130,20 @@ func important(key string) bool {
 func (c *content) fits(key string, x, y, turns, margin int) bool {
 	blocked, active := footprint(catalog.Get(key), x, y, turns)
 	clear(c.footOf)
-	isBuilding := building(key)
+	isBuilding, water := building(key), isWater(key)
+	clearance := buildingClear
+	if key == "shipyard" {
+		clearance = shipyardTown // it serves the town
+	}
 	for _, t := range append(blocked, active...) {
 		if !c.inside(t[0], t[1]) {
 			return false
 		}
 		i := t[1]*c.size + t[0]
-		if !c.walk[i] || c.occ[i] != tFree || c.keep[i] || c.keepDist[i] < margin {
+		if water && !c.sea[i] || !water && !c.walk[i] || c.occ[i] != tFree || c.keep[i] || c.keepDist[i] < margin {
 			return false
 		}
-		if isBuilding && c.townDist[i] <= buildingClear {
+		if isBuilding && c.townDist[i] <= clearance {
 			return false
 		}
 		c.footOf[i] = true
@@ -152,10 +173,11 @@ var sides = [4][2]int{{1, 0}, {-1, 0}, {0, 1}, {0, -1}}
 // front of it; outside the footprint being checked), the one with the lowest score when score is given,
 // or -1.
 func (c *content) approach(key string, a [2]int, score func(i int) int) int {
+	water := isWater(key) // visited from a boat
 	if cornerEntry(key) {
-		return c.approachFrom(a, score, corners[:]) // walled in on its sides by its own model (Tomb of the Warrior)
+		return c.approachFrom(a, score, corners[:], water) // walled in on its sides by its own model (Tomb of the Warrior)
 	}
-	return c.approachFrom(a, score, sides[:])
+	return c.approachFrom(a, score, sides[:], water)
 }
 
 // cornerEntry tells whether an object's first visit tile has its 4 sides blocked by the object itself, so
@@ -177,7 +199,7 @@ func cornerEntry(key string) bool {
 // corners are the 4 diagonal neighbours.
 var corners = [4][2]int{{1, 1}, {1, -1}, {-1, 1}, {-1, -1}}
 
-func (c *content) approachFrom(a [2]int, score func(i int) int, dirs [][2]int) int {
+func (c *content) approachFrom(a [2]int, score func(i int) int, dirs [][2]int, water bool) int {
 	best, bestScore := -1, unreached+1
 	for _, d := range dirs {
 		x, y := a[0]+d[0], a[1]+d[1]
@@ -185,7 +207,7 @@ func (c *content) approachFrom(a [2]int, score func(i int) int, dirs [][2]int) i
 			continue
 		}
 		i := y*c.size + x
-		if !c.walk[i] || c.occ[i] != tFree || c.footOf[i] {
+		if water && !c.sea[i] || !water && !c.walk[i] || c.occ[i] != tFree || c.footOf[i] {
 			continue
 		}
 		s := 0
@@ -210,13 +232,13 @@ func (c *content) put(key string, x, y, turns int) int {
 		c.occ[t[1]*c.size+t[0]] = tVisit
 	}
 	c.objects = append(c.objects, Object{Key: key, X: float64(x), Y: float64(y), Turns: turns, Guards: -1})
+	c.changes++
 	return len(c.objects) - 1
 }
 
-// putReachable places a building unless it cuts an object placed before off the towns (it then takes it
-// back and returns false). The objects of the other kinds are small enough not to.
-func (c *content) putReachable(key string, x, y, turns int) bool {
-	k := c.put(key, x, y, turns)
+// reach marks in seen the tiles the towns reach, and counts them. Heroes walk, and sail the seas that have a
+// shipyard.
+func (c *content) reach() int {
 	n := c.size * c.size
 	if len(c.seen) != n {
 		c.seen = make([]bool, n)
@@ -231,16 +253,37 @@ func (c *content) putReachable(key string, x, y, turns int) bool {
 	}
 	for q := 0; q < len(queue); q++ {
 		cx, cy := queue[q]%c.size, queue[q]/c.size
-		for _, d := range [8][2]int{{1, 0}, {-1, 0}, {0, 1}, {0, -1}, {1, 1}, {1, -1}, {-1, 1}, {-1, -1}} {
+		for _, d := range neighbours {
 			x, y := cx+d[0], cy+d[1]
 			if x < 0 || y < 0 || x >= c.size || y >= c.size {
 				continue
 			}
-			if i := y*c.size + x; !c.seen[i] && c.walk[i] && c.occ[i] == tFree {
+			if i := y*c.size + x; !c.seen[i] && (c.walk[i] && c.occ[i] == tFree || c.boatable(i)) {
 				c.seen[i] = true
 				queue = append(queue, i)
 			}
 		}
+	}
+	return len(queue)
+}
+
+// putReachable places a building unless it cuts an object placed before, or more ground than a small
+// pocket, off the towns (it then takes it back and returns false). The objects of the other kinds are small
+// enough not to.
+func (c *content) putReachable(key string, x, y, turns int) bool {
+	if c.baseChanges != c.changes || c.reachBase == 0 {
+		c.reachBase, c.baseChanges = c.reach(), c.changes
+	}
+	k := c.put(key, x, y, turns)
+	blocked, active := footprint(catalog.Get(key), x, y, turns)
+	count := c.reach()
+	undo := func() bool {
+		c.remove(k)
+		c.baseChanges = c.changes // the tiles are as before
+		return false
+	}
+	if c.reachBase-count > len(blocked)+len(active)+pocket {
+		return undo()
 	}
 	for _, o := range c.objects {
 		if o.Key == "" {
@@ -255,11 +298,11 @@ func (c *content) putReachable(key string, x, y, turns int) bool {
 				}
 			}
 			if !ok {
-				c.remove(k)
-				return false
+				return undo()
 			}
 		}
 	}
+	c.reachBase, c.baseChanges = count, c.changes
 	return true
 }
 
@@ -271,6 +314,7 @@ func (c *content) remove(k int) {
 		c.occ[t[1]*c.size+t[0]] = tFree
 	}
 	c.objects[k].Key = ""
+	c.changes++
 }
 
 // bestTurns returns the rotation that fits with its visit tile closest to a town (or -1).
@@ -340,7 +384,9 @@ func (c *content) walkDistances() {
 // placeContent places the brush objects, the mines, the treasures and their guards, the paths from the
 // buildings to the roads, then the decorations. roads are the painted road tiles (nil without roads), keep
 // the tiles that must stay passable (roads and hidden routes between towns).
-func placeContent(l *layout.Layout, size int, cellOf []int, towns []Town, walk, roads, keep []bool, rnd *rand.Rand, field noise) (objects, decor []Object, paths []bool, warnings []string) {
+//
+// lvl is the level of each vertex, for the sea. The towns get their ship tiles (Town.Ship) in place.
+func placeContent(l *layout.Layout, size int, cellOf []int, towns []Town, walk, roads, keep []bool, lvl []int, ramp []bool, rnd *rand.Rand, field noise) (objects, decor []Object, paths []bool, warnings []string) {
 	c := &content{l: l, size: size, cellOf: cellOf, walk: walk, occ: make([]byte, size*size), keep: append([]bool(nil), keep...),
 		roads: roads, paths: make([]bool, size*size), towns: towns, footOf: map[int]bool{}, rnd: rnd}
 	c.townDist = make([]float64, size*size)
@@ -369,11 +415,27 @@ func placeContent(l *layout.Layout, size int, cellOf []int, towns []Town, walk, 
 			c.keep[k[1]*size+k[0]] = true
 		}
 	}
+	// ramps stay free: they are the only ways up the cliffs and onto the boats
+	c.rampTile = make([]bool, size*size)
+	for y := 0; y < size; y++ {
+		for x := 0; x < size; x++ {
+			for _, v := range [4]int{y*(size+1) + x, y*(size+1) + x + 1, (y+1)*(size+1) + x, (y+1)*(size+1) + x + 1} {
+				if ramp[v] && walk[y*size+x] {
+					c.rampTile[y*size+x], c.keep[y*size+x] = true, true
+				}
+			}
+		}
+	}
 	c.keepDist = chebyshevDistance(c.keep, size)
 	c.walkDistances()
+	c.land = landComponents(walk, size)
+	c.waterTiles(lvl)
 
 	guards := layout.Amount(l.Guards)
 	c.userObjects()
+	c.shipyards()
+	c.townShips()
+	c.seaDistances()
 	c.mines()
 	c.statBuildings()
 	c.neutral([]buildingKind{buildingKinds["stat_library"]}, neutralCount(l.Stats))
@@ -383,12 +445,13 @@ func placeContent(l *layout.Layout, size int, cellOf []int, towns []Town, walk, 
 	c.buildings(banks, bankRate, l.Banks)
 	c.buildings(visitBuildings, visitRate, l.Buildings)
 	c.treasures()
+	c.seaContent()
 	c.connect()
 	if guards > 0 {
 		c.guard(guards)
 	}
 	c.buildingPaths()
-	decor = c.decorate(field)
+	decor = append(c.decorate(field), c.seaDecor(field)...)
 
 	// drop the removed objects; Guards indices follow
 	index := make([]int, len(c.objects))
@@ -469,6 +532,19 @@ func (c *content) userObjects() {
 		placed := false
 		for r := 0; r <= int(userSearch*cs) && !placed; r++ {
 			for _, p := range ring(tx, ty, r) {
+				if u.Kind == "water_whirlpool" && c.fits(u.Kind, p[0], p[1], 0, 1) { // the brush's whirlpools lead to one another
+					c.put(u.Kind, p[0], p[1], 0)
+					c.objects[len(c.objects)-1].Group = 1
+					placed = true
+					break
+				}
+				if u.Kind == "shipyard" {
+					if turns := c.shipyardTurns(p[0], p[1], seaNeeded); turns >= 0 && c.putShipyard(p[0], p[1], turns, seaNeeded) {
+						placed = true
+						break
+					}
+					continue
+				}
 				if turns := c.bestTurns(u.Kind, p[0], p[1], margin); turns >= 0 {
 					c.put(u.Kind, p[0], p[1], turns)
 					if k := c.near[p[1]*c.size+p[0]]; k >= 0 && isRandomDwelling(u.Kind) {
@@ -542,7 +618,7 @@ func (c *content) placeNear(k int, key string, band [2]int) bool {
 		lo, hi := int(float64(band[0])*widen[0]), int(float64(band[1])*widen[1])
 		var tiles []int
 		for i, d := range c.dist[k] {
-			if d >= lo && d <= hi && c.near[i] == k {
+			if d >= lo && d <= hi && c.near[i] == k && c.walk[i] {
 				tiles = append(tiles, i)
 			}
 		}
@@ -637,8 +713,8 @@ func (c *content) treasureKind(f float64) string {
 	return pick(map[string]int{"chest": 25, "artifact_minor": 25, "artifact_major": 35, "artifact_relic": 15})
 }
 
-// connect keeps a path from every object's visit tile to the kept tiles (roads, routes, entrances), and
-// drops the objects that can't be reached.
+// connect keeps a path from every object's visit tile to the kept tiles (roads, routes, entrances) or to a
+// landing, and drops the objects that can't be reached. The objects of the sea are reached by boat.
 func (c *content) connect() {
 	n := c.size * c.size
 	dist := make([]int, n)
@@ -646,7 +722,7 @@ func (c *content) connect() {
 	var queue []int
 	for i := range dist {
 		dist[i], parent[i] = unreached, -1
-		if c.keep[i] && c.walk[i] && c.occ[i] == tFree {
+		if (c.keep[i] || c.landing[i]) && c.walk[i] && c.occ[i] == tFree {
 			dist[i] = 0
 			queue = append(queue, i)
 		}
@@ -668,7 +744,7 @@ func (c *content) connect() {
 	}
 	clear(c.footOf)
 	for k, o := range c.objects {
-		if o.Key == "" {
+		if o.Key == "" || isWater(o.Key) {
 			continue
 		}
 		_, active := footprint(catalog.Get(o.Key), int(o.X), int(o.Y), o.Turns)
@@ -725,6 +801,7 @@ func (c *content) guard(amount int) {
 		}
 		c.occ[g] = tVisit
 		c.keep[g] = true
+		c.changes++
 		c.objects = append(c.objects, Object{Key: fmt.Sprintf("monster_%d", level), X: float64(g % c.size), Y: float64(g / c.size), Turns: c.rnd.Intn(4), Guards: -1})
 		c.objects[k].Guards = len(c.objects) - 1
 	}

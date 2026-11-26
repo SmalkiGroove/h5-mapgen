@@ -18,6 +18,7 @@ import (
 	"h5mapgen/internal/generate"
 	"h5mapgen/internal/h5m"
 	"h5mapgen/internal/layout"
+	"h5mapgen/internal/terrain"
 )
 
 //go:embed base
@@ -73,7 +74,7 @@ func Folder(l *layout.Layout) string {
 var objectTemplates = map[string]string{
 	"AdvMapMine": "mine.xml", "AdvMapAbanMine": "abanmine.xml", "AdvMapTreasure": "treasure.xml",
 	"AdvMapArtifact": "artifact.xml", "AdvMapMonster": "monster.xml", "AdvMapBuilding": "building.xml",
-	"AdvMapShrine": "shrine.xml", "AdvMapDwelling": "dwelling.xml",
+	"AdvMapShrine": "shrine.xml", "AdvMapDwelling": "dwelling.xml", "AdvMapShipyard": "shipyard.xml",
 }
 
 // number writes a coordinate or angle: integers bare, else up to 4 decimals.
@@ -100,6 +101,15 @@ func objectXML(o generate.Object, rnd *rand.Rand) string {
 			values["RNDSOURCE"], values["LINK"] = "RND_PLAYER", fmt.Sprintf("PLAYER_%d", o.Player)
 		}
 	}
+	if c.Type == "AdvMapBuilding" {
+		values["GROUP"] = fmt.Sprint(o.Group) // whirlpools of a group lead to one another
+	}
+	if c.Type == "AdvMapShipyard" {
+		values["SHIPX"], values["SHIPY"] = "0", "0"
+		if o.Ship != nil {
+			values["SHIPX"], values["SHIPY"] = fmt.Sprint(o.Ship[0]), fmt.Sprint(o.Ship[1])
+		}
+	}
 	if c.Type == "AdvMapMonster" {
 		// count from the difficulty, like a monster placed in the editor
 		values["CUSTOM"], values["AMOUNT"], values["AMOUNT2"] = "false", "0", "0"
@@ -117,9 +127,13 @@ func Build(l *layout.Layout, res *generate.Result) ([]byte, error) {
 	for _, t := range res.Towns {
 		id := "item_" + guid(res.Rand)
 		townIDs[t.Player] = id
+		ship := [2]int{} // no sea: the town can't build its shipyard
+		if t.Ship != nil {
+			ship = *t.Ship
+		}
 		objects = append(objects, fill(baseFile("town.xml"), map[string]string{
 			"ID": id, "X": fmt.Sprint(t.X), "Y": fmt.Sprint(t.Y), "ROT": rotations[t.Turns&3],
-			"PLAYER": fmt.Sprintf("PLAYER_%d", t.Player),
+			"PLAYER": fmt.Sprintf("PLAYER_%d", t.Player), "SHIPX": fmt.Sprint(ship[0]), "SHIPY": fmt.Sprint(ship[1]),
 		}))
 	}
 	for _, o := range res.Objects {
@@ -150,8 +164,13 @@ func Build(l *layout.Layout, res *generate.Result) ([]byte, error) {
 	if len(objects) > 0 {
 		objectsXML = "<objects>" + nl + strings.Join(objects, nl) + nl + "\t</objects>"
 	}
+	reflective := false // reflective water, as on most of the game's maps with a sea (the user's choice: it looks deeper)
+	for _, v := range res.Terrain.Grids[terrain.TagLevel].Data {
+		reflective = reflective || v == terrain.LevelWater
+	}
 	mapXdb := fill(baseFile("map.xdb"), map[string]string{
 		"SIZE": size, "OBJECTS": objectsXML, "TILES": tiles, "PLAYERS": strings.Join(players, nl),
+		"REFLECTIVE": fmt.Sprint(reflective),
 	})
 	teams := "<teams>" + nl + strings.Repeat("\t\t<Item>1</Item>"+nl, len(l.Starts)) + "\t</teams>"
 	mapTag := fill(baseFile("map-tag.xdb"), map[string]string{"SIZE": size, "TEAMS": teams})

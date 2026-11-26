@@ -1,0 +1,19 @@
+		<Item href="#n:inline(AdvMapShipyard)" id="{{ID}}">
+			<AdvMapShipyard>
+				<Pos>
+					<x>{{X}}</x>
+					<y>{{Y}}</y>
+					<z>0</z>
+				</Pos>
+				<Rot>{{ROT}}</Rot>
+				<Floor>0</Floor>
+				<Name/>
+				<CombatScript/>
+				<pointLights/>
+				<Shared href="{{SHARED}}"/>
+				<ShipTile>
+					<x>{{SHIPX}}</x>
+					<y>{{SHIPY}}</y>
+				</ShipTile>
+			</AdvMapShipyard>
+		</Item>

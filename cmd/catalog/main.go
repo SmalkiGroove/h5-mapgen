@@ -18,6 +18,7 @@ import (
 	"strings"
 
 	"h5mapgen/internal/catalog"
+	"h5mapgen/internal/mapfile"
 )
 
 // fixed lists the objects placed by name: catalog key, shared file, inline type.
@@ -77,6 +78,22 @@ var fixed = []struct{ key, file, typ string }{
 	{"bank_blood_temple", "MapObjects/WitchBank.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
 	{"bank_pyramid", "MapObjects/Pyramid.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
 	{"bank_dragon_utopia", "MapObjects/Dragon_Utopia.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"shipyard", "MapObjects/Shipyard.(AdvMapShipyardShared).xdb", "AdvMapShipyard"},
+	{"building_lighthouse", "MapObjects/Lighthouse.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"water_sea_chest", "MapObjects/Sea_Chest.(AdvMapTreasureShared).xdb", "AdvMapTreasure"},
+	{"water_footman_wreck", "MapObjects/Water/Shipwrecks_2/FootmanWreck.xdb", "AdvMapTreasure"},
+	{"water_peasant_wreck", "MapObjects/Water/Shipwrecks_2/PeasantWreck.xdb", "AdvMapTreasure"},
+	{"water_buoy", "MapObjects/Buoy.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"water_mermaids", "MapObjects/Mermaids.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"water_sirens", "MapObjects/Sirens.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"water_whirlpool", "MapObjects/Whirlpool.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"water_wrecked_junk", "MapObjects/Water/Damaged_Boats_2/Demolish_Junk.xdb", "AdvMapBuilding"},
+	{"water_wrecked_galley", "MapObjects/Water/Damaged_Boats_2/Demolish_Galley.xdb", "AdvMapBuilding"},
+	{"water_wrecked_galleon", "MapObjects/Water/Damaged_Boats_2/Demolish_Galleon.xdb", "AdvMapBuilding"},
+	{"water_floatsam", "MapObjects/Floatsam.(AdvMapTreasureShared).xdb", "AdvMapTreasure"},
+	{"water_sunken_temple", "MapObjects/SunkenTemple.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
+	{"water_aging_junk", "MapObjects/Water/Damaged_Boats_2/Unkempt_Junk.xdb", "AdvMapBuilding"},
+	{"water_weatherbeaten_galleon", "MapObjects/Water/Damaged_Boats_2/Unkempt_Galleon.xdb", "AdvMapBuilding"},
 	{"res_wood", "MapObjects/Wood.(AdvMapTreasureShared).xdb", "AdvMapTreasure"},
 	{"res_ore", "MapObjects/Ore.(AdvMapTreasureShared).xdb", "AdvMapTreasure"},
 	{"res_mercury", "MapObjects/Mercury.(AdvMapTreasureShared).xdb", "AdvMapTreasure"},
@@ -103,6 +120,7 @@ var fixed = []struct{ key, file, typ string }{
 var decorFolders = map[string]string{
 	"grass": "grass", "dirt": "dirt", "sand": "sand", "snow": "snow", "steppe": "taiga", "deadland": "lava",
 	"subterrain": "subterra",
+	"water":      "water", // rocks in the sea (not a biome: placed on water tiles)
 }
 var skipped = map[string]bool{"combat_arena": true, "bridges": true, "lakes": true, "rays": true, "ice": true}
 
@@ -145,12 +163,16 @@ func main() {
 	}
 	h5ms, _ := filepath.Glob(filepath.Join(game, "Maps", "*.h5m"))
 	for _, p := range h5ms {
-		if strings.HasPrefix(strings.ToLower(filepath.Base(p)), "mapgen") {
-			continue // maps made by this tool would weigh its own choices
-		}
 		z, err := zip.OpenReader(p)
 		check(err)
+		made := false // maps made by this tool (they keep their layout) would weigh its own choices
 		for _, f := range z.File {
+			made = made || strings.HasSuffix(f.Name, "/"+mapfile.LayoutFile)
+		}
+		for _, f := range z.File {
+			if made {
+				break
+			}
 			if strings.HasSuffix(strings.ToLower(f.Name), "/map.xdb") {
 				maps = append(maps, f)
 			}
@@ -169,6 +191,10 @@ func main() {
 		defer rc.Close()
 		data, err := io.ReadAll(rc)
 		return strings.ReplaceAll(string(data), "\r", ""), err
+	}
+	waterBased := func(path string) bool {
+		s, _ := read(path)
+		return strings.Contains(s, "<WaterBased>true</WaterBased>")
 	}
 	footprint := func(path string) (blocked, active [][2]int, root string, err error) {
 		s, err := read(path)
@@ -199,7 +225,8 @@ func main() {
 	for _, o := range fixed {
 		blocked, active, root, err := footprint(o.file)
 		check(err)
-		cat.Objects[o.key] = catalog.Object{Href: "/" + o.file + "#xpointer(/" + root + ")", Type: o.typ, Blocked: blocked, Active: active}
+		cat.Objects[o.key] = catalog.Object{Href: "/" + o.file + "#xpointer(/" + root + ")", Type: o.typ, Blocked: blocked, Active: active,
+			Water: waterBased(o.file)}
 	}
 
 	uses := map[string]int{}
@@ -251,7 +278,7 @@ func main() {
 	out := filepath.Join("internal", "catalog", "catalog.json")
 	check(os.WriteFile(out, append(data, '\n'), 0o644))
 	fmt.Printf("%s: %d objects, %d maps read\n", out, len(cat.Objects), len(maps))
-	for _, b := range []string{"grass", "dirt", "sand", "snow", "steppe", "deadland", "subterrain"} {
+	for _, b := range []string{"grass", "dirt", "sand", "snow", "steppe", "deadland", "subterrain", "water"} {
 		big, small, flat := 0, 0, 0
 		for _, d := range cat.Decor[b] {
 			switch n := len(d.Blocked); {

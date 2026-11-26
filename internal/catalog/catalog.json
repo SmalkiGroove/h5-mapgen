@@ -108,6 +108,12 @@
    "blocked": null,
    "active": [[0,0]]
   },
+  "building_lighthouse": {
+   "href": "/MapObjects/Lighthouse.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[0,1],[1,1],[0,0]],
+   "active": [[1,0]]
+  },
   "building_magic_spring": {
    "href": "/MapObjects/Magic_Spring.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
    "type": "AdvMapBuilding",
@@ -366,6 +372,12 @@
    "blocked": null,
    "active": [[0,0]]
   },
+  "shipyard": {
+   "href": "/MapObjects/Shipyard.(AdvMapShipyardShared).xdb#xpointer(/AdvMapShipyardShared)",
+   "type": "AdvMapShipyard",
+   "blocked": [[0,1],[1,1],[1,0],[1,-1],[0,-1]],
+   "active": [[0,0]]
+  },
   "stat_arena": {
    "href": "/MapObjects/Arena.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
    "type": "AdvMapBuilding",
@@ -443,6 +455,104 @@
    "type": "AdvMapBuilding",
    "blocked": [[-1,0],[1,0],[-1,1],[0,1],[1,1],[-1,2],[0,2],[1,2]],
    "active": [[0,0]]
+  },
+  "water_aging_junk": {
+   "href": "/MapObjects/Water/Damaged_Boats_2/Unkempt_Junk.xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[0,-1],[0,1]],
+   "active": [[0,0]],
+   "water": true
+  },
+  "water_buoy": {
+   "href": "/MapObjects/Buoy.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": null,
+   "active": [[0,0]],
+   "water": true
+  },
+  "water_floatsam": {
+   "href": "/MapObjects/Floatsam.(AdvMapTreasureShared).xdb#xpointer(/AdvMapTreasureShared)",
+   "type": "AdvMapTreasure",
+   "blocked": null,
+   "active": [[0,0]],
+   "water": true
+  },
+  "water_footman_wreck": {
+   "href": "/MapObjects/Water/Shipwrecks_2/FootmanWreck.xdb#xpointer(/AdvMapTreasureShared)",
+   "type": "AdvMapTreasure",
+   "blocked": null,
+   "active": [[0,0]],
+   "water": true
+  },
+  "water_mermaids": {
+   "href": "/MapObjects/Mermaids.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": null,
+   "active": [[0,0]],
+   "water": true
+  },
+  "water_peasant_wreck": {
+   "href": "/MapObjects/Water/Shipwrecks_2/PeasantWreck.xdb#xpointer(/AdvMapTreasureShared)",
+   "type": "AdvMapTreasure",
+   "blocked": null,
+   "active": [[0,0]],
+   "water": true
+  },
+  "water_sea_chest": {
+   "href": "/MapObjects/Sea_Chest.(AdvMapTreasureShared).xdb#xpointer(/AdvMapTreasureShared)",
+   "type": "AdvMapTreasure",
+   "blocked": null,
+   "active": [[0,0]],
+   "water": true
+  },
+  "water_sirens": {
+   "href": "/MapObjects/Sirens.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": null,
+   "active": [[0,0]],
+   "water": true
+  },
+  "water_sunken_temple": {
+   "href": "/MapObjects/SunkenTemple.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[-1,-1],[-2,0],[-2,-1],[0,1],[1,0],[1,1],[-1,0],[1,-1],[1,-2],[0,0],[0,-1],[-3,-2],[-2,-2],[-1,-2],[-3,-1],[-3,0],[0,2],[1,2],[0,3],[1,3],[2,-2],[2,-1],[2,0],[0,-2]],
+   "active": [[0,-3],[1,-3],[3,-2],[3,-1],[3,0]],
+   "water": true
+  },
+  "water_weatherbeaten_galleon": {
+   "href": "/MapObjects/Water/Damaged_Boats_2/Unkempt_Galleon.xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[0,-1],[0,1]],
+   "active": [[0,0]],
+   "water": true
+  },
+  "water_whirlpool": {
+   "href": "/MapObjects/Whirlpool.(AdvMapBuildingShared).xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": null,
+   "active": [[0,0]],
+   "water": true
+  },
+  "water_wrecked_galleon": {
+   "href": "/MapObjects/Water/Damaged_Boats_2/Demolish_Galleon.xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[0,-1],[0,1]],
+   "active": [[0,0]],
+   "water": true
+  },
+  "water_wrecked_galley": {
+   "href": "/MapObjects/Water/Damaged_Boats_2/Demolish_Galley.xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[0,-1],[0,1]],
+   "active": [[0,0]],
+   "water": true
+  },
+  "water_wrecked_junk": {
+   "href": "/MapObjects/Water/Damaged_Boats_2/Demolish_Junk.xdb#xpointer(/AdvMapBuildingShared)",
+   "type": "AdvMapBuilding",
+   "blocked": [[0,-1],[0,1]],
+   "active": [[0,0]],
+   "water": true
   }
  },
  "decor": {
@@ -4064,6 +4174,86 @@
     "group": "dungeonwalls",
     "uses": 8,
     "blocked": null
+   }
+  ],
+  "water": [
+   {
+    "href": "/MapObjects/Water/Wrocks/Wrock2x2_2.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "wrocks",
+    "uses": 115,
+    "blocked": [[-1,0],[0,0],[-1,1],[0,1]]
+   },
+   {
+    "href": "/MapObjects/Water/Wrocks/Wrock2x2_1.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "wrocks",
+    "uses": 109,
+    "blocked": [[-1,0],[0,0],[-1,1],[0,1]]
+   },
+   {
+    "href": "/MapObjects/Water/Wrocks/Wrock2x2_3.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "wrocks",
+    "uses": 102,
+    "blocked": [[-1,0],[0,0],[-1,1],[0,1]]
+   },
+   {
+    "href": "/MapObjects/Water/Wrocks/Wrock9x6_1.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "wrocks",
+    "uses": 82,
+    "blocked": [[-1,-2],[0,-2],[1,-2],[2,-2],[-3,-1],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[3,-1],[-3,0],[-2,0],[-1,0],[0,0],[1,0],[2,0],[3,0],[4,0],[-4,1],[-3,1],[-2,1],[-1,1],[0,1],[1,1],[2,1],[3,1],[4,1],[-4,2],[-3,2],[-2,2],[-1,2],[2,2],[3,2],[4,2],[-3,3],[0,2],[1,2]]
+   },
+   {
+    "href": "/MapObjects/Water/Wrocks/Wrock2x3_1.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "wrocks",
+    "uses": 80,
+    "blocked": [[-2,0],[-1,0],[0,0],[-2,1],[-1,1],[0,1]]
+   },
+   {
+    "href": "/MapObjects/Water/Wrocks/Wrock2x2_4.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "wrocks",
+    "uses": 75,
+    "blocked": [[-1,0],[0,0],[-1,1],[0,1]]
+   },
+   {
+    "href": "/MapObjects/Water/Wrocks/Wrock4x3_3.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "wrocks",
+    "uses": 75,
+    "blocked": [[-2,0],[-1,0],[0,0],[1,0],[2,0],[-2,1],[-1,1],[0,1],[1,1],[2,1],[-1,-1],[0,-1],[1,-1],[-1,2],[0,2],[1,2]]
+   },
+   {
+    "href": "/MapObjects/Water/Wrocks/Wrock4x3_1.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "wrocks",
+    "uses": 70,
+    "blocked": [[-1,-1],[0,-1],[1,-1],[-1,0],[0,0],[1,0],[1,1],[2,-1],[2,0],[2,1]]
+   },
+   {
+    "href": "/MapObjects/Water/Wrocks/Wrock5x3_1.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "wrocks",
+    "uses": 62,
+    "blocked": [[-2,0],[-1,0],[0,0],[1,0],[-2,1],[-1,1],[0,1],[1,1],[-2,2],[-1,2],[0,2],[1,2],[-3,0],[-3,1],[-3,2]]
+   },
+   {
+    "href": "/MapObjects/Water/Wrocks/Wrock4x3_2.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "wrocks",
+    "uses": 59,
+    "blocked": [[-2,0],[-1,0],[0,0],[1,0],[-2,1],[-1,1],[0,1],[1,1],[-1,-1],[0,-1]]
+   },
+   {
+    "href": "/MapObjects/Water/Wrocks/Wrock9x6.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "wrocks",
+    "uses": 58,
+    "blocked": [[-4,1],[-3,1],[-2,1],[-1,1],[0,1],[1,1],[2,1],[3,1],[4,1],[-4,2],[-3,2],[-2,2],[-1,2],[0,2],[1,2],[2,2],[3,2],[4,2],[-3,-1],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[3,-1],[4,-1],[-3,0],[-2,0],[-1,0],[0,0],[1,0],[2,0],[3,0],[4,0],[-2,-2],[-1,-2],[0,-2],[1,-2],[2,-2],[3,-2]]
+   },
+   {
+    "href": "/MapObjects/Water/Wrocks/Wrock6x4_1.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "wrocks",
+    "uses": 57,
+    "blocked": [[-1,-1],[0,-1],[1,-1],[2,-1],[-1,0],[0,0],[1,0],[2,0],[-1,1],[0,1],[1,1],[2,1],[-1,2],[0,2],[1,2],[2,2],[-2,-1],[-3,0],[-2,0],[-3,1],[-2,1]]
+   },
+   {
+    "href": "/MapObjects/Water/Wrocks/Wrock6x4_2.xdb#xpointer(/AdvMapStaticShared)",
+    "group": "wrocks",
+    "uses": 47,
+    "blocked": [[-3,0],[-2,0],[-1,0],[0,0],[1,0],[2,0],[-3,1],[-2,1],[-1,1],[0,1],[1,1],[2,1],[-2,-1],[-1,-1],[0,-1],[1,-1],[2,-1],[-1,2],[0,2],[1,2],[-2,2],[2,2]]
    }
   ]
  }

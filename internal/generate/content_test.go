@@ -3,10 +3,12 @@ package generate
 import (
 	"math"
 	"math/rand"
+	"slices"
 	"strings"
 	"testing"
 
 	"h5mapgen/internal/biome"
+	"h5mapgen/internal/catalog"
 	"h5mapgen/internal/layout"
 )
 
@@ -20,6 +22,12 @@ func checkContent(t *testing.T, name string, l *layout.Layout, res *Result) {
 		ramp[i] = res.Terrain.Grids[8].Data[i] != 0
 	}
 	walk := walkableTiles(size, lvl, ramp)
+	sea := make([]bool, size*size) // four corners in water
+	for i := range sea {
+		x, y := i%size, i/size
+		sea[i] = lvl[y*n+x] == 0 && lvl[y*n+x+1] == 0 && lvl[(y+1)*n+x] == 0 && lvl[(y+1)*n+x+1] == 0
+	}
+	onSea := false            // the object being claimed stands on the sea
 	owner := map[int]string{} // tile -> what stands there
 	visit := map[int]bool{}
 	monster := map[int]bool{}
@@ -28,7 +36,10 @@ func checkContent(t *testing.T, name string, l *layout.Layout, res *Result) {
 		if tile[0] < 0 || tile[1] < 0 || tile[0] >= size || tile[1] >= size {
 			t.Fatalf("%s: %s outside the map at %v", name, what, tile)
 		}
-		if !walk[i] {
+		if onSea && !sea[i] {
+			t.Fatalf("%s: %s off the sea at %v", name, what, tile)
+		}
+		if !onSea && !walk[i] {
 			t.Fatalf("%s: %s on water or a cliff at %v", name, what, tile)
 		}
 		if res.Roads != nil && res.Roads[i] {
@@ -50,6 +61,7 @@ func checkContent(t *testing.T, name string, l *layout.Layout, res *Result) {
 		if what == "" {
 			what = o.Href[strings.LastIndex(o.Href, "/")+1:]
 		}
+		onSea = o.Key != "" && catalog.Get(o.Key).Water || o.Key == "" && strings.Contains(strings.ToLower(o.Href), "/water/")
 		for _, b := range blocked {
 			claim(b, what)
 		}
@@ -58,6 +70,89 @@ func checkContent(t *testing.T, name string, l *layout.Layout, res *Result) {
 			visit[a[1]*size+a[0]] = true
 			if strings.HasPrefix(o.Key, "monster_") {
 				monster[a[1]*size+a[0]] = true
+			}
+		}
+	}
+	// a boat tile is beside a walkable ramp tile: heroes board there (the coast is a cliff elsewhere)
+	berth := func(b int) bool {
+		for _, d := range neighbours {
+			x, y := b%size+d[0], b/size+d[1]
+			if x < 0 || y < 0 || x >= size || y >= size || !walk[y*size+x] {
+				continue
+			}
+			for _, v := range [4]int{y*n + x, y*n + x + 1, (y+1)*n + x, (y+1)*n + x + 1} {
+				if ramp[v] {
+					return true
+				}
+			}
+		}
+		return false
+	}
+	for _, town := range res.Towns {
+		if town.Ship != nil {
+			b := (town.Y+town.Ship[1])*size + town.X + town.Ship[0]
+			if _, taken := owner[b]; taken || !sea[b] || !berth(b) {
+				t.Fatalf("%s: town %d's ship tile is off the sea, taken or away from a ramp", name, town.Player)
+			}
+		}
+	}
+	// the sea objects: those of the coasts near the land, those of the open sea farther; no whirlpool unless
+	// brushed
+	notSea := make([]bool, size*size)
+	for i, s := range sea {
+		notSea[i] = !s
+	}
+	coast := chebyshevDistance(notSea, size)
+	for _, o := range res.Objects {
+		i := int(o.Y)*size + int(o.X)
+		switch {
+		case coastKinds[o.Key] > 0 && coast[i] >= openSea:
+			t.Errorf("%s: %s %d tiles off the coast", name, o.Key, coast[i])
+		case openKinds[o.Key] > 0 && coast[i] < openSea:
+			t.Errorf("%s: %s %d tiles from the coast", name, o.Key, coast[i])
+		}
+		if o.Key == "water_whirlpool" && !slices.ContainsFunc(l.Objects, func(u layout.Object) bool { return u.Kind == o.Key }) {
+			t.Errorf("%s: a whirlpool nobody placed", name)
+		}
+	}
+	// nothing but the seabed textures under water
+	for _, layer := range res.Terrain.Layers {
+		if strings.Contains(layer.Href, biome.SeaBed+".") || strings.Contains(layer.Href, biome.DeepSeaBed+".") {
+			continue
+		}
+		for i, w := range layer.Weights.Data {
+			if w > 0 && lvl[i] == 0 {
+				t.Fatalf("%s: %s on the water at vertex (%d, %d)", name, layer.Href, i%n, i/n)
+			}
+		}
+	}
+	// heroes walk (the ramps lead up and down the cliffs and onto the boats), and sail from the shipyards'
+	// boat tiles over the sea
+	sail := map[int]bool{}
+	var boats []int
+	for _, o := range res.Objects {
+		if o.Key == "shipyard" {
+			if o.Ship == nil {
+				t.Fatalf("%s: a shipyard without a boat tile", name)
+			}
+			b := (int(o.Y)+o.Ship[1])*size + int(o.X) + o.Ship[0]
+			if !sea[b] || !berth(b) {
+				t.Fatalf("%s: a shipyard's boat tile off the sea or away from a ramp", name)
+			}
+			if _, taken := owner[b]; taken {
+				t.Fatalf("%s: a shipyard's boat tile taken by %s", name, owner[b])
+			}
+			sail[b] = true
+			boats = append(boats, b)
+		}
+	}
+	for q := 0; q < len(boats); q++ {
+		cx, cy := boats[q]%size, boats[q]/size
+		for _, d := range neighbours {
+			x, y := cx+d[0], cy+d[1]
+			if i := y*size + x; x >= 0 && y >= 0 && x < size && y < size && sea[i] && !sail[i] {
+				sail[i] = true
+				boats = append(boats, i)
 			}
 		}
 	}
@@ -74,7 +169,7 @@ func checkContent(t *testing.T, name string, l *layout.Layout, res *Result) {
 			for dx := -1; dx <= 1; dx++ {
 				x, y := cur%size+dx, cur/size+dy
 				i := y*size + x
-				if x < 0 || y < 0 || x >= size || y >= size || seen[i] || !walk[i] {
+				if x < 0 || y < 0 || x >= size || y >= size || seen[i] || !walk[i] && !sail[i] {
 					continue
 				}
 				if _, taken := owner[i]; taken && !visit[i] {
@@ -232,4 +327,54 @@ func checkStatParity(t *testing.T, name string, res *Result) {
 		}
 	}
 	t.Logf("%s: stat givers %v", name, count)
+}
+
+// Islands: each town on its own island gets a shipyard, the sea gets its objects, and the content of the
+// island in the middle is reached by boat.
+func TestIslands(t *testing.T) {
+	l := layout.New(136, 16, 11)
+	for i := range l.Relief {
+		l.Relief[i] = layout.Water
+	}
+	island := func(x0, y0, x1, y1 int) {
+		for y := y0; y <= y1; y++ {
+			for x := x0; x <= x1; x++ {
+				l.Relief[y*16+x] = layout.Flat
+			}
+		}
+	}
+	island(0, 0, 5, 5)
+	island(10, 10, 15, 15)
+	island(6, 6, 9, 9)
+	l.Starts = []layout.Start{{X: 2.5, Y: 2.5}, {X: 13.5, Y: 13.5}}
+	res, err := Generate(l)
+	if err != nil {
+		t.Fatal(err)
+	}
+	checkContent(t, "islands", l, res)
+	count := map[string]int{}
+	middle := 0
+	cs := 136.0 / 16
+	for _, o := range res.Objects {
+		count[o.Key]++
+		if catalog.Get(o.Key).Water {
+			count["(sea)"]++
+		}
+		if o.X > 6*cs+2 && o.X < 10*cs-2 && o.Y > 6*cs+2 && o.Y < 10*cs-2 {
+			middle++
+		}
+	}
+	t.Logf("islands: %v, %d objects in the middle, warnings %v", count, middle, res.Warnings)
+	if !res.Apart || len(res.Links) != 0 {
+		t.Errorf("apart %v, roads %v", res.Apart, res.Links)
+	}
+	if count["shipyard"] != 2 {
+		t.Errorf("%d shipyards", count["shipyard"])
+	}
+	if count["(sea)"] == 0 {
+		t.Error("nothing on the sea")
+	}
+	if middle == 0 {
+		t.Error("nothing on the island in the middle")
+	}
 }

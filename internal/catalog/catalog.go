@@ -10,10 +10,11 @@ import (
 
 // Object is an object placed by name (mines, treasures, random artifacts and monsters).
 type Object struct {
-	Href    string   `json:"href"`    // the Shared href, with its xpointer
-	Type    string   `json:"type"`    // inline type in map.xdb (AdvMapMine, AdvMapTreasure, ...)
-	Blocked [][2]int `json:"blocked"` // tiles relative to the position, at rotation 0
-	Active  [][2]int `json:"active"`  // visit tiles
+	Href    string   `json:"href"`            // the Shared href, with its xpointer
+	Type    string   `json:"type"`            // inline type in map.xdb (AdvMapMine, AdvMapTreasure, ...)
+	Blocked [][2]int `json:"blocked"`         // tiles relative to the position, at rotation 0
+	Active  [][2]int `json:"active"`          // visit tiles
+	Water   bool     `json:"water,omitempty"` // stands on the sea and is visited by boat (WaterBased)
 }
 
 // Decor is a decoration (AdvMapStatic) of a biome.
@@ -27,7 +28,7 @@ type Decor struct {
 // Catalog is the content of catalog.json.
 type Catalog struct {
 	Objects map[string]Object  `json:"objects"`
-	Decor   map[string][]Decor `json:"decor"` // by biome id
+	Decor   map[string][]Decor `json:"decor"` // by biome id, and "water" for the rocks of the sea
 }
 
 //go:embed catalog.json

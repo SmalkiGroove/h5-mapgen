@@ -24,12 +24,14 @@ const (
 	rampArea    = 1200 // vertices of plateau per ramp: larger plateaus get more ramps
 	rampMax     = 4    // ramps per plateau
 	rampSpacing = 24.0 // tiles between two ramps of a plateau
+	coastArea   = 2500 // vertices of a land mass per coast ramp
+	coastMax    = 3    // coast ramps of a land mass
 )
 
 // reliefLevel is the level a relief asks for.
 func reliefLevel(r string) int {
 	switch r {
-	case layout.Water:
+	case layout.Water, layout.River:
 		return terrain.LevelWater
 	case layout.Plateau:
 		return terrain.LevelGround + terrain.LevelStep
@@ -105,7 +107,103 @@ func levels(l *layout.Layout, size int, cellOf []int, towns []Town, rnd *rand.Ra
 	capLevels(lvl, n, terrace)
 	ramp = make([]bool, n*n)
 	placeRamps(lvl, ramp, n, towns, inTown, rnd)
+	coastRamps(l, lvl, ramp, n, cellOf, towns, inTown, rnd)
 	return lvl, ramp, nil
+}
+
+// coastRamps gives each land mass ramps down into the seas boats sail, the first one nearest its town.
+// Elsewhere the coast is a cliff: heroes board and land only on a ramp (on the game's maps, every
+// shipyard's boat tile has one within 4 tiles). Boats sail the seas of 40 tiles or more when some towns
+// can't walk to the others, and with the Water setting the large wide seas that are no river (as in
+// water.go).
+func coastRamps(l *layout.Layout, lvl []int, ramp []bool, n int, cellOf []int, towns []Town, inTown []bool, rnd *rand.Rand) {
+	water := make([]bool, n*n)
+	notWater := make([]bool, n*n)
+	for i, v := range lvl {
+		water[i], notWater[i] = v == terrain.LevelWater, v != terrain.LevelWater
+	}
+	seaOf := components(water, n)
+	depth := chebyshevDistance(notWater, n)
+	seaSize, wide, river := map[int]int{}, map[int]bool{}, map[int]bool{}
+	for i, k := range seaOf {
+		if k >= 0 {
+			seaSize[k]++
+			wide[k] = wide[k] || depth[i] >= seaWide
+			river[k] = river[k] || l.Relief[cellOf[i]] == layout.River
+		}
+	}
+	lands := plateaus(lvl, n, terrain.LevelGround)
+	landOf := make([]int, n*n)
+	for i := range landOf {
+		landOf[i] = -1
+	}
+	for k, comp := range lands {
+		for _, i := range comp {
+			landOf[i] = k
+		}
+	}
+	apart := false
+	for _, t := range towns[1:] {
+		apart = apart || landOf[t.Y*n+t.X] != landOf[towns[0].Y*n+towns[0].X]
+	}
+	boats := func(k int) bool {
+		return seaSize[k] >= seaNeeded && (apart || layout.Amount(l.Water) > 0 && seaSize[k] >= seaWorth && wide[k] && !river[k])
+	}
+	for k, comp := range lands {
+		var home []Town
+		for _, t := range towns {
+			if landOf[t.Y*n+t.X] == k {
+				home = append(home, t)
+			}
+		}
+		var sites []rampSite
+		for _, i := range comp {
+			if lvl[i] != terrain.LevelGround {
+				continue
+			}
+			x, y := i%n, i/n
+			for _, d := range [4][2]int{{1, 0}, {-1, 0}, {0, 1}, {0, -1}} {
+				// the sea right in front: the foot of the ramp and the row after it in water
+				x2, y2, x3, y3 := x+2*d[0], y+2*d[1], x+3*d[0], y+3*d[1]
+				if x3 < 0 || y3 < 0 || x3 >= n || y3 >= n || !water[y2*n+x2] || !water[y3*n+x3] || !boats(seaOf[y3*n+x3]) {
+					continue
+				}
+				s := rampSite{x: x, y: y, dx: d[0], dy: d[1], h: terrain.LevelGround}
+				if s.changes = s.fit(lvl, ramp, n, inTown); s.changes < 0 {
+					continue
+				}
+				near := 0.0
+				if len(home) > 0 {
+					near = math.Inf(1)
+					for _, t := range home {
+						near = math.Min(near, math.Hypot(float64(x-t.X), float64(y-t.Y)))
+					}
+				}
+				s.score = float64(s.changes)*3 + near/2 + rnd.Float64()*4
+				sites = append(sites, s)
+			}
+		}
+		sort.SliceStable(sites, func(a, b int) bool { return sites[a].score < sites[b].score })
+		want := min(coastMax, 1+len(comp)/coastArea)
+		var placed []rampSite
+		for _, s := range sites {
+			if len(placed) == want {
+				break
+			}
+			far := true
+			for _, p := range placed {
+				far = far && math.Hypot(float64(s.x-p.x), float64(s.y-p.y)) >= rampSpacing
+			}
+			if !far || s.fit(lvl, ramp, n, inTown) < 0 {
+				continue
+			}
+			s.stamp(func(x, y, level int, isRamp bool) {
+				lvl[y*n+x] = level
+				ramp[y*n+x] = ramp[y*n+x] || isRamp
+			})
+			placed = append(placed, s)
+		}
+	}
 }
 
 // modeFilter replaces each level with the most common one of its 3 x 3 neighbourhood (the vertex's own

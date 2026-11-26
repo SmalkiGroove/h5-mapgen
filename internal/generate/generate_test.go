@@ -200,8 +200,14 @@ func TestLevelRules(t *testing.T) {
 		for i := range l.Relief {
 			l.Relief[i] = layout.Reliefs[rnd.Intn(len(layout.Reliefs))]
 		}
+		var land []string
+		for _, r := range layout.Reliefs {
+			if reliefLevel(r) > terrain.LevelWater {
+				land = append(land, r)
+			}
+		}
 		for _, s := range l.Starts { // towns on land
-			l.Relief[int(s.Y)*grid+int(s.X)] = layout.Reliefs[1+rnd.Intn(len(layout.Reliefs)-1)]
+			l.Relief[int(s.Y)*grid+int(s.X)] = land[rnd.Intn(len(land))]
 		}
 		res, err := Generate(l)
 		if err != nil {
@@ -262,9 +268,22 @@ func TestPlateauRoads(t *testing.T) {
 		t.Errorf("a town in water: err %v", err)
 	}
 
-	set(0, 7, 15, 8, layout.Water) // a sea across the map
+	set(0, 7, 15, 8, layout.Water) // a sea across the map: no road over it, a shipyard on each side
 	l.Starts = []layout.Start{{X: 3, Y: 3}, {X: 13, Y: 13}}
-	if _, err := Generate(l); err == nil || !strings.Contains(err.Error(), "no road") {
-		t.Errorf("roads across the sea: err %v", err)
+	res, err = Generate(l)
+	if err != nil {
+		t.Fatalf("towns across the sea: %v", err)
+	}
+	if !res.Apart || len(res.Links) != 0 {
+		t.Errorf("towns across the sea: apart %v, roads %v", res.Apart, res.Links)
+	}
+	yards := 0
+	for _, o := range res.Objects {
+		if o.Key == "shipyard" {
+			yards++
+		}
+	}
+	if yards != 2 {
+		t.Errorf("towns across the sea: %d shipyards, warnings %v", yards, res.Warnings)
 	}
 }

@@ -23,6 +23,14 @@ type Biome struct {
 // bonus), named Road in the editor's grass tiles.
 const PathTile = "Grass/Road"
 
+// SeaBed is the ground under the water and on the beaches, DeepSeaBed the darker one away from the coasts.
+// They are the textures the game's maps use under water (with Grass/River-bed_grass): no ground texture
+// may show there.
+const (
+	SeaBed     = "Sand/River-bed"
+	DeepSeaBed = "Water/Water"
+)
+
 // All biomes, in palette order. The first one is the default ground.
 var All = []Biome{
 	{ID: "grass", Name: "Grass", Color: "#5c8f3e", Base: "Grass/Grass",

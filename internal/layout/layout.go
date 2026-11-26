@@ -14,14 +14,14 @@ import (
 )
 
 // Placeable tells whether the brush can place a catalog object (mines, stat givers, buildings, treasures,
-// artifacts, monsters).
+// artifacts, monsters, shipyards and the objects of the sea).
 func Placeable(kind string) bool {
-	for _, prefix := range []string{"mine_", "stat_", "building_", "dwelling_", "bank_", "res_", "artifact_", "monster_"} {
+	for _, prefix := range []string{"mine_", "stat_", "building_", "dwelling_", "bank_", "res_", "artifact_", "monster_", "water_"} {
 		if strings.HasPrefix(kind, prefix) {
 			return true
 		}
 	}
-	return kind == "chest" || kind == "campfire"
+	return kind == "chest" || kind == "campfire" || kind == "shipyard"
 }
 
 // Map sizes of the game (side in tiles), smallest to largest.
@@ -30,6 +30,7 @@ var Sizes = []int{72, 96, 136, 176, 216, 256, 320}
 // Reliefs a cell can take.
 const (
 	Water   = "water"
+	River   = "river" // water too, but its seas get no shipyard or object of the Water setting
 	Flat    = "flat"
 	Hills   = "hills"
 	Plateau = "plateau" // one cliff above the ground
@@ -37,7 +38,7 @@ const (
 )
 
 // Reliefs lists the reliefs, lowest first.
-var Reliefs = []string{Water, Flat, Hills, Plateau, High}
+var Reliefs = []string{Water, River, Flat, Hills, Plateau, High}
 
 // MaxPlayers is the number of player slots of a map.
 const MaxPlayers = 8
@@ -71,6 +72,7 @@ type Layout struct {
 	Banks     string   `json:"banks,omitempty"`     // creature banks and vaults
 	Guards    string   `json:"guards,omitempty"`
 	Obstacles string   `json:"obstacles,omitempty"`
+	Water     string   `json:"water,omitempty"` // objects of the sea and shipyards beyond the needed ones
 	Objects   []Object `json:"objects,omitempty"`
 }
 
@@ -167,7 +169,7 @@ func (l *Layout) Check() error {
 			return fmt.Errorf("player %d starts outside the grid", i+1)
 		}
 	}
-	for _, a := range []struct{ name, value string }{{"mines", l.Mines}, {"treasures", l.Treasures}, {"stats", l.Stats}, {"buildings", l.Buildings}, {"dwellings", l.Dwellings}, {"banks", l.Banks}, {"guards", l.Guards}, {"obstacles", l.Obstacles}} {
+	for _, a := range []struct{ name, value string }{{"mines", l.Mines}, {"treasures", l.Treasures}, {"stats", l.Stats}, {"buildings", l.Buildings}, {"dwellings", l.Dwellings}, {"banks", l.Banks}, {"guards", l.Guards}, {"obstacles", l.Obstacles}, {"water", l.Water}} {
 		if Amount(a.value) < 0 {
 			return fmt.Errorf("%s: unknown amount %q", a.name, a.value)
 		}

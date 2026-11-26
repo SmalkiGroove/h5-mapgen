@@ -17,7 +17,7 @@
 						<FunctionName/>
 					</Action>
 				</CaptureTrigger>
-				<GroupID>0</GroupID>
+				<GroupID>{{GROUP}}</GroupID>
 				<showCameras/>
 			</AdvMapBuilding>
 		</Item>

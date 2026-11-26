@@ -23,8 +23,8 @@
 					</Action>
 				</HeroDeployTrigger>
 				<ShipTile>
-					<x>0</x>
-					<y>0</y>
+					<x>{{SHIPX}}</x>
+					<y>{{SHIPY}}</y>
 				</ShipTile>
 				<Specialization/>
 				<buildings>

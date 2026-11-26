@@ -97,8 +97,9 @@ const (
 )
 
 // AutoLinks joins the towns with a minimum spanning tree (Prim), by straight distance between entrances.
-// Links are pairs of player numbers.
-func AutoLinks(towns []Town) [][2]int {
+// Links are pairs of player numbers. Only towns that joined accepts are linked (nil: all): towns on
+// different land masses get a tree each.
+func AutoLinks(towns []Town, joined func(a, b Town) bool) [][2]int {
 	if len(towns) < 2 {
 		return nil
 	}
@@ -108,10 +109,22 @@ func AutoLinks(towns []Town) [][2]int {
 		best, bi, bj := math.Inf(1), -1, -1
 		for i := range in {
 			for j := range towns {
-				if d := entranceDistance(towns[i], towns[j]); !in[j] && d < best {
+				if in[j] || joined != nil && !joined(towns[i], towns[j]) {
+					continue
+				}
+				if d := entranceDistance(towns[i], towns[j]); d < best {
 					best, bi, bj = d, i, j
 				}
 			}
+		}
+		if bj < 0 { // the rest is on other land masses: start a tree there
+			for j := range towns {
+				if !in[j] {
+					in[j] = true
+					break
+				}
+			}
+			continue
 		}
 		in[bj] = true
 		links = append(links, [2]int{towns[bi].Player, towns[bj].Player})

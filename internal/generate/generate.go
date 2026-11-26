@@ -2,9 +2,9 @@
 package generate
 
 import (
+	"fmt"
 	"math"
 	"math/rand"
-	"slices"
 	"sort"
 
 	"h5mapgen/internal/biome"
@@ -18,6 +18,8 @@ type Town struct {
 	X      int `json:"x"`      // tile
 	Y      int `json:"y"`
 	Turns  int `json:"turns"` // quarter turns counter-clockwise; the entrance faces south at 0, east at 1, north at 2, west at 3
+	// Ship is where the boats of its own shipyard appear, relative to its position (nil: no sea nearby)
+	Ship *[2]int `json:"ship,omitempty"`
 }
 
 // TownEntrance is the visit tile of RandomTown at 0 turns, relative to its position.
@@ -31,6 +33,7 @@ type Result struct {
 	Roads   []bool   // road tiles, size x size, row = y (nil without roads)
 	Paths   []bool   // dirt path tiles from the buildings to the roads, size x size
 	Links   [][2]int // the roads built, as pairs of player numbers
+	Apart   bool     // some towns can't walk to the others (each of them gets a shipyard)
 	Objects []Object // mines, treasures, artifacts, monsters
 	Decor   []Object // decorations
 	// Warnings are the content that could not be placed (the map is still generated)
@@ -46,6 +49,8 @@ const (
 	hillScale   = 12.0 // size of hills, tiles
 	hillHeight  = 0.45 // max height change of hills (ground is 2.0; 8 Kingdoms has 1.6 to 2.2)
 	townFlat    = 9.0  // tiles kept flat around a town
+	deepFrom    = 3.0  // vertices from the shore where the deep seabed starts
+	deepTo      = 6.0  // and where it covers the seabed
 )
 
 // Generate expands a checked layout.
@@ -71,69 +76,6 @@ func Generate(l *layout.Layout) (*Result, error) {
 			cx := max(0, min(grid-1, int(wx/cs)))
 			cy := max(0, min(grid-1, int(wy/cs)))
 			cellOf[y*n+x] = cy*grid + cx
-		}
-	}
-
-	// Biome masks, most used first: the first one is the base layer
-	masks := map[string][]float64{}
-	var order []string
-	for i, c := range cellOf {
-		id := l.Biomes[c]
-		if masks[id] == nil {
-			masks[id] = make([]float64, n*n)
-			order = append(order, id)
-		}
-		masks[id][i] = 1
-	}
-	coverage := func(id string) (s float64) {
-		for _, v := range masks[id] {
-			s += v
-		}
-		return
-	}
-	sort.SliceStable(order, func(i, j int) bool { return coverage(order[i]) > coverage(order[j]) })
-	for _, id := range order {
-		masks[id] = blur(masks[id], n, borderBlur, 2)
-	}
-
-	used := map[string]bool{}
-	var tiles []string
-	addLayer := func(tile string, weight func(i int) float64) {
-		layer := terrain.NewLayer(biome.Href(tile), size)
-		any := false
-		for i := range layer.Weights.Data {
-			w := byte(math.Round(255 * math.Max(0, math.Min(1, weight(i)))))
-			layer.Weights.Data[i] = w
-			any = any || w > 0
-		}
-		if !any {
-			return
-		}
-		ter.Layers = append(ter.Layers, layer)
-		if href := biome.Href(tile); !used[href] {
-			used[href] = true
-			tiles = append(tiles, href)
-		}
-	}
-	for k, id := range order {
-		b, _ := biome.ByID(id)
-		mask := masks[id]
-		if k == 0 {
-			addLayer(b.Base, func(int) float64 { return 1 })
-		} else {
-			addLayer(b.Base, func(i int) float64 { return mask[i] })
-		}
-	}
-	for _, id := range order {
-		b, _ := biome.ByID(id)
-		mask := masks[id]
-		for a, tile := range b.Accents {
-			field := seed + noise(100+a)
-			addLayer(tile, func(i int) float64 {
-				x, y := float64(i%n), float64(i/n)
-				v := field.fbm(x/accentScale, y/accentScale, 3)
-				return mask[i] * smoothstep(accentCover, accentCover+0.08, v)
-			})
 		}
 	}
 
@@ -176,8 +118,50 @@ func Generate(l *layout.Layout) (*Result, error) {
 		ter.Height[i] = float32(v) / 8
 	}
 
-	// Lakebeds: the bed tile of the biome under water, fading out over about two tiles of shore. Biomes that
-	// share a bed tile share its layer.
+	// Biome masks, most used first: the first one covers all the land
+	masks := map[string][]float64{}
+	var order []string
+	for i, c := range cellOf {
+		id := l.Biomes[c]
+		if masks[id] == nil {
+			masks[id] = make([]float64, n*n)
+			order = append(order, id)
+		}
+		masks[id][i] = 1
+	}
+	coverage := func(id string) (s float64) {
+		for _, v := range masks[id] {
+			s += v
+		}
+		return
+	}
+	sort.SliceStable(order, func(i, j int) bool { return coverage(order[i]) > coverage(order[j]) })
+	for _, id := range order {
+		masks[id] = blur(masks[id], n, borderBlur, 2)
+	}
+
+	used := map[string]bool{}
+	var tiles []string
+	addLayer := func(tile string, weight func(i int) float64) {
+		layer := terrain.NewLayer(biome.Href(tile), size)
+		any := false
+		for i := range layer.Weights.Data {
+			w := byte(math.Round(255 * math.Max(0, math.Min(1, weight(i)))))
+			layer.Weights.Data[i] = w
+			any = any || w > 0
+		}
+		if !any {
+			return
+		}
+		ter.Layers = append(ter.Layers, layer)
+		if href := biome.Href(tile); !used[href] {
+			used[href] = true
+			tiles = append(tiles, href)
+		}
+	}
+	// Water: the seabed alone under it, fading over about two tiles of beach. The game draws a texture of
+	// higher priority over lower ones wherever it has weight (Sand/River-bed has 27, below most grounds),
+	// so the land textures get none on the water.
 	water := make([]float64, n*n)
 	anyWater := false
 	for i, v := range lvl {
@@ -185,23 +169,46 @@ func Generate(l *layout.Layout) (*Result, error) {
 			water[i], anyWater = 1, true
 		}
 	}
+	bed, dry := make([]float64, n*n), make([]float64, n*n) // seabed weight, and what the land textures keep
 	if anyWater {
 		shore := blur(append([]float64(nil), water...), n, 2, 1)
-		var beds []string
-		for _, id := range order {
-			b, _ := biome.ByID(id)
-			if !slices.Contains(beds, b.Bed) {
-				beds = append(beds, b.Bed)
-			}
+		for i := range bed {
+			bed[i] = math.Max(water[i], math.Min(1, shore[i]*2))
 		}
-		for _, bed := range beds {
-			addLayer(bed, func(i int) float64 {
-				if b, _ := biome.ByID(l.Biomes[cellOf[i]]); b.Bed != bed {
-					return 0
-				}
-				return math.Max(water[i], math.Min(1, shore[i]*2))
+	}
+	for i := range dry {
+		dry[i] = 1 - bed[i]
+	}
+	for k, id := range order {
+		b, _ := biome.ByID(id)
+		mask := masks[id]
+		if k == 0 {
+			addLayer(b.Base, func(i int) float64 { return dry[i] })
+		} else {
+			addLayer(b.Base, func(i int) float64 { return mask[i] * dry[i] })
+		}
+	}
+	for _, id := range order {
+		b, _ := biome.ByID(id)
+		mask := masks[id]
+		for a, tile := range b.Accents {
+			field := seed + noise(100+a)
+			addLayer(tile, func(i int) float64 {
+				x, y := float64(i%n), float64(i/n)
+				v := field.fbm(x/accentScale, y/accentScale, 3)
+				return mask[i] * smoothstep(accentCover, accentCover+0.08, v) * dry[i]
 			})
 		}
+	}
+	if anyWater {
+		addLayer(biome.SeaBed, func(i int) float64 { return bed[i] })
+		// deep water away from the coasts: a darker bed (the user's choice, with reflective water)
+		notWater := make([]bool, n*n)
+		for i, w := range water {
+			notWater[i] = w == 0
+		}
+		depth := chebyshevDistance(notWater, n)
+		addLayer(biome.DeepSeaBed, func(i int) float64 { return water[i] * smoothstep(deepFrom, deepTo, float64(depth[i])) })
 	}
 
 	// Hills: noise heights where the relief is hills (on the ground level, off ramps), flat around the towns
@@ -229,13 +236,36 @@ func Generate(l *layout.Layout) (*Result, error) {
 	// Roads between the towns, in the road tile of the biome under each vertex. Every corner of a road tile
 	// is fully painted, so the tile counts as road whichever corner the game samples; a light fringe
 	// softens the edges.
+	// Land masses: roads only join the towns of one, the others are reached by boat
+	land := landComponents(walk, size)
+	joined := func(a, b Town) bool {
+		ea, eb := a.Entrance(), b.Entrance()
+		return land[ea[1]*size+ea[0]] == land[eb[1]*size+eb[0]]
+	}
+	apart := false
+	for _, t := range towns[1:] {
+		apart = apart || !joined(towns[0], t)
+	}
 	var roads []bool
 	var links [][2]int
+	var warnings []string
 	switch l.RoadMode() {
 	case layout.RoadsAuto:
-		links = AutoLinks(towns)
+		links = AutoLinks(towns, joined)
 	case layout.RoadsCustom:
-		links = cleanLinks(l.Links)
+		byPlayer := map[int]Town{}
+		for _, t := range towns {
+			byPlayer[t.Player] = t
+		}
+		for _, k := range cleanLinks(l.Links) {
+			a, okA := byPlayer[k[0]]
+			b, okB := byPlayer[k[1]]
+			if okA && okB && !joined(a, b) {
+				warnings = append(warnings, fmt.Sprintf("no road between players %d and %d: they are on different land masses", k[0], k[1]))
+				continue
+			}
+			links = append(links, k)
+		}
 	}
 	if len(links) > 0 {
 		if roads, err = routeRoads(size, towns, links, ter.Height, walk, seed+4); err != nil {
@@ -256,7 +286,7 @@ func Generate(l *layout.Layout) (*Result, error) {
 				if l.Biomes[cellOf[i]] != id {
 					return 0
 				}
-				return math.Max(full[i], fringe[i]*0.5)
+				return math.Max(full[i], fringe[i]*0.5) * (1 - water[i])
 			})
 		}
 	}
@@ -265,12 +295,13 @@ func Generate(l *layout.Layout) (*Result, error) {
 	// mode, so obstacles never cut a town off; with water between towns there may be none.
 	keep := make([]bool, size*size)
 	copy(keep, roads)
-	if hidden, err := routeRoads(size, towns, AutoLinks(towns), ter.Height, walk, seed+5); err == nil {
+	if hidden, err := routeRoads(size, towns, AutoLinks(towns, joined), ter.Height, walk, seed+5); err == nil {
 		for i, on := range hidden {
 			keep[i] = keep[i] || on
 		}
 	}
-	objects, decor, paths, warnings := placeContent(l, size, cellOf, towns, walk, roads, keep, rnd, seed+6)
+	objects, decor, paths, contentWarnings := placeContent(l, size, cellOf, towns, walk, roads, keep, lvl, ramp, rnd, seed+6)
+	warnings = append(warnings, contentWarnings...)
 
 	// Dirt paths from the buildings to the roads, painted like the roads but leaving the corners of road
 	// tiles alone (their road type gives the movement bonus)
@@ -291,9 +322,9 @@ func Generate(l *layout.Layout) (*Result, error) {
 		if onRoad[i] {
 			return 0
 		}
-		return math.Max(full[i], fringe[i]*0.4)
+		return math.Max(full[i], fringe[i]*0.4) * (1 - water[i])
 	})
 
-	return &Result{Terrain: ter, Tiles: tiles, Towns: towns, Roads: roads, Paths: paths, Links: links, Objects: objects, Decor: decor,
-		Warnings: warnings, Rand: rnd}, nil
+	return &Result{Terrain: ter, Tiles: tiles, Towns: towns, Roads: roads, Paths: paths, Links: links, Apart: apart, Objects: objects,
+		Decor: decor, Warnings: warnings, Rand: rnd}, nil
 }

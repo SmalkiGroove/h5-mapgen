@@ -2,8 +2,10 @@ package random
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 
+	"h5mapgen/internal/generate"
 	"h5mapgen/internal/layout"
 )
 
@@ -110,6 +112,26 @@ func TestInferno(t *testing.T) {
 		cx, cy := i%g, i/g
 		if b == inferno && !(side(cx, s.X) && side(cy, s.Y)) { // player 1 holds the quarter of its start
 			t.Errorf("Inferno ground at (%d, %d), out of player 1's area", cx, cy)
+		}
+	}
+}
+
+// Divided has rivers, not seas: no shipyard and nothing of the sea, whatever the Water setting.
+func TestDividedNoBoats(t *testing.T) {
+	for seed := int64(1); seed <= 6; seed++ {
+		l, err := Generate(Options{Preset: "divided", Size: 136, Grid: 16, Players: 4, Seed: seed})
+		if err != nil {
+			t.Fatal(err)
+		}
+		l.Water = layout.AmountHigh
+		res, err := generate.Generate(l)
+		if err != nil {
+			t.Fatal(err)
+		}
+		for _, o := range res.Objects {
+			if o.Key == "shipyard" || strings.HasPrefix(o.Key, "water_") {
+				t.Fatalf("seed %d: %s on Divided", seed, o.Key)
+			}
 		}
 	}
 }

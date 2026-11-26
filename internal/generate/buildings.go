@@ -151,7 +151,7 @@ func buildingCount(reachable, towns int, rate float64, amount int) int {
 func (c *content) farDistance() float64 {
 	var far []int
 	for i, k := range c.near {
-		if k >= 0 {
+		if k >= 0 && c.walk[i] {
 			far = append(far, c.dist[k][i])
 		}
 	}
@@ -164,8 +164,8 @@ func (c *content) farDistance() float64 {
 
 func (c *content) reachable() int {
 	n := 0
-	for _, k := range c.near {
-		if k >= 0 {
+	for i, k := range c.near {
+		if k >= 0 && c.walk[i] {
 			n++
 		}
 	}
@@ -261,7 +261,7 @@ func (c *content) neutralOne(kind buildingKind) bool {
 	far := c.farDistance()
 	var tiles []int
 	for i, k := range c.near {
-		if k < 0 || c.occ[i] != tFree {
+		if k < 0 || !c.walk[i] || c.occ[i] != tFree {
 			continue
 		}
 		d1, d2 := c.dist[k][i], unreached
@@ -330,7 +330,7 @@ func (c *content) placeBuilding(k int, kind buildingKind, far float64) bool {
 	}
 	var tiles []int
 	for i, near := range c.near {
-		if near == k && c.occ[i] == tFree {
+		if near == k && c.walk[i] && c.occ[i] == tFree {
 			tiles = append(tiles, i)
 		}
 	}
