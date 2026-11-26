@@ -64,7 +64,6 @@ var fixed = []struct{ key, file, typ string }{
 	{"dwelling_1", "MapObjects/Random/RandomDwelling1.xdb", "AdvMapDwelling"},
 	{"dwelling_2", "MapObjects/Random/RandomDwelling2.xdb", "AdvMapDwelling"},
 	{"dwelling_3", "MapObjects/Random/RandomDwelling3.xdb", "AdvMapDwelling"},
-	{"dwelling_military_post", "MapObjects/Haven/Heaven_Military_Post.(AdvMapDwellingShared).xdb", "AdvMapDwelling"},
 	{"stat_tomb_of_the_warrior", "MapObjects/TombOfTheWarrior.(AdvMapBuildingShared).xdb", "AdvMapBuilding"},
 	{"dwelling_refugee_camp", "MapObjects/Special/RefugeeCamp.xdb", "AdvMapDwelling"},
 	{"dwelling_elemental_conflux", "MapObjects/Special/ElementalConflux.xdb", "AdvMapDwelling"},

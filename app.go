@@ -19,6 +19,7 @@ import (
 	"h5mapgen/internal/h5m"
 	"h5mapgen/internal/layout"
 	"h5mapgen/internal/mapfile"
+	"h5mapgen/internal/random"
 	"h5mapgen/internal/terrain"
 )
 
@@ -64,15 +65,18 @@ func findGame() string {
 
 // Setup is what the UI needs at start.
 type Setup struct {
-	Folder     string        `json:"folder"`
-	Maps       []string      `json:"maps"` // .h5m paths in <game>\Maps
-	Biomes     []biome.Biome `json:"biomes"`
-	Sizes      []int         `json:"sizes"`
-	MaxPlayers int           `json:"maxPlayers"`
+	Folder     string          `json:"folder"`
+	Maps       []string        `json:"maps"` // .h5m paths in <game>\Maps
+	Biomes     []biome.Biome   `json:"biomes"`
+	Sizes      []int           `json:"sizes"`
+	MaxPlayers int             `json:"maxPlayers"`
+	Presets    []random.Preset `json:"presets"` // random layouts
+	Grounds    []string        `json:"grounds"` // biomes a player's area can get in a random layout
 }
 
 func (a *App) Setup() Setup {
-	info := Setup{Folder: a.game, Maps: []string{}, Biomes: biome.All, Sizes: layout.Sizes, MaxPlayers: layout.MaxPlayers}
+	info := Setup{Folder: a.game, Maps: []string{}, Biomes: biome.All, Sizes: layout.Sizes, MaxPlayers: layout.MaxPlayers,
+		Presets: random.Presets, Grounds: random.Grounds}
 	if a.game != "" {
 		maps, _ := filepath.Glob(filepath.Join(a.game, "Maps", "*.h5m"))
 		sort.Strings(maps)
@@ -84,6 +88,11 @@ func (a *App) Setup() Setup {
 // NewLayout makes a default layout with a random seed.
 func (a *App) NewLayout(size, grid int) *layout.Layout {
 	return layout.New(size, grid, rand.New(rand.NewSource(time.Now().UnixNano())).Int63n(1_000_000))
+}
+
+// RandomLayout makes a layout from a preset, a number of players and a seed (see package random).
+func (a *App) RandomLayout(o random.Options) (*layout.Layout, error) {
+	return random.Generate(o)
 }
 
 // MapView is a map's ground terrain, for display.

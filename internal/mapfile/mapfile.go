@@ -82,12 +82,7 @@ func number(v float64) string {
 }
 
 // objectXML writes an object of the objects list: a catalog object or a decoration.
-// PostKey is the catalog key of the military post: the game doesn't turn it to a linked player's faction,
-// so the map script does (H5X_MapScript.lua).
-const PostKey = "dwelling_military_post"
-
-// objectXML writes an object; name is its script name ("" for none).
-func objectXML(o generate.Object, rnd *rand.Rand, name string) string {
+func objectXML(o generate.Object, rnd *rand.Rand) string {
 	values := map[string]string{"ID": "item_" + guid(rnd), "X": number(o.X), "Y": number(o.Y), "ROT": rotations[o.Turns&3]}
 	if o.Key == "" {
 		values["SHARED"] = o.Href
@@ -99,14 +94,10 @@ func objectXML(o generate.Object, rnd *rand.Rand, name string) string {
 	c := catalog.Get(o.Key)
 	values["SHARED"] = c.Href
 	if c.Type == "AdvMapDwelling" {
-		// a dwelling of a player's area takes the faction of that player's town (the map script converts the
-		// military posts)
-		values["RNDSOURCE"], values["LINK"], values["NAME"] = "RND_NONE", "PLAYER_NONE", "<Name/>"
-		if o.Player > 0 && o.Key != PostKey {
+		// a dwelling of a player's area takes the faction of that player's town
+		values["RNDSOURCE"], values["LINK"] = "RND_NONE", "PLAYER_NONE"
+		if o.Player > 0 {
 			values["RNDSOURCE"], values["LINK"] = "RND_PLAYER", fmt.Sprintf("PLAYER_%d", o.Player)
-		}
-		if name != "" {
-			values["NAME"] = "<Name>" + name + "</Name>"
 		}
 	}
 	if c.Type == "AdvMapMonster" {
@@ -131,17 +122,11 @@ func Build(l *layout.Layout, res *generate.Result) ([]byte, error) {
 			"PLAYER": fmt.Sprintf("PLAYER_%d", t.Player),
 		}))
 	}
-	var posts []string // lines of MAPGEN_POSTS in the map script
 	for _, o := range res.Objects {
-		name := ""
-		if o.Key == PostKey && o.Player > 0 {
-			name = fmt.Sprintf("mapgen_post_%d", len(posts)+1)
-			posts = append(posts, fmt.Sprintf("\t{\"%s\", %d},\r\n", name, o.Player))
-		}
-		objects = append(objects, objectXML(o, res.Rand, name))
+		objects = append(objects, objectXML(o, res.Rand))
 	}
 	for _, o := range res.Decor {
-		objects = append(objects, objectXML(o, res.Rand, ""))
+		objects = append(objects, objectXML(o, res.Rand))
 	}
 	var players []string
 	for p := 1; p <= layout.MaxPlayers; p++ {
@@ -183,19 +168,7 @@ func Build(l *layout.Layout, res *generate.Result) ([]byte, error) {
 		{"Rumour.txt", utf16Text("")},
 		{LayoutFile, l.JSON()},
 	}
-	script := baseFile("H5X_MapScript.xdb")
-	if len(posts) > 0 {
-		script = strings.Replace(script, `<FileName href=""/>`, `<FileName href="H5X_MapScript.lua"/>`, 1)
-		files = append(files, struct {
-			name string
-			data []byte
-		}{"H5X_MapScript.lua", []byte(fill(baseFile("H5X_MapScript.lua"), map[string]string{"POSTS": strings.Join(posts, "")}))})
-	}
-	files = append(files, struct {
-		name string
-		data []byte
-	}{"H5X_MapScript.xdb", []byte(script)})
-	for _, f := range []string{"MapGoalText.txt", "objective-caption-text.txt", "objective-desc-text.txt"} {
+	for _, f := range []string{"H5X_MapScript.xdb", "MapGoalText.txt", "objective-caption-text.txt", "objective-desc-text.txt"} {
 		files = append(files, struct {
 			name string
 			data []byte

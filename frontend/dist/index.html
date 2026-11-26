@@ -70,6 +70,13 @@
       <button id="save">Save…</button>
     </div>
     <div class="row">
+      <label>Random layout <select id="preset"></select></label>
+      <label>Players <select id="players"></select></label>
+    </div>
+    <label title="The ground of each player's area. Random grounds differ from the others while there are enough. The Inferno ground is never picked at random.">Grounds</label>
+    <div id="grounds" class="grounds"></div>
+    <button id="random" title="A new layout from the preset, with a new seed, for the map size and grid above. The content settings are kept.">Generate layout</button>
+    <div class="row">
       <button id="undo" title="Ctrl+Z">Undo</button>
       <button id="redo" title="Ctrl+Y">Redo</button>
     </div>

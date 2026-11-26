@@ -121,7 +121,7 @@ const OBJECT_GROUPS = [
     ["mine_gold", "Gold mine", "#e8b020", "$"], ["mine_abandoned", "Abandoned mine", "#555", "?"]]],
   ["Stat givers", [["stat_learning_stone", "Learning stone (+1000 xp)", "#38c0b0", "X"], ["stat_mercenary_camp", "Mercenary camp (+1 attack)", "#38c0b0", "A"], ["stat_marletto_tower", "Marletto tower (+1 defence)", "#38c0b0", "D"], ["stat_star_axis", "Star axis (+1 spellpower)", "#38c0b0", "S"], ["stat_garden_of_revelation", "Garden of revelation (+1 knowledge)", "#38c0b0", "K"], ["stat_arena", "Arena (+2 attack or defence)", "#38c0b0", "2"], ["stat_school_of_magic", "School of magic (+2 spellpower or knowledge)", "#38c0b0", "2"], ["stat_tree_of_knowledge", "Tree of knowledge (a level)", "#38c0b0", "L"], ["stat_library", "Library of enlightenment (neutral areas)", "#38c0b0", "E"], ["stat_war_academy", "War academy (weekly +1)", "#38c0b0", "W"], ["stat_temple", "Temple (weekly experience)", "#38c0b0", "T"], ["stat_tomb_of_the_warrior", "Tomb of the warrior (+1 attack and defence)", "#38c0b0", "+"], ["stat_witch_hut", "Witch hut (weekly brew)", "#38c0b0", "H"]]],
   ["Buildings", [["building_windmill", "Windmill", "#4f8fe0", "W"], ["building_water_wheel", "Water wheel", "#4f8fe0", "$"], ["building_mystical_garden", "Mystical garden", "#4f8fe0", "G"], ["building_magic_well", "Magic well", "#4f8fe0", "M"], ["building_magic_spring", "Magic spring", "#4f8fe0", "M"], ["building_rally_flag", "Rally flag", "#4f8fe0", "F"], ["building_idol_of_fortune", "Idol of fortune", "#4f8fe0", "I"], ["building_fountain_of_fortune", "Fountain of fortune", "#4f8fe0", "L"], ["building_faerie_ring", "Faerie ring", "#4f8fe0", "L"], ["building_fountain_of_youth", "Fountain of youth", "#4f8fe0", "Y"], ["building_stables", "Stables", "#4f8fe0", "S"], ["building_redwood_observatory", "Redwood observatory", "#4f8fe0", "O"], ["building_shrine_1", "Shrine of magic, circle 1", "#4f8fe0", "1"], ["building_shrine_2", "Shrine of magic, circle 2", "#4f8fe0", "2"], ["building_shrine_3", "Shrine of magic, circle 3", "#4f8fe0", "3"], ["building_trading_post", "Trading post", "#4f8fe0", "$"], ["building_tavern", "Tavern", "#4f8fe0", "T"], ["building_black_market", "Black market", "#4f8fe0", "B"], ["building_sanctuary", "Sanctuary", "#4f8fe0", "+"]]],
-  ["Dwellings", [["dwelling_1", "Dwelling, level 1 (player's faction)", "#f08a30", "1"], ["dwelling_2", "Dwelling, level 2 (player's faction)", "#f08a30", "2"], ["dwelling_3", "Dwelling, level 3 (player's faction)", "#f08a30", "3"], ["dwelling_military_post", "Military post (player's faction)", "#f08a30", "M"], ["dwelling_refugee_camp", "Refugee camp", "#f08a30", "R"], ["dwelling_elemental_conflux", "Elemental conflux", "#f08a30", "E"]]],
+  ["Dwellings", [["dwelling_1", "Dwelling, level 1 (player's faction)", "#f08a30", "1"], ["dwelling_2", "Dwelling, level 2 (player's faction)", "#f08a30", "2"], ["dwelling_3", "Dwelling, level 3 (player's faction)", "#f08a30", "3"], ["dwelling_refugee_camp", "Refugee camp", "#f08a30", "R"], ["dwelling_elemental_conflux", "Elemental conflux", "#f08a30", "E"]]],
   ["Banks", [["bank_crypt", "Crypt", "#a0522d", "C"], ["bank_treant_thicket", "Treant thicket", "#a0522d", "T"], ["bank_gargoyle_stonevault", "Gargoyle stonevault", "#a0522d", "G"], ["bank_dwarven_treasury", "Dwarven treasury", "#a0522d", "D"], ["bank_naga_bank", "Naga bank", "#a0522d", "N"], ["bank_elemental_stockpile", "Elemental stockpile", "#a0522d", "E"], ["bank_cyclops_stockpile", "Cyclops stockpile", "#a0522d", "Y"], ["bank_blood_temple", "Blood temple", "#a0522d", "B"], ["bank_pyramid", "Pyramid (vault)", "#a0522d", "P"], ["bank_dragon_utopia", "Dragon utopia (vault)", "#a0522d", "U"]]],
   ["Treasures", [
     ["chest", "Chest", "#b8862f", "\u25a3"], ["campfire", "Campfire", "#e06a2c", "\u25b2"], ["res_gold", "Gold pile", "#e8b020", "$"],
@@ -580,6 +580,34 @@ $("grid").onchange = () => {
 };
 
 $("new").onclick = () => app().NewLayout(L.size, L.grid).then((l) => { remember(); setLayout(l, true); status("New layout"); }).catch(fail);
+// grounds[p] is the ground asked for player p + 1 in random layouts, "" for a random one
+const grounds = [];
+function renderGrounds() {
+  const box = $("grounds");
+  box.replaceChildren();
+  for (let p = 0; p < +$("players").value; p++) {
+    const sel = document.createElement("select");
+    sel.style.setProperty("--player", PLAYER_COLORS[p]);
+    sel.title = `Ground of player ${p + 1}'s area`;
+    sel.add(new Option("Random", ""));
+    for (const id of setup.grounds) sel.add(new Option(setup.biomes.find((b) => b.id === id).name, id));
+    sel.value = grounds[p] || "";
+    sel.onchange = () => { grounds[p] = sel.value; };
+    box.append(sel);
+  }
+}
+$("random").onclick = () => {
+  const players = +$("players").value;
+  const o = { preset: $("preset").value, size: L.size, grid: L.grid, players, seed: Math.floor(Math.random() * 1e6),
+    biomes: Array.from({ length: players }, (_, p) => grounds[p] || "") };
+  status("Generating a layout\u2026");
+  app().RandomLayout(o).then((l) => {
+    // keep the content settings and the road mode of the current layout
+    for (const f of [...AMOUNT_FIELDS, "roads"]) if (L[f]) l[f] = L[f];
+    remember(); setLayout(l, true);
+    status(`${setup.presets.find((p) => p.id === o.preset).name}, ${o.players} players, seed ${o.seed}`, "ok");
+  }).catch(fail);
+};
 $("open").onclick = () => app().OpenLayout().then((l) => { if (l) { setLayout(l); status(`Opened ${l.name}`); } }).catch(fail);
 $("save").onclick = () => app().SaveLayout(L).then((p) => p && status(`Saved ${p}`, "ok")).catch(fail);
 $("generate").onclick = () => {
@@ -624,6 +652,12 @@ loadMaps().then(() => {
   for (const s of setup.sizes) $("size").add(new Option(`${s} — ${SIZE_NAMES[s] || ""}`, s));
   for (const g of GRIDS) $("grid").add(new Option(`${g} × ${g}`, g));
   brush.biome = setup.biomes[0].id;
+  for (const p of setup.presets) { const opt = new Option(p.name, p.id); opt.title = p.description; $("preset").add(opt); }
+  $("preset").onchange = () => { $("preset").title = setup.presets.find((p) => p.id === $("preset").value).description; };
+  $("preset").onchange();
+  for (let n = 2; n <= setup.maxPlayers; n++) $("players").add(new Option(String(n), n));
+  $("players").onchange = renderGrounds;
+  renderGrounds();
   const saved = stored();
   if (saved && saved.biomes && saved.biomes.length === saved.grid * saved.grid) {
     setLayout(saved);

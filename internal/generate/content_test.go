@@ -231,8 +231,5 @@ func checkStatParity(t *testing.T, name string, res *Result) {
 			t.Errorf("%s: %s at (%v, %v) is linked to no player", name, o.Key, o.X, o.Y)
 		}
 	}
-	if count["dwelling_military_post"] == 0 {
-		t.Errorf("%s: no military post at Normal", name)
-	}
 	t.Logf("%s: stat givers %v", name, count)
 }

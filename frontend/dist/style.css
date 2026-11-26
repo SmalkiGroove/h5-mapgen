@@ -32,6 +32,8 @@ label { display: block; margin-bottom: 8px; color: var(--muted); }
 label > input, label > select, label .row { display: flex; width: 100%; margin-top: 3px; }
 .row { display: flex; gap: 6px; margin-bottom: 6px; }
 .row > * { flex: 1; min-width: 0; }
+.grounds { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin: -4px 0 8px; }
+.grounds select { width: 100%; padding-left: 5px; border-left: 4px solid var(--player); }
 input, select {
   padding: 5px 7px; border: 1px solid var(--line); border-radius: 4px;
   background: var(--field); color: var(--text); font: inherit; user-select: text;

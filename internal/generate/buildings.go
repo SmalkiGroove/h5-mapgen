@@ -71,14 +71,14 @@ var visitBuildings = []buildingKind{
 	{"building_sanctuary", 0, 0.2, 42, ""},
 }
 
-// dwellingKinds are the random dwellings of a player's area, by level, and the military post: linked to the
-// player, they take the faction of its town (the military post is the Haven one, turned like the random
-// dwellings). Random dwellings of levels 4 to 7 exist too, but what they turn into is not known.
+// dwellingKinds are the random dwellings of a player's area, by level: linked to the player, they take the
+// faction of its town. Random dwellings of levels 4 to 7 exist too, but what they turn into is not known.
+// Military posts are left out: linked to a player, they keep their own faction (to look into with the
+// vanilla random map generator).
 var dwellingKinds = []buildingKind{
 	{"dwelling_1", 2, 0.15, 0, ""},
 	{"dwelling_2", 3, 0.3, 0, ""},
 	{"dwelling_3", 4, 0.45, 0, ""},
-	{"dwelling_military_post", 4, 0.5, 0, ""},
 }
 
 // isRandomDwelling tells whether a key is a random dwelling of dwellingKinds.
@@ -213,11 +213,11 @@ func (c *content) placeUnit(k int, unit []string, far float64) {
 	}
 }
 
-// dwellings gives every town dwellings of its faction: level 1 at Low, levels 1 to 3 and a military post at
-// Normal, two of levels 1 and 2, one of level 3 and a military post at High.
+// dwellings gives every town dwellings of its faction: level 1 at Low, levels 1 to 3 at Normal, two of
+// levels 1 and 2 and one of level 3 at High.
 func (c *content) dwellings() {
-	keys := [][]string{nil, {"dwelling_1"}, {"dwelling_1", "dwelling_2", "dwelling_3", "dwelling_military_post"},
-		{"dwelling_1", "dwelling_1", "dwelling_2", "dwelling_2", "dwelling_3", "dwelling_military_post"}}[layout.Amount(c.l.Dwellings)]
+	keys := [][]string{nil, {"dwelling_1"}, {"dwelling_1", "dwelling_2", "dwelling_3"},
+		{"dwelling_1", "dwelling_1", "dwelling_2", "dwelling_2", "dwelling_3"}}[layout.Amount(c.l.Dwellings)]
 	far := c.farDistance()
 	for _, key := range keys {
 		kind := buildingKinds[key]

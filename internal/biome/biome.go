@@ -35,7 +35,9 @@ var All = []Biome{
 		Accents: []string{"Snow/Snow_(2)", "Snow/Snow_(3)"}, Road: "Snow/SnowRoad2", Bed: "Sand/River-bed"},
 	{ID: "steppe", Name: "Steppe", Color: "#7f9a4a", Base: "Orc_Terrain/Nidle_Grass",
 		Accents: []string{"Orc_Terrain/Moss", "Orc_Terrain/Nidle_Dirt", "Orc_Terrain/Scatter_stone_Grass"}, Road: "Orc_Terrain/Nidle_Road", Bed: "Sand/River-bed"},
-	{ID: "deadland", Name: "Dead land", Color: "#6e3a2c", Base: "Lava/Dead_Land",
+	// the Inferno ground (its id is kept for saved layouts): only for an Inferno player's area, never mixed
+	// into other ground by the random layouts
+	{ID: "deadland", Name: "Inferno", Color: "#6e3a2c", Base: "Lava/Dead_Land",
 		Accents: []string{"Lava/Dead_Land_2", "Lava/Dead_Land_3", "Lava/Dead_Land_4"}, Road: "Lava/LavaRoad", Bed: "Sand/River-bed"},
 	{ID: "subterrain", Name: "Subterranean", Color: "#5f5068", Base: "SubTerrain/SubTerrain",
 		Accents: []string{"SubTerrain/SubTerrain_(2)", "SubTerrain/SubTerrain_(3)"}, Road: "SubTerrain/SubTerrainRoad", Bed: "Sand/River-bed"},

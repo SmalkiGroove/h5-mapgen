@@ -7,7 +7,7 @@
 				</Pos>
 				<Rot>{{ROT}}</Rot>
 				<Floor>0</Floor>
-				{{NAME}}
+				<Name/>
 				<CombatScript/>
 				<pointLights/>
 				<Shared href="{{SHARED}}"/>
